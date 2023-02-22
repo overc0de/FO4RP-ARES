@@ -1470,6 +1470,20 @@ void unsafe_VoiceVolumeAdjust( Critter& player, int param0, int param1, int para
 void unsafe_store_last_checked_item( Critter& cr, int itemId, int type, int, string@, int[]@ )
 {
     cr.ParamBase[ CR_TARGET_CONTAINER_ID ] = itemId;
+
+	Item@ item = GetItem( itemId );
+	if( !valid( item ) || item.Accessory != ACCESSORY_CONTAINER ) return;
+	
+	Item@ cont = GetItem( item.ContainerId );
+	if( !valid( cont ) ) return;
+	
+	Map@ cont_map = GetMap( cont.MapId );
+	bool storage_map = valid(cont_map) && cont_map.GetProtoId() == MAP_UTILITY_START;
+	
+	if( !isGM(cr) && storage_map && isAdventurer(cr) )
+	{
+		cr.Say( SAY_NETMSG, "Цена: " + CalculateItemCost(item) + "$" );
+	}
 }
 
 void unsafe_rolling( Critter& player, int param0, int param1, int param2, string@ param3, int[]@ param4 )
@@ -1547,6 +1561,22 @@ void unsafe_InitDevourState( Critter& player, int param0, int param1, int param2
 void unsafe_StopNamingState( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )
 {
 	player.ParamBase[ CR_REMEMBERING_NAME ] = 0;
+}
+
+void unsafe_GiveAdvExp( Critter& player, int ID, int param1, int param2, string@ param3, int[] @ param4 )
+{
+	Critter@ target = GetCritter( ID );
+	if( !valid( target ) ) return;
+	
+	target.StatBase[ ST_EXPERIENCE ]  += player.ParamBase[ CR_ADV_GIVING_EXP ];
+	player.ParamBase[ CR_ADV_POINTS ] -= player.ParamBase[ CR_ADV_GIVING_EXP ];
+	
+	player.Say( SAY_NETMSG, "Осталось " + player.ParamBase[ CR_ADV_POINTS ] + " очков." );
+}
+
+void unsafe_StopGivingExp( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )
+{
+	player.ParamBase[ CR_ADV_GIVING_EXP ] = 0;
 }
 
 void unsafe_FullAutoState( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )

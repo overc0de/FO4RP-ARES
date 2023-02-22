@@ -57,6 +57,11 @@ bool isGM( Critter& player ) //exported
 	return isGM( player, true );
 }
 
+bool isAdventurer( Critter& cr )
+{
+	return( cr.ParamBase[ QST_GAMEMODE ] == GAME_ADVENTURE );
+}
+
 bool isGM( Critter& player, bool checkVision ) //exported
 {
 	if( !player.IsPlayer() ) return false;

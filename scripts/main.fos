@@ -1982,6 +1982,21 @@ bool critter_use_skill( Critter& cr, int skill, Critter@ targetCr, Item@ targetI
 			CheckCartPicMap( cont ); // changes cart picture
 			uint[] val = { cont.Id, cr.Id };
 			CreateTimeEvent( AFTER( REAL_MS( 10 ) ), "e_UpdateContainer", val, true );
+			
+			Map@ cont_map = GetMap( cont.MapId );
+			bool storage_map = valid(cont_map) && cont_map.GetProtoId() == MAP_UTILITY_START;
+			if( !isGM( cr ) && storage_map && isAdventurer(cr) )
+			{
+				int cost = CalculateItemCost(targetItem) * cr.ItemTransferCount();
+				if( cr.ParamBase[ CR_ADV_POINTS ] < cost )
+				{
+					cr.Say( SAY_NETMSG, "Для покупки не хватает " + ( cost - cr.ParamBase[ CR_ADV_POINTS ] ) + " очков." );
+					return true;
+				}
+				
+				cr.ParamBase[ CR_ADV_POINTS ] -= cost;
+			}			
+			
 			return false; // in order for items to transfer return false!
 		}
 		

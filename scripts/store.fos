@@ -2,7 +2,7 @@
 
 void unsafe_StoreMenu( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )
 {
-	if( !isGM(player) ) return;
+	if( !isGM(player) && !isAdventurer(player) ) return;
 	
 	StoreMenu(player);
 }

@@ -1173,6 +1173,10 @@
 #define NPC_WAYPOINT								( 851 )		// Waypoint Id
 #define NPC_WAYPOINT_PREVIOUS						( 852 )		// Waypoint Id
 //853..887
+#define CR_CTE_ADVENTURER_POINTS					( 884 )		// CTE of regaining adventurer points
+#define CR_ADV_GIVING_EXP							( 885 )		// Amount of giving experience mode
+#define CR_ADV_POINTS_MAX	                     	( 886 )		// How much points adventurer can spend
+#define CR_ADV_POINTS		                     	( 887 )		// How much points adventurer left
 #define CR_CONTROLLED_GROUP	                     	( 888 )
 //889..981
 #define CR_SHOW_ARKS								( 982 )		// Flag for showing weapon arcs

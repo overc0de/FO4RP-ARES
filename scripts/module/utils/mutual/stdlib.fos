@@ -151,6 +151,16 @@ shared uint CountItemsByPID( ItemMutual@[] list, uint PID )
 
 shared uint CalculateItemCost( ItemMutual& item, CritterMutual& cr, CritterMutual& npc, bool sell )
 {
+	return CalculateItemCost( item, cr.Skill[ SK_BARTER ] - npc.Skill[ SK_BARTER ], sell );
+}
+
+shared uint CalculateItemCost( ItemMutual& item )
+{	
+	return CalculateItemCost( item, -150, false );
+}
+
+shared uint CalculateItemCost( ItemMutual& item, int skill_difference, bool sell )
+{	
     uint8 itemType = item.GetType();
     uint16 pid = item.GetProtoId();
     uint cost = item.Proto.Cost;
@@ -208,19 +218,19 @@ shared uint CalculateItemCost( ItemMutual& item, CritterMutual& cr, CritterMutua
 		
         if( itemType == ITEM_TYPE_WEAPON && !item.IsStackable() )
         {
-            cost += GetProtoItem( item.AmmoPid ).Cost * item.AmmoCount;
+			ProtoItem@ ammo = GetProtoItem( item.AmmoPid );
+			if( valid( ammo ) )
+				cost += ammo.Cost * item.AmmoCount;
         }
     }
 
-	//Check for partial pids and NPC price cap
-	ProtoItem@ protoItem = GetProtoItem( pid );
-	if( protoItem.Partial_Item > 0 && protoItem.Type != ITEM_TYPE_FLASK )
+	if( item.Proto.Partial_Item > 0 && item.Proto.Type != ITEM_TYPE_FLASK )
 	{
-		cost = cost * item.Val0 / protoItem.Partial_Item;
+		cost = cost * item.Val0 / item.Proto.Partial_Item;
 	}
 	
 	int skill_range = 150;
-	float skill = CLAMP( cr.Skill[ SK_BARTER ] - npc.Skill[ SK_BARTER ], -skill_range, skill_range );
+	float skill = CLAMP( skill_difference, -skill_range, skill_range );
 	skill = skill / skill_range * 25; //That makes value from [-1..1] to [-25..25]
 
 	if( sell )

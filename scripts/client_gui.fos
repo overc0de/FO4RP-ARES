@@ -948,6 +948,19 @@ class GUIScreen : IGUIScreenOpt
 				}
 			}
 			
+			if( cursorCurrent != CURSOR_USE_SKILL )
+			{
+				if( chosen.Param[ CR_REMEMBERING_NAME ] > 0 )
+				{
+					RunServerScriptUnsafe( "general_unsafe@unsafe_StopNamingState", 0, 0, 0, null, null );
+				}
+				
+				if( chosen.ParamBase[ CR_ADV_GIVING_EXP ] > 0 )
+				{
+					RunServerScriptUnsafe( "general_unsafe@unsafe_StopGivingExp", 0, 0, 0, null, null );
+				}
+			}
+			
 			if( FLAG( chosen.Param[ PLAYER_FLAGS ], PLAYER_FLAG_RTS ) )
 			{
 				if( cursorCurrent == CURSOR_MOVE )
@@ -963,18 +976,7 @@ class GUIScreen : IGUIScreenOpt
 				{
 					if( click == MOUSE_CLICK_MIDDLE )
 					{
-						if( cursorCurrent == CURSOR_USE_OBJECT )
-						{
-							ChangeCursor( CURSOR_DEFAULT );
-						}
-						else if( cursorCurrent == CURSOR_USE_WEAPON )
-						{
-							ChangeCursor( CURSOR_DEFAULT );
-						}
-						else if( cursorCurrent == CURSOR_USE_SKILL )
-						{
-							ChangeCursor( CURSOR_DEFAULT );
-						}
+						ChangeCursor( CURSOR_DEFAULT );
 					}
 				}
 			}
@@ -1023,15 +1025,35 @@ class GUIScreen : IGUIScreenOpt
 				}
                 return false;
             }
-			else if( click == MOUSE_CLICK_LEFT && GetCurrentCursor() == CURSOR_USE_SKILL && chosen.Param[ CR_REMEMBERING_NAME ] > 0 )
+			else if( click == MOUSE_CLICK_LEFT && GetCurrentCursor() == CURSOR_USE_SKILL )
 			{
-				RunServerScriptUnsafe( "general_unsafe@unsafe_StopNamingState", 0, 0, 0, null, null );
-				CritterCl@ target = GetMonitorCritter( __MouseX, __MouseY );
-				if( valid( target ) )
+				if( chosen.ParamBase[ CR_ADV_GIVING_EXP ] > 0 )
 				{
-					CharClick( target );
+					CritterCl@ target = GetMonitorCritter( __MouseX, __MouseY );
+					if( valid( target ) && target.IsPlayer() )
+					{
+						RunServerScriptUnsafe( "general_unsafe@unsafe_GiveAdvExp", target.Id, 0, 0, null, null );
+					}
+
+					if( chosen.ParamBase[ CR_ADV_GIVING_EXP ] >= chosen.Param[CR_ADV_POINTS] )
+					{
+						RunServerScriptUnsafe( "general_unsafe@unsafe_StopGivingExp", 0, 0, 0, null, null );
+						ChangeCursor( CURSOR_DEFAULT );
+					}
+					
+					return true;
 				}
-                return true;
+				
+				if( chosen.Param[ CR_REMEMBERING_NAME ] > 0 )
+				{
+					RunServerScriptUnsafe( "general_unsafe@unsafe_StopNamingState", 0, 0, 0, null, null );
+					CritterCl@ target = GetMonitorCritter( __MouseX, __MouseY );
+					if( valid( target ) )
+					{
+						CharClick( target );
+					}
+					return true;
+				}
             }
 			else if( click == MOUSE_CLICK_LEFT && ( GetCurrentCursor() == CURSOR_USE_WEAPON || GetCurrentCursor() == CURSOR_RTSA ) )
 			{
@@ -1444,7 +1466,7 @@ class GUIScreen : IGUIScreenOpt
 
 		if( screen_type == CLIENT_SCREEN_PICKUP )
 		{
-			if( !isGM( chosen ) )
+			if( !isGM( chosen ) && chosen.ParamBase[ QST_GAMEMODE ] != GAME_ADVENTURE )
 			{
 				return false;
 			}
@@ -1975,6 +1997,12 @@ class GUIScreen : IGUIScreenOpt
 					return true;
 				}
 			}
+			
+			if( !__ConsoleActive && key == DIK_G )
+			{
+				RunServerScriptUnsafe( "gm@unsafe_GM_PANNEL_SELF", 0, 0, 0, null, null );
+				return true;
+			}			
 		}
         else if( Index == CLIENT_SCREEN_INPUTBOX )
         {

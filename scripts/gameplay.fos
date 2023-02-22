@@ -188,6 +188,23 @@ class Gameplay : iManagerModule, iManager_loop,
 			}
 		}
 
+		if( cr.ParamBase[ QST_GAMEMODE ] == GAME_ADVENTURE )
+		{
+			
+			int id = cr.ParamBase[CR_CTE_ADVENTURER_POINTS];
+			uint duration = 0;
+			uint[] values;
+			if( GetTimeEvent( id, duration, values ) )
+			{
+				SetTimeEvent( id, duration, values );
+			}
+			else
+			{
+				uint[] _values = { cr.Id, 0 };
+				cr.ParamBase[CR_CTE_ADVENTURER_POINTS] = CreateTimeEvent( __FullSecond, "gameplay@e_adventurer_points", _values, true );				
+			}			
+		}
+
 		if( cr.Stat[ ST_DYSPNEA ] < 1000 && cr.GetTimeEvents( CTE_DYSPNEA, null, null, null ) < 1 )
 		{
 			DypsneaCr( cr, 0 );
@@ -1499,6 +1516,29 @@ void DropCr( Critter@ cr, Critter@ target )
 	target.ParamBase[ CR_DRAGS_YOU ] = 0;
 	cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_STOPED_DRAGGING );
 	ChangeCritterSpeed( cr );
+}
+
+uint e_adventurer_points( uint[] @ values )
+{
+	values[1]++;
+
+    Critter@ cr = GetCritter( values[0] );
+    if( !valid( cr ) || cr.ParamBase[CR_ADV_POINTS] >= cr.ParamBase[CR_ADV_POINTS_MAX] )
+    {
+		return REAL_HOUR(1);
+	}
+	
+	float points_per_hour = cr.ParamBase[CR_ADV_POINTS_MAX] / 24;
+	cr.ParamBase[CR_ADV_POINTS] += int( values[1] * points_per_hour );
+	values[1] = 0;
+	
+	if( cr.ParamBase[CR_ADV_POINTS] > cr.ParamBase[CR_ADV_POINTS_MAX] )
+	{
+		values[1] = int( ( cr.ParamBase[CR_ADV_POINTS] - cr.ParamBase[CR_ADV_POINTS_MAX] ) / points_per_hour );
+		cr.ParamBase[CR_ADV_POINTS] = cr.ParamBase[CR_ADV_POINTS_MAX];
+	}
+	
+    return REAL_HOUR(1);
 }
 
 #endif //GAMEPLAY

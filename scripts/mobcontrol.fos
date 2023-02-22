@@ -453,8 +453,10 @@ uint follow( Critter& cr, int master, uint& rate )//TODO: rework
     }
 	else
 	{
-		string@ lexem = cr.GetLexems() + "_" + "ждёт";
-		cr.SetLexems( lexem );
+		string@ lexem = cr.GetLexems();
+		uint index = findFirstOf( lexem, "_", 0 );
+		string oldLex = substring( lexem, 0, index );
+		cr.SetLexems( oldLex + "_" + "ждёт" );
 		cr.ParamBase[ CR_AFK_MODE ] = 1;
 
 		cr.ModeBase[MODE_NO_HOME] = 0;
