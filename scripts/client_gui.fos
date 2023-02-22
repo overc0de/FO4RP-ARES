@@ -1818,6 +1818,15 @@ class GUIScreen : IGUIScreenOpt
 						}
 						return true;
 					}
+					case( DIK_H ): // "Стой-замной"
+					{
+						CritterCl@ target = GetMonitorCritter( __MouseX, __MouseY );
+						if( valid( target ) )
+						{
+							RunServerScriptUnsafe( "mobcontrol@unsafe_follow_or_hold", target.Id, 0, 0, null, null );
+						}
+						return true;
+					}
 				}
 			}
 
