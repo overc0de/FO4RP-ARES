@@ -191,18 +191,20 @@ class MenuStart: CenteredMenuHandler
 		
 		if( terminal.START_TERMINAL_MODE == MODE_START_TERMINAL )
 		{  
-			if( menu.ButtonMsg( STR_MAP_START_MENU_INFORMATION ) )
-			{
-				PlayGenericSound( map, cr.HexX, cr.HexY, "BUTIN1.mp3", 5 );
-				OpenLinkRemote( cr, "http://frp.su" );
-				return true;
-			}
-			
 			if( menu.ButtonMsg( STR_MAP_START_MENU_BEGIN_GAME ) )
 			{
-				PlayGenericSound( map, cr.HexX, cr.HexY, "BUTIN1.mp3", 5 );
-				RequestStartGameRemote( cr );
-				return true;
+				if( cr.ParamBase[ QST_GAMEMODE ] != GAME_START )
+				{
+					return false;
+				}
+				
+				Item@[] items;
+				cr.GetItems( -1, items );
+				DeleteItems( items );
+				
+				cr.ParamBase[ QST_GAMEMODE ] = GAME_SURVIVAL;
+				TeleportToGameZone( cr, LOCATION_Hell );
+				return false;
 			}
 			
 			if( menu.ButtonMsg( STR_MAP_START_MENU_CHANGE_SKIN ) )
@@ -243,23 +245,6 @@ class MenuStart: CenteredMenuHandler
 				return true;
 			}
 		}	
-		
-		if( terminal.START_TERMINAL_MODE == MODE_ENTRY_TERMINAL )
-		{    
-			if( cr.ParamBase[ QST_GAMEMODE ] != GAME_START )
-			{
-				return false;
-			}
-			
-			Item@[] items;
-			cr.GetItems( -1, items );
-			DeleteItems( items );
-			
-			cr.ParamBase[ QST_GAMEMODE ] = GAME_SURVIVAL;
-			TeleportToGameZone( cr, MAP_tanker_deck0 );
-			return false;
-			
-		}
 		
 		if( terminal.START_TERMINAL_MODE == MODE_ARENA_TERMINAL )
 		{

@@ -26,13 +26,13 @@ void t_EnterTeleport( Critter& cr, Scenery& trigger, bool entered, uint8 dir, in
 			return;
 		}
 		
-		if( mapPid == MAP_RAIDERS_CAVE || mapPid == MAP_HIDEOUT )
-		{
-			if( cr.KarmaBase[ KARMA_MAN_WRIGHT ] != 1 && !cr.IsKnockout() )
-			{
-				return;
-			}
-		}
+		// if( mapPid == MAP_RAIDERS_CAVE || mapPid == MAP_HIDEOUT )
+		// {
+			// if( cr.KarmaBase[ KARMA_MAN_WRIGHT ] != 1 && !cr.IsKnockout() )
+			// {
+				// return;
+			// }
+		// }
 		
 		FlushScreen( cr, true, 3000 );
 		cr.TransitToMap( map.Id, entranceNum );
