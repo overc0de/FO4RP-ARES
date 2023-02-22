@@ -397,6 +397,12 @@ void critter_attack( Critter& cr, Critter& target, ProtoItem& weapon, uint8 weap
 		cr.StatBase[ ST_CURRENT_AP ] -= needAp * 100;
 	}
 	
+	bool brokenTwoArms = cr.Damage[ DAMAGE_LEFT_ARM ] * cr.Damage[ DAMAGE_RIGHT_ARM ] > 0;
+	if( valid( realWeapon ) && FLAG( realWeapon.Flags, ITEM_TWO_HANDS ) && brokenTwoArms )
+	{
+		cr.SayMsg( SAY_NETMSG, TEXTMSG_COMBAT, STR_COMBAT_NEED_DMG_TWO_ARMS );
+		return;
+	}	
 	
 	if( skillNum == SK_SMALL_GUNS || skillNum == SK_MEDIUM_GUNS || skillNum == SK_BIG_GUNS )
 	{

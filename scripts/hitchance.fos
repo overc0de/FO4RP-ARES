@@ -135,7 +135,25 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 	//Log( "baseHitChance " + baseHitChance + " acMod "  + acMod + " aimModifier " + aimModifier + " toHitMod " + toHitMod +  " reach " + reach + " injureMod " + injureMod );
 		
 	int hitChance = baseHitChance - acMod - aimModifier + toHitMod + reach - injureMod - attacker.Param[ ST_DRUNK ];
-	
+
+	Item@ hand = _CritGetItemHand( attacker );
+	if( valid( hand ) )
+	{
+		bool brokenArm = attacker.Damage[ DAMAGE_LEFT_ARM ] + attacker.Damage[ DAMAGE_RIGHT_ARM ] > 0;
+		
+		if( brokenArm )
+		{
+			hitChance /= 2;
+		}
+		
+		bool brokenTwoArms = attacker.Damage[ DAMAGE_LEFT_ARM ] * attacker.Damage[ DAMAGE_RIGHT_ARM ] > 0;
+
+		if( FLAG( hand.Flags, ITEM_TWO_HANDS ) && brokenTwoArms )
+		{
+			return 0;
+		}
+	}
+		
 	int min_hit_chance = FLAG( weaponPerk, WEAPON_PERK_SUPPRESIVE ) ? 15 : MIN_HITCHANCE;
 	
 	return CLAMP( hitChance, min_hit_chance, MAX_HITCHANCE );

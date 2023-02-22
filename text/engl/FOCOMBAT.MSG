@@ -9,7 +9,7 @@
 {102}{}{|0xFFFF00 Target out of range!}
 {103}{}{|0xFFFF00 Combat cannot end with nearby hostile creatures!}
 {104}{}{|0xFFFF00 Your aim is blocked!}
-{105}{}{|0xFFFF00 You cannot use weapons with both arms damaged!}
+{105}{}{|0xFFFF00 You cannot use two-handed weapons with both arms damaged!}
 {106}{}{|0xFFFF00 You cannot use two-handed weapons with a damaged arm!}
 {107}{}{|0xFFFF00 You are not strong enough to use this weapon properly!}
 {108}{}{ and }

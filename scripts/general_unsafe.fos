@@ -418,16 +418,10 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 	{
 		bool brokenArm = attacker.Damage[ DAMAGE_LEFT_ARM ] + attacker.Damage[ DAMAGE_RIGHT_ARM ] > 0;
 		bool brokenTwoArms = attacker.Damage[ DAMAGE_LEFT_ARM ] * attacker.Damage[ DAMAGE_RIGHT_ARM ] > 0;
-		
-		if( brokenTwoArms )
+
+		if( FLAG( hand.Flags, ITEM_TWO_HANDS ) && brokenTwoArms )
 		{
 			attacker.SayMsg( SAY_NETMSG, TEXTMSG_COMBAT, STR_COMBAT_NEED_DMG_TWO_ARMS );
-			return;
-		}
-
-		if( FLAG( hand.Flags, ITEM_TWO_HANDS ) && brokenArm )
-		{
-			attacker.SayMsg( SAY_NETMSG, TEXTMSG_COMBAT, STR_COMBAT_NEED_DMG_ARM );
 			return;
 		}
 	}
