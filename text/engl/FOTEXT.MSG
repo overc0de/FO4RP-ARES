@@ -243,16 +243,16 @@ The pot is filled for |0xFFFF00 @lex current@ |0x3CF800 out of |0xFFFF00 @lex ma
 {6265}{}{|0xFFFF00 You need at least one rat for a good stew!}
 {6266}{}{|0xFFFF00 You require some peyote to kill the disgusting taste!}
 {6267}{}{|0xFFFF00 You can't make a stew without clean water.}
-{6268}{}{Salad}
-{6269}{}{Soup}
-{6270}{}{Kebab}
-{6271}{}{Tortilla}
-{6272}{}{Stomach}
-{6273}{}{Stew}
-{6274}{}{Burger}
-{6275}{}{Pizza}
-{6276}{}{Fish Pie}
-{6277}{}{Taco}
+{6268}{}{[120%] Salad}
+{6269}{}{[130%] Soup}
+{6270}{}{[140%] Kebab}
+{6271}{}{[150%] Tortilla}
+{6272}{}{[160%] Stomach}
+{6273}{}{[170%] Stew}
+{6274}{}{[180%] Burger}
+{6275}{}{[190%] Pizza}
+{6276}{}{[200%] Fish Pie}
+{6277}{}{[210%] Taco}
 {6278}{}{Select Recipe:}
 {6279}{}{warms hands}
 {6280}{}{|0xFFFF00 You require some meat.}
@@ -453,6 +453,7 @@ The pot is filled for |0xFFFF00 @lex current@ |0x3CF800 out of |0xFFFF00 @lex ma
 {6577}{}{|0xFFFF00 You have almost stepped on a trap, but avoided it at the last second.}
 {6578}{}{steps on a trap}
 {6579}{}{:click:}
+{6580}{}{|0xFFFF00 Action requires @lex skill@% outdoor skill.}
 
 # Bootlegging
 {6600}{}{|0xFFFF00 The still is not ready for distiling.}
@@ -1014,7 +1015,7 @@ The pot is filled for |0xFFFF00 @lex current@ |0x3CF800 out of |0xFFFF00 @lex ma
 #Furniture
 {9929}{}{|0xFFFF00 You don't have the right key.}
 {9930}{}{|0xFFFF00 You must have the key or the key-ring containing the right key in your hand.}
-{9931}{}{stops pushing}
+{9931}{}{stops pulling}
 {9932}{}{|0xFFFF00 This won't fit in here.}
 {9933}{}{|0xFFFF00 Dismantling is required.}
 {9934}{}{|0xFFFF00 That did nothing.}
@@ -1025,7 +1026,7 @@ The pot is filled for |0xFFFF00 @lex current@ |0x3CF800 out of |0xFFFF00 @lex ma
 {9939}{}{|0xFFFF00 The object is immovable. Use [Repair] to change object state.}
 {9940}{}{tries to stop}
 {9941}{}{|0xFFFF00 You can't move locked or closed furniture.}
-{9942}{}{starts pushing}
+{9942}{}{starts pulling}
 {9943}{}{|0xFFFF00 You can't make a stack any higher.}
 {9944}{}{|0xFFFF00 A critter is preventing you from placing the object.}
 
@@ -1147,16 +1148,16 @@ The pot is filled for |0xFFFF00 @lex current@ |0x3CF800 out of |0xFFFF00 @lex ma
 # {2GGFF} is floor name where GG is lifts group, FF is floor
 
 {20100}{}{PID_V15_KEYCARD}
-{20101}{}{4 - Bridge}
-{20102}{}{3 - Planning Center}
+{20101}{}{4 - Control room}
+{20102}{}{3 - Meeting room}
 {20103}{}{2 - Barracks}
-{20104}{}{1 - Mess Hall}
-{20105}{}{0 - Sun Deck}
+{20104}{}{1 - Dining Room}
+{20105}{}{0 - Galley}
 
-{20201}{}{1 - Trading Deck}
-{20202}{}{2 - Recreation Deck}
-{20203}{}{3 - Industrial Deck}
-{20204}{}{4 - The Hole}
+{20201}{}{1 - Trading}
+{20202}{}{2 - Bar}
+{20203}{}{3 - Industrial area}
+{20204}{}{4 - Hole}
 
 {20301}{}{4 - Suites}
 {20302}{}{3 - Business rooms}
@@ -1244,7 +1245,7 @@ The pot is filled for |0xFFFF00 @lex current@ |0x3CF800 out of |0xFFFF00 @lex ma
 {99705}{}{Anchor}
 {99706}{}{Pick up}
 {99707}{}{Turn}
-{99708}{}{Push}
+{99708}{}{Pull}
 {99709}{}{Stop pushing}
 {99710}{}{Lock}
 {99711}{}{Unlock}
@@ -1908,7 +1909,7 @@ Select your command:}
 {101024}{}{Local map mob spawner: 
 [ Spawn of X mobs ] Mob Type}
 {101025}{}{Player logins}
-{101026}{}{ID in desc}
+{101026}{}{Player HPs}
 {101027}{}{ID over head}
 {101028}{}{ID in chat}
 {101029}{}{ID items in chat}	
