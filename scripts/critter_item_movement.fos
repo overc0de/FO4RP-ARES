@@ -185,28 +185,28 @@ bool critter_check_move_item( Critter& cr, Item& item, uint8 toSlot, Item@ itemS
         return false;
 	}
 	
-    // Weapon animation
-    if( cr.IsPlayer() && ( toSlot == SLOT_HAND1 || toSlot == SLOT_HAND2 ) )
-    {
-        if( item.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, item.Proto.Weapon_Anim1 ) )
-		{
-			#ifdef __CLIENT
-			Message( TEXTMSG_TEXT, STR_NO_REQUIRED_ANIM ); 
-            #endif // __CLIENT
-			return false;
-		}
-		Item@ offhand = _CritGetItemHandExt( cr );
-		if( valid( offhand ) )
-		{
-			if( offhand.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, offhand.Proto.Weapon_Anim1 ) )
-			{
-				#ifdef __CLIENT
-				Message( TEXTMSG_TEXT, STR_NO_REQUIRED_ANIM );  
-				#endif // __CLIENT
-				return false;
-			}
-		}
-    }
+    // // Weapon animation
+    // if( cr.IsPlayer() && ( toSlot == SLOT_HAND1 || toSlot == SLOT_HAND2 ) )
+    // {
+        // if( item.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, item.Proto.Weapon_Anim1 ) )
+		// {
+			// #ifdef __CLIENT
+			// Message( TEXTMSG_TEXT, STR_NO_REQUIRED_ANIM ); 
+            // #endif // __CLIENT
+			// return false;
+		// }
+		// Item@ offhand = _CritGetItemHandExt( cr );
+		// if( valid( offhand ) )
+		// {
+			// if( offhand.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, offhand.Proto.Weapon_Anim1 ) )
+			// {
+				// #ifdef __CLIENT
+				// Message( TEXTMSG_TEXT, STR_NO_REQUIRED_ANIM );  
+				// #endif // __CLIENT
+				// return false;
+			// }
+		// }
+    // }
 
     // Armor animation
     if( toSlot == SLOT_ARMOR )
@@ -526,25 +526,25 @@ void critter_move_item( Critter& cr, Item& item, uint8 fromSlot )
 		cr.Wait( GetActionTime( ACTION_MOVE_ITEM, cr ) );
 	}
 	
-	Item@ hand = _CritGetItemHand( cr );
-	if( valid( hand ) )
-	{
-		if( hand.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, hand.Proto.Weapon_Anim1 ) )
-		{
-			cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_NO_ANIM_FOR_MAIN_HAND );
-			cr.MoveItem( hand.Id, hand.GetCount(), SLOT_INV );
-		}
-	}
+	// Item@ hand = _CritGetItemHand( cr );
+	// if( valid( hand ) )
+	// {
+		// if( hand.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, hand.Proto.Weapon_Anim1 ) )
+		// {
+			// cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_NO_ANIM_FOR_MAIN_HAND );
+			// cr.MoveItem( hand.Id, hand.GetCount(), SLOT_INV );
+		// }
+	// }
 	
-	Item@ offhand = _CritGetItemHandExt( cr );
-	if( valid( offhand ) )
-	{
-		if( offhand.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, offhand.Proto.Weapon_Anim1 ) )
-		{
-			cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_NO_ANIM_FOR_OFF_HAND );
-			cr.MoveItem( offhand.Id, offhand.GetCount(), SLOT_INV );
-		}
-	}
+	// Item@ offhand = _CritGetItemHandExt( cr );
+	// if( valid( offhand ) )
+	// {
+		// if( offhand.GetType() == ITEM_TYPE_WEAPON && !IsCritterAnim1( cr.CrType, offhand.Proto.Weapon_Anim1 ) )
+		// {
+			// cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_NO_ANIM_FOR_OFF_HAND );
+			// cr.MoveItem( offhand.Id, offhand.GetCount(), SLOT_INV );
+		// }
+	// }
 	
 	ChangeCritterSpeed( cr );
 	LookDataRefresh( cr );

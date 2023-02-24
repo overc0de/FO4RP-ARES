@@ -376,6 +376,7 @@
 #define STR_TRAP_PERCEPTION					 ( 6577 )
 #define STR_EMOTE_STEP_TRAP					 ( 6578 )
 #define STR_MAPMSG_CLICK					 ( 6579 )
+#define STR_UNEDUCATED						 ( 6580 )
 
 // Bootlegging
 #define STR_STILL_NOT_READY					 ( 6600 )
@@ -915,7 +916,7 @@
 // Furniture
 #define STR_NO_RIGHT_KEY	 				 ( 9929 )
 #define STR_TAKE_KEY_IN_HAND 				 ( 9930 )
-#define STR_EMOTE_STOP_PUSH 				 ( 9931 )
+#define STR_EMOTE_STOP_PULL 				 ( 9931 )
 #define STR_FAILED_TO_PUT_INTO 				 ( 9932 )
 #define STR_DISMANTLING_REQUIRED			 ( 9933 )
 #define STR_DID_NOTHING						 ( 9934 )
@@ -926,7 +927,7 @@
 #define STR_IMMOVABLE_FURNITURE				 ( 9939 )
 #define STR_EMOTE_TRY_STOP					 ( 9940 )
 #define STR_UNLOCK_FURNITURE				 ( 9941 )
-#define STR_EMOTE_START_PUSH 				 ( 9942 )
+#define STR_EMOTE_START_PULL 				 ( 9942 )
 #define STR_STACK_TOO_HIGH					 ( 9943 )
 #define STR_OBSTACLE_CRITTER				 ( 9944 )
 
@@ -1092,8 +1093,8 @@
 #define STR_FURNITURE_MENU_ANCHOR			( 99705 )
 #define STR_FURNITURE_MENU_PICKUP			( 99706 )
 #define STR_FURNITURE_MENU_TURN				( 99707 )
-#define STR_FURNITURE_MENU_PUSH				( 99708 )
-#define STR_FURNITURE_MENU_STOP_PUSHING		( 99709 )
+#define STR_FURNITURE_MENU_PULL				( 99708 )
+#define STR_FURNITURE_MENU_STOP_PULLING		( 99709 )
 #define STR_FURNITURE_MENU_LOCK				( 99710 )
 #define STR_FURNITURE_MENU_UNLOCK			( 99711 )
 #define STR_FURNITURE_MENU_CLOSE			( 99712 )
@@ -1586,6 +1587,7 @@
 
 #define STR_GM_MENU_MAIN						( 101001 )
 #define STR_GM_MENU_TELEPORTS					( 101002 )
+#define STR_GM_MENU_PLAYERS						( 101180 ) //TODO: reorder propertly
 #define STR_GM_MENU_STORAGE						( 101003 )
 #define STR_GM_MENU_MAP_SPAWNERS				( 101004 )
 #define STR_GM_MENU_GM_VISION					( 101005 )
@@ -1609,7 +1611,7 @@
 #define STR_GM_MENU_MAP_SET_NUMBER_MOBS			( 101023 )
 #define STR_GM_MENU_MAP_SPAWNERS_MOB_DESC		( 101024 )
 #define STR_GM_MENU_PLAYER_LOGINS				( 101025 )
-#define STR_GM_MENU_ID_IN_DESC					( 101026 )
+#define STR_GM_MENU_PLAYER_HITPOINTS			( 101026 )
 #define STR_GM_MENU_ID_OVER_HEAD				( 101027 )
 #define STR_GM_MENU_ID_IN_CHAT					( 101028 )
 #define STR_GM_MENU_ID_ITEMS_IN_CHAT			( 101029 )
@@ -1772,6 +1774,7 @@
 #define STR_CONTRL_GROUP_NAME	                ( 101177 )
 #define STR_GM_HEXMENU_SPAWN_NPC				( 101178 )
 #define STR_GM_SPAWNMENU_SELECT_HUMANOID_MOB	( 101179 )
+//#define STR_GM_MENU_PLAYERS						( 101180 ) //TODO: reorder propertly
 
 // GM menu npc groups
 #define STR_GM_MENU_NPC_GROUPS_BEGIN			( 101200 )
@@ -2428,6 +2431,7 @@
 #define STR_DAZED_TITLE						 ( 7029 )
 #define STR_STUNNED_TITLE                    ( 7030 )
 #define STR_SNEAK_TO_TITLE				 	 ( 7031 )
+#define STR_OXYGEN_TITLE				 	 ( 7032 )
 
 // Dyspnea
 #define STR_EMOTE_FAINT						 ( 7400 )
@@ -2480,9 +2484,15 @@
 
 // HeadItem_Perk
 #define STR_HEAD_PERK_COOL					 ( 8000 )
+#define STR_HEAD_PERK_GLASSES				 ( 8001 )
+#define STR_HEAD_PERK_GLASSES_PE1			 ( 8002 )
+#define STR_HEAD_PERK_GLASSES_PE2			 ( 8003 )
 #define STR_HEAD_PERK_VERY_COOL				 ( 8004 )
 #define STR_HEAD_PERK_LUCKY_CHARM			 ( 8005 )
 #define STR_HEAD_PERK_COOL_LUCKY_CHARM		 ( 8006 )
+#define STR_HEAD_PERK_COOL_GLASSES			 ( 8007 )
+#define STR_HEAD_PERK_COOL_GLASSES_PE1		 ( 8008 )
+#define STR_HEAD_PERK_COOL_GLASSES_PE2		 ( 8009 )
 
 // Acid Proof wootwear
 #define STR_ACID_PROOF_SHOES				 ( 8100 )

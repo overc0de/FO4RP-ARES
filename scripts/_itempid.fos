@@ -6,6 +6,7 @@
 **************************************************************/
 #define PID_FRM_ITEM								( 603 )							// FRM item ( simulating anything )
 #define PID_REGION_BOUNDARY_CORNER    				( 6531 ) 						// Tech item for map generation
+#define PID_BULLETIN_BOARD							( 1670 )						// Bulletin board
 
 /**************************************************************
 **************		INTERACTIVE MAP OBJECTS		***************
@@ -481,6 +482,7 @@
 #define PID_CARAVAN_MASTER_JACKET             		( 20204 )						// Походная одежда караванщика
 #define PID_ANTIRAD_COSTUME                   		( 20205 )						// Антирадиационный костюм
 #define PID_PERSONAL_JACKET                   		( 20207 )						// Куртка личного пошива
+#define PID_ZERKALO_METAL_ARMOR_MK_II         		( 20210 )						// Металлическая броня мод. II (зерк)
 #define PID_arlthr1                           		( 20543 )						// Усиленная боевая кожаная куртка
 #define PID_TRIBE_ARMOR1                            ( 20558 )						// Кольчуга племенного разведчика
 #define PID_GEKKO_ARMOR							  	( 20573 )						// Броня из Гекко
@@ -2454,6 +2456,8 @@
 #define PID_fotoBnd                           		( 1713 )						// Эротическое фото
 #define PID_fotogrf                           		( 1714 )						// Технологичный фотоаппарат
 #define PID_FPSHL6                            		( 1715 )						// Мыло душистое
+#define PID_FERMENT                            		( 1716 )						// Дрожжи
+#define PID_FPSHL9                            		( 1717 )						// Соль
 #define PID_FSCALPL                           		( 1718 )						// Скальпель
 #define PID_FSHMPN                            		( 1719 )						// Чистищее средство
 #define PID_FSLVShk                           		( 1720 )						// Мощный рабский ошейник
@@ -2488,6 +2492,7 @@
 #define PID_PRES_KEY                          		( 1764 )						// Ключ-карта сотрудника
 #define PID_strbox                            		( 1765 )						// Пакет с товаром
 #define PID_KILLING_STRING                    		( 1766 )						// Струна для убийства
+#define PID_sugar                             		( 1768 )						// Сахар
 #define PID_tross                             		( 1769 )						// Трос с кюком
 #define PID_TRUBA                             		( 1770 )						// Музыкальный инструмент - Труба
 #define PID_CABEL                             		( 1771 )						// Кабель
@@ -2726,6 +2731,7 @@
 #define PID_RBTRHAND                                ( 22067 )                       // Манипулятор робота
 #define PID_card2b                                  ( 22068 )                       // Ключь карта
 #define PID_GUNSMITH                                ( 22069 )                       // Набор для чистки оружия
+#define PID_UDOBRENI                                ( 22070 )                       // Мешок с удобрением
 #define PID_CAPACITOR                               ( 22073 )                       // Конденсатор
 #define PID_TURRET_DRUM                             ( 22074 )                       // Барабан с креплениями и деталями
 #define PID_SG_PARTS                                ( 22075 )                       // Детали для ПП
@@ -2749,6 +2755,7 @@
 // #--------------------------------------------------------------------------
 
 #define PID_Radio5NW                          		( 15000 ) 						// Любительская рация
+#define PID_Radio21NE                         		( 15001 ) 						// Любительская рация
 #define PID_SCORPION_SMALL_TAIL               		( 15063 ) 						// Оторванный хвост малого радскорпиона
 #define PID_COINS_WITH_BRAHMIN                      ( 15067 ) 						// Монеты с браминами
 #define PID_COINS_WITH_SCORPION                     ( 15068 ) 						// Монеты со скорпионом
@@ -2966,6 +2973,7 @@
 #define PID_CR_STAND                                ( 841 )                         // Дикарская подставка, == 4505, 4506, 4507, 4508
 #define PID_CR_STAKE                                ( 843 )                         // Кол, == 3224, 3225, 3226, 3227
 #define PID_CR_CART                                 ( 845 )                         // Тачка, == 2368
+#define PID_MAILBOX									( 23716 )						// Mailbox, == 2257
 #define PID_BARREL_GENERIC							( 1617 )						// Barrel 1
 #define PID_BARREL_2								( 1618 )						// Barrel 2
 #define PID_BARREL_3								( 1619 )						// Barrel 3

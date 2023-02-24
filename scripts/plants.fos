@@ -10,6 +10,11 @@
 
 import bool CheckGard( Map& map, uint16 hexX, uint16 hexY ) from "qmap_farm";
 
+uint farmingSkill( Critter& cr )
+{
+	return cr.Skill[ SK_FARMING ] + uint( cr.Skill[ SK_OUTDOORSMAN ] * 0.5 );
+}
+
 class Plant
 {
 	uint16 pid;
@@ -802,7 +807,7 @@ bool FurtilezePlant( Critter& cr, Item& fertilizer, Item& plant )
 	_SubItem( fertilizer, 1 );
 	TryRaiseSkill( cr );
 	int amount = 0;
-	amount += ( cr.Skill[ SK_FARMING ] / 50 );
+	amount += farmingSkill(cr) / 50;
 	IncreaseCrop( plant, amount );
 	return true;
 }

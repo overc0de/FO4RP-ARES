@@ -99,7 +99,7 @@ void ApplyFoodEffects( Critter& target, Item& item )
 	target.ParamBase[ ST_POISONING_LEVEL ] += item.POLUTION_LEVEL;
 	if( target.ParamBase[ ST_RADIATION_LEVEL ] > 0 )
 	{
-		target.ParamBase[ ST_RADIATION_LEVEL ] -= int( item.SPIRIT_LEVEL * 0.25f );
+		AffectRadiation( target, int( -item.SPIRIT_LEVEL * 0.25f ) );
 	}
 	if( target.ParamBase[ ST_DRUNK ] != 100 )
 	{
@@ -111,7 +111,7 @@ void ApplyFoodEffects( Critter& target, Item& item )
 	}
 	else
 	{
-		AffectPoison( target, int( item.SPIRIT_LEVEL ) );
+		AffectPoison( target, int( item.SPIRIT_LEVEL * 0.25f ) );
 	}
 }
 
@@ -122,7 +122,7 @@ void Emote( Critter& target, Item& consumed )
 	
 	if( target.ParamBase[ ST_RADIATION_LEVEL ] > 0 && consumed.SPIRIT_LEVEL != 0 )
 	{
-		target.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_LOST_RAD, "$rad" + consumed.SPIRIT_LEVEL );
+		target.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_LOST_RAD, "$rad" + consumed.SPIRIT_LEVEL * 0.025 );
 	}
 	
 	if( consumed.POLUTION_LEVEL != 0 )

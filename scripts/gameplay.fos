@@ -517,16 +517,16 @@ class Gameplay : iManagerModule, iManager_loop,
 					continue;
 				}
 				
-				/*uint8 rainIntensity = mapM.GetRain();
+				uint8 rainIntensity = mapM.GetRain();
 				if( rainIntensity > 0 )
 				{
-					Critter@[] critters;
+					Critter@[] crs;
 					Critter@ crit = null;
-					if( mapM.GetCritters( 0, FIND_LIFE, critters ) > 0 )
+					if( mapM.GetCritters( 0, FIND_LIFE, crs ) > 0 )
 					{
-						for( uint j = 0, len = critters.length(); j < len; j++ )
+						for( uint j = 0, len = crs.length(); j < len; j++ )
 						{
-							@ crit = critters[j];
+							@ crit = crs[j];
 							if( valid( crit ) )
 							{
 								if( !mapM.HasRoof( crit.HexX, crit.HexY ) )
@@ -542,13 +542,14 @@ class Gameplay : iManagerModule, iManager_loop,
 							}
 						}
 					}
-					critters.resize(0);
-				}*/
+				}
 			}
 		}
 
         if( type == TIME_NEW_HOUR )
         {
+			OreInit();
+
            	GameVar@ cycle = GetGlobalVar( GVAR_rotten_cycle );
 			if( valid( cycle ) ) 
 			{
@@ -565,27 +566,54 @@ class Gameplay : iManagerModule, iManager_loop,
 			for( uint i = 0; i < mapsLength; i++ )
 			{
 				@ mapH = maps[i];
-				if( !valid( mapH ) )
+				if( valid( mapH ) )
 				{
-					continue;
-				}
+					if( ignored_map_pids.find( mapH.GetProtoId() ) != -1 )
+					{
+						continue;
+					}
 
-				if( ignored_map_pids.find( mapH.GetProtoId() ) != -1 )
-				{
-					continue;
-				}
+					RottenFood( mapH );
 
-				RottenFood( mapH );
-				RottenCrittersFoodOnMap( mapH );
-				
-				MapHourTimeLoop(mapH);
+					Critter@[] crs;
+					Critter@ crit = null;
+					if( mapH.GetCritters( 0, FIND_ONLY_PLAYERS, crs ) > 0 )
+					{
+						for( uint j = 0, len = crs.length(); j < len; j++ )
+						{
+							@ crit = crs[j];
+							if( valid( crit ) )
+							{
+								RottenFood( crit );
+							}
+						}
+					}
+
+					if( __AllowRealDayTime != 0 )
+					{
+						int timeH = GetRealHour() * 60;
+						int timeM = GetRealMinute();
+						int time = timeH + timeM;
+						if( GetMapLevelByPid( mapH.GetProtoId() ) >= 0 )
+						{
+							mapH.SetTime( time );
+							//Log( "time set: " + time + " on map: " + maps[i].Id );
+						}
+					}
+					else if( __AllowRealDayTime == 0 && mapH.GetTime() != -1 )
+					{
+						if( GetMapLevelByPid( mapH.GetProtoId() ) >= 0 )
+						{
+							mapH.SetTime( -1 );
+						}
+					}
+				}
 			}
 		}
 
         if( type == TIME_NEW_DAY )       // 142
         {
 			MapLootInit();
-			OreInit();
 			JunkInit();
 			WildplantInit();
 			MobsSpawnInit();

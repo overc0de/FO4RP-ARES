@@ -22,6 +22,7 @@
 #include "furniture_h.fos"
 #include "gasses_h.fos"
 #include "_npc_pids.fos"
+#include "teleports_h.fos"
 
 import  void GM_brokeItem( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 ) from "gm_commands";
 
@@ -38,8 +39,6 @@ import void unsafe_sleep( Critter& player, int isBack, int isRemote, int param2,
 import void PlayMusic(Map& map, string& musicName, uint pos, uint repeat) from "media";
 
 import void StoreMenu( Critter& cr ) from "store";
-
-import void ShowTeleports( Critter& cr ) from "teleports";
 
 import NpcNamesHolder@ getNpcNamesHolder() from "npc_names_holder";
 
@@ -1103,6 +1102,12 @@ class MenuGMMain: CenteredMenuHandler
 			return false;
 		}		
 		
+		if( menu.ButtonMsg( STR_GM_MENU_PLAYERS ) )
+		{
+			ShowPlayers( gm );
+			return false;
+		}		
+		
 		if( menu.ButtonMsg( STR_GM_MENU_STORAGE ) )
 		{
 			StoreMenu( gm );
@@ -1432,7 +1437,7 @@ class MenuGMSpawnersBeast: DefaultMenuHandler
 int[] sinf_menu_list =
 {
 	STR_GM_MENU_PLAYER_LOGINS		, 	// SINF_LOGINS			( 0x00000001 )
-	STR_GM_MENU_ID_IN_DESC			, 	// SINF_ID_CRITS		( 0x00000002 )
+	STR_GM_MENU_PLAYER_HITPOINTS	, 	// SINF_PLAYERS_HP		( 0x00000002 )
 	STR_GM_MENU_ID_OVER_HEAD		, 	// SINF_ID_HEADS		( 0x00000004 )
 	STR_GM_MENU_ID_IN_CHAT			, 	// SINF_ID_CHAT			( 0x00000008 )
 	STR_GM_MENU_ID_ITEMS_IN_CHAT	, 	// SINF_ID_ITEMS		( 0x00000010 )
@@ -2083,6 +2088,42 @@ void PlayMapMusic( Map& map, string@ path )
 			player.RunClientScript( "fofmod@__PlayMapMusic", map.Id, timeStamp, 0, path, null );
 		}
 	}
+}
+
+//~run gm TestMapMusic 0 0 0
+void TestMapMusic( Critter& cr, int, int, int )
+{
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "FonlineMusic" );
+	for( uint i = 0, l = FonlineMusic.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/music/" + FonlineMusic[i], null );
+
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "ActionMusic" );
+	for( uint i = 0, l = ActionMusic.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/music/" + ActionMusic[i], null );
+
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "SuspenceMusic" );
+	for( uint i = 0, l = SuspenceMusic.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/music/" + SuspenceMusic[i], null );
+
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "NNMplaylist" );
+	for( uint i = 0, l = NNMplaylist.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/music/" + NNMplaylist[i], null );
+
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "OtherMusic" );
+	for( uint i = 0, l = OtherMusic.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/music/" + OtherMusic[i], null );
+
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "CringeMusic" );
+	for( uint i = 0, l = CringeMusic.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/music/" + CringeMusic[i], null );
+
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "GMSFX" );
+	for( uint i = 0, l = GMSFX.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/sfx/" + GMSFX[i], null );
+
+	cr.Say( SAY_NETMSG, "|0xFFFFFF      " + "JukeboxMusic" );
+	for( uint i = 0, l = JukeboxMusic.length(); i < l; i++ )
+		cr.RunClientScript( "fofmod@__testMusic", 0, 0, 0, "sound/music/" + JukeboxMusic[i], null );
 }
 
 class MenuGMTime: CenteredMenuHandler
@@ -6131,7 +6172,7 @@ void Log_Killings( Critter& player, int targetId, int param1, int param2, string
 		return;
 	}
 
-	string@ map_name = !valid( map ) ? "Global" : GetMsgStr( 1, TEXTMSG_GM, ( map.GetProtoId() + 1 ) * 10 + 8 );
+	string@ map_name = !valid( map ) ? "Global" : GetMsgStr( 0, TEXTMSG_GM, ( map.GetProtoId() + 1 ) * 10 + 8 );
 	if( !valid( map_name ) )
 	{
 		@map_name = "[ Map #" + map.Id + " PID " + map.GetProtoId() + " ]";
@@ -6154,7 +6195,7 @@ void Log_Killings( Critter& player, int targetId, int param1, int param2, string
 		crs[i].Say( SAY_NETMSG, str );
 	}
 	
-	DiscordSendMessage( "killings", " ``` " + info + " ``` " );
+	//DiscordSendMessage( "killings", " ``` " + info + " ``` " );
 }
 
 void Log_GM( Critter& player, int crId, int action, int param0, int param1, int param2 )

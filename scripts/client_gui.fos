@@ -1624,6 +1624,26 @@ class GUIScreen : IGUIScreenOpt
 				}
 			}
 			
+			//Fast-use hand1 item
+			if( key == DIK_LBRACKET && !__ConsoleActive && !KeyPressed[ DIK_LCONTROL ] && !KeyPressed[ DIK_LSHIFT ] )
+			{
+				if( valid( chosen ) && !chosen.IsBusy() )
+				{
+					RunServerScriptUnsafe( "main@unsafe_UseItem", 0, 0, 0, null, null );
+					return true;
+				}
+			}
+			
+			//Fast-use hand2 item
+			if( key == DIK_RBRACKET && !__ConsoleActive && !KeyPressed[ DIK_LCONTROL ] && !KeyPressed[ DIK_LSHIFT ] )
+			{
+				if( valid( chosen ) && !chosen.IsBusy() )
+				{
+					RunServerScriptUnsafe( "main@unsafe_UseItem", 1, 0, 0, null, null );
+					return true;
+				}
+			}
+			
 			//knock.
             if( key == DIK_H && GetCurrentCursor() == CURSOR_DEFAULT && !__ConsoleActive && !KeyPressed[ DIK_LCONTROL ] )
             {
@@ -1802,6 +1822,14 @@ class GUIScreen : IGUIScreenOpt
 					case( DIK_N ):
 						RunServerScriptUnsafe( "player_menu@unsafe_StartAnimMenu", 0, 0, 0, null, null );
 						return true;
+					case( DIK_H ): // "Стой-замной"
+					{
+						if( valid( target ) )
+						{
+							RunServerScriptUnsafe( "mobcontrol@unsafe_follow_or_hold", targetId, 0, 0, null, null );
+						}
+						return true;
+					}
 				}
 			}
 
@@ -1837,15 +1865,6 @@ class GUIScreen : IGUIScreenOpt
 							{
 								RunServerScriptUnsafe( "reload@unsafe_CheckAmmo", weapon.Id, 1, 0, null, null );
 							}
-						}
-						return true;
-					}
-					case( DIK_H ): // "Стой-замной"
-					{
-						CritterCl@ target = GetMonitorCritter( __MouseX, __MouseY );
-						if( valid( target ) )
-						{
-							RunServerScriptUnsafe( "mobcontrol@unsafe_follow_or_hold", target.Id, 0, 0, null, null );
 						}
 						return true;
 					}
@@ -1998,7 +2017,7 @@ class GUIScreen : IGUIScreenOpt
 				}
 			}
 			
-			if( !__ConsoleActive && key == DIK_G )
+			if( !__ConsoleActive && KeyPressed[ DIK_LCONTROL ] && key == DIK_G )
 			{
 				RunServerScriptUnsafe( "gm@unsafe_GM_PANNEL_SELF", 0, 0, 0, null, null );
 				return true;

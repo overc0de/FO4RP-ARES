@@ -82,6 +82,9 @@ string[] ActionMusic = {
 string[] SuspenceMusic = {
 	"under_1.ogg",
 	"under_2.ogg",
+	"22_Mortuary.ogg",
+	"23_Sigil.ogg",
+	"28_Curst.ogg",
 	"Under_the_Stars_Cut.ogg",
 	"The_Courier_Walks_Softly.ogg",
 	"Out_of_Business.ogg",
@@ -91,6 +94,7 @@ string[] SuspenceMusic = {
 	"For_Better_For_Worse.ogg",
 	"Fresh_Meat.ogg",
 	"Trials_And_Tribulations.ogg",
+	"29mark-morgan-curst.ogg",
 	"black_dawn_1.ogg",
 	"red_life_1.ogg",
 	"secrets_from_river.ogg",

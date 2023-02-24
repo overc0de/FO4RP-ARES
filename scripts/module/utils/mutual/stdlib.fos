@@ -84,7 +84,7 @@ shared string cutter( string input, int min_line_length = 20, int max_line_lengt
 		if( current_length + word_len >= min_line_length )
 		{
 			current_length = 0;
-			result += words[i] + " " + "\n";
+			result += words[i] + "\n";
 			continue;
 		}
 		

@@ -9,6 +9,11 @@
 #include "combat_h.fos"
 #include "repair_h.fos"
 
+uint huntingSkill( Critter& cr )
+{
+	return cr.Skill[ SK_HUNTING ] + uint( cr.Skill[ SK_OUTDOORSMAN ] * 0.5 );
+}
+
 bool ltp_devour_inited = false;
 void ltp_devour_init()
 {
@@ -27,7 +32,7 @@ bool start_devour( Critter& cr, Critter@ target )
 	{	
 		uint hit_pause = ACTION_PAUSE_BASE - ( cr.Stat[ ST_AGILITY ] * ACTION_PAUSE_BONUS_RATE );
 		cr.ParamBase[ ST_LTP_SEQUENCE_WAIT ] = CLAMP( hit_pause, ACTION_PAUSE_MIN, ACTION_PAUSE_MAX );
-		uint object_dpa = ( cr.Skill[ SK_HUNTING ] ) + ( cr.Stat[ ST_AGILITY ] * 10 ) + OBJECT_DPA_BASE; 
+		uint object_dpa = huntingSkill(cr) + ( cr.Stat[ ST_AGILITY ] * 10 ) + OBJECT_DPA_BASE; 
 		cr.ParamBase[ ST_LTP_SEQUENCE ] = uint( ceil( float( target.Stat[ ST_MAX_LIFE ] * 15 / ( CLAMP( object_dpa, OBJECT_DPA_MIN, OBJECT_DPA_MAX ) ) ) ) );
 		
 		uint[] values = { cr.Id };
@@ -153,6 +158,7 @@ bool PrepareSkinning( Critter& cr, Item@ tool, Critter@ target )
 	if( _ItemIsBroken( tool ) )
 	{
 		cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_TOOL_BROKEN );
+		_SubItem(tool, 1);
 		return true;
 	}
 
@@ -188,7 +194,7 @@ bool start_skinning( Critter& cr, Item& tool, Critter@ target )
 	{	
 		uint hit_pause = ACTION_PAUSE_BASE - ( cr.Stat[ ST_AGILITY ] * ACTION_PAUSE_BONUS_RATE );
 		cr.ParamBase[ ST_LTP_SEQUENCE_WAIT ] = CLAMP( hit_pause, ACTION_PAUSE_MIN, ACTION_PAUSE_MAX );
-		uint object_dpa = cr.Skill[ SK_HUNTING ] + ( cr.Stat[ ST_AGILITY ] * 10 ) + OBJECT_DPA_BASE; 
+		uint object_dpa = huntingSkill(cr) + ( cr.Stat[ ST_AGILITY ] * 10 ) + OBJECT_DPA_BASE; 
 		cr.ParamBase[ ST_LTP_SEQUENCE ] = uint( ceil( float( target.Stat[ ST_MAX_LIFE ] * 15 / ( CLAMP( object_dpa, OBJECT_DPA_MIN, OBJECT_DPA_MAX ) ) ) ) );
 		
 		uint[] values = { cr.Id };
@@ -237,11 +243,11 @@ uint process_skinning( Critter@ cr, int& param0, int& param1, int& param2 )
 				CheckBlood( map, hx, hy );
 			}
 			
-			// if( cr.IsInjured() )
-			// {
-				// uint damage = INJURED_HP_DAMAGE - cr.Stat[ ST_ENDURANCE ];
-				// InjureCritter( cr, damage, DAMAGE_UNCALLED, cr.Dir, cr.Id, HIT_LOCATION_NONE, false );
-			// }
+			if( cr.IsInjured() )
+			{
+				uint damage = INJURED_HP_DAMAGE - cr.Stat[ ST_ENDURANCE ];
+				InjureCritter( cr, damage, DAMAGE_UNCALLED, cr.Dir, cr.Id, HIT_LOCATION_NONE, false );
+			}
 			
 			return cr.ParamBase[ ST_LTP_SEQUENCE_WAIT ];
 		}
@@ -289,7 +295,7 @@ bool Profit(  Critter& cr, Item@ tool, Critter& target, bool devour )
 			lootPid = skinnable.loot[ deathStage + 1 ];
 		}
 	}
-	
+
 	int amount = 1;
 	//stat bonus
 	int16 stat_bonus = ( cr.Stat[ ST_STRENGTH ] * SKINNING_STR_MOD ) + ( cr.Stat[ ST_AGILITY ] * SKINNING_AGI_MOD );
@@ -306,7 +312,7 @@ bool Profit(  Critter& cr, Item@ tool, Critter& target, bool devour )
 		toolBonus = 50;
 	}
 
-	uint16 success_base = cr.Skill[ SK_HUNTING ] + toolBonus;
+	uint16 success_base = huntingSkill(cr) + toolBonus;
 	
 	uint16 creatureDifficulty = skinnable.difficulty;
 	uint16 Difficulty_Total = creatureDifficulty + SKINNING_BASE_DIFFICULTY;
@@ -367,9 +373,14 @@ bool Profit(  Critter& cr, Item@ tool, Critter& target, bool devour )
 		}
 		else
 		{
-			uint huntMod = cr.Skill[ SK_HUNTING ] * 10 / 30;
-			cr.StatBase[ ST_HUNGER ] += 100 + huntMod;
-			cr.StatBase[ ST_THIRST ] += 100 + huntMod;
+			uint saturation = huntingSkill(cr) * 10 / 15 + 100;
+			cr.StatBase[ ST_THIRST ] += saturation;
+
+			int result_hunger = ( cr.Stat[ ST_HUNGER ] + saturation );
+			cr.StatBase[ ST_HUNGER ] = CLAMP( result_hunger, 0, 1000 );
+			
+			int devour_heal = CLAMP( int( ( result_hunger - 1000 ) * 0.1 ), 0, 100 );
+			cr.StatBase[ ST_CURRENT_HP ] += devour_heal;
 		}
 	}
 	
