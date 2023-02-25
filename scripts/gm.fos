@@ -6777,7 +6777,7 @@ void DeleteLocation( Critter& cr, uint16 locationId )
 
 void AdventurerMenu( Critter& cr ) //exported
 {
-	int max = cr.ParamBase[ CR_ADV_POINTS_MAX ]; 
+	int max = int( cr.ParamBase[ CR_ADV_POINTS_MAX ] / 24 ); 
 	int cur = cr.ParamBase[ CR_ADV_POINTS ];	 
 	
 	string white = "|0xFFFFFF ";
@@ -6786,13 +6786,13 @@ void AdventurerMenu( Critter& cr ) //exported
 	string ln = "\n";
 	
 	string info = white + "Меню Приключенца." + ln 
-				+ "Доступно опыта "+ yellw + cur + white + " из " + yellw + max + white + ".";
+				+ "Доступно опыта "+ yellw + cur + white + ", в час " + yellw + "+" + max + white + ".";
 	
 	string[] data = { "gm@answer_AdvMenu", info, 
 		"Выдать опыт",
-		"Выдать лут",
-		"Спаун НПЦ",
-		"[Назад]"
+		"Выдать лут"
+		// "Спаун НПЦ",
+		// "[Назад]"
 	};
 	DIALOG_MENU( cr, data );
 }
@@ -6842,13 +6842,13 @@ void answer_AdvMenu( Critter& player, uint answerI, string& answerS )
 		}
 	}
 	
-	if( answerI == 2 )
-	{
-		MenuGMHexMob@ GM_Hex_Mob_Spawn = MenuGMHexMob( player.GetMap(), player.HexX + 1, player.HexY + 1 );
-		iDialogBox@ menu = OpenMenu( player, "SpawnMobAzmadon", GM_Hex_Mob_Spawn );
+	// if( answerI == 2 )
+	// {
+		// MenuGMHexMob@ GM_Hex_Mob_Spawn = MenuGMHexMob( player.GetMap(), player.HexX + 1, player.HexY + 1 );
+		// iDialogBox@ menu = OpenMenu( player, "SpawnMobAzmadon", GM_Hex_Mob_Spawn );
 		
-		player.Say( SAY_NETMSG, "Животные по 1к, монстры по 3к, гуманоиды по 5к." );
-	}
+		// player.Say( SAY_NETMSG, "Животные по 1к, монстры по 3к, гуманоиды по 5к." );
+	// }
 }
 
 void ask_ADVENTURER_GIVE_EXP( Critter& player, uint answerI, string& answerS )
