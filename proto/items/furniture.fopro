@@ -1262,6 +1262,22 @@ LightColor=-154353
 StartValue_0=0
 StartValue_1=18000
 
+[Proto] # PID_WASHTUP
+ProtoId=23541
+Type=5
+ScriptModule=furniture
+ScriptFunc=_InitFurniture
+PicMap=art\scenery\VILLA008.FRM
+PicInv=art\scenery\VILLA008.FRM
+Flags=268439580
+DisableEgg=1
+Weight=9071
+Volume=300
+SoundId=48
+Material=1
+Cost=300
+Item_Subtype=200
+
 [Proto] # PID_MAILBOX
 ProtoId=23716
 Type=8
@@ -1271,11 +1287,12 @@ PicMap=art\scenery\mailbx.frm
 PicInv=art\scenery\mailbx.frm
 Flags=304091672
 DisableEgg=1
-SoundId=81
-Material=3
 Volume=200
 Weight=20000
+SoundId=81
+Material=3
 Cost=300
 Container_Volume=5000
 Container_Changeble=1
 Item_Subtype=200
+

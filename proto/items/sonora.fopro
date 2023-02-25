@@ -10787,16 +10787,6 @@ SoundId=48
 Material=1
 
 [Proto]
-ProtoId=23541
-Type=11
-PicMap=art\scenery\VILLA008.FRM
-PicInv=art\inven\reserved.frm
-Flags=268440092
-DisableEgg=0
-SoundId=48
-Material=5
-
-[Proto]
 ProtoId=23542
 Type=11
 PicMap=art\scenery\VILLA009.FRM

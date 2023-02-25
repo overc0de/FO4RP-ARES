@@ -8,6 +8,7 @@
 #include "item_h.fos"
 #include "furnace_h.fos"
 #include "smithing_h.fos"
+#include "waterworks_h.fos"
 
 import bool critter_use_item( Critter& cr, Item& item, Critter@ targetCr, Item@ targetItem, Scenery@ targetScen, uint param ) from "main";
 
@@ -69,6 +70,7 @@ void InitFurnitures()
 		.add( Furniture( "Barrel", PID_BARREL_GENERIC ).add( 8103 ) )
 		.add( Furniture( "Barrel Container", PID_BAREL_EMPTY ).add( 2551 ).add( 4727 ) )
 		.add( Furniture( "Mailbox", PID_MAILBOX ).add( 2257 ) )
+		.add( Furniture( "Washtub", PID_WASHTUP ).add( 23541 ) )
 		;
 }
 
@@ -156,6 +158,12 @@ class MenuFuriture: CenteredMenuHandler
 		
 		if( !IsAnimal( cr ) || !IsInsect( cr ) )
 		{
+			if( pid == PID_WASHTUP && !FLAG( furniture.Flags, ITEM_CAN_PICKUP ) && menu.Button( "Помыться" ) )
+			{
+				Cleaning( cr, 0, furniture.GetProtoId() );
+				return true;
+			}
+			
 			if( ( pid == PID_PORTABLE_WORKBENCH || pid == PID_AMMO_WORKBENCH ) && menu.ButtonMsg( STR_FURNITURE_MENU_CRAFT ) )
 			{
 				if( isDragging )

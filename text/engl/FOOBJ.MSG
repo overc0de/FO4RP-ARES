@@ -14176,3 +14176,5 @@ The module also helps correct bad eye-sight, boosting vision to an equivalent of
 {2371401}{}{That's something}
 {2371500}{}{Something}
 {2371501}{}{That's something}
+{2371600}{}{Mailbox}
+{2371601}{}{Suitable only for correspondence. Large parcels will not fit into the slot.}
