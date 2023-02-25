@@ -1759,7 +1759,7 @@ bool critter_use_skill( Critter& cr, int skill, Critter@ targetCr, Item@ targetI
 					return true;
 				}
 				
-				uint[] training_tools = { PID_TRAINING_MATE, PID_TRAINING_PUNCHING_BAG, PID_TRAINING_LADDER, PID_TRAINING_TREADMILL, PID_TRAINING_ABS };
+				uint[] training_tools = { PID_TRAINING_MATE, PID_TRAINING_MATE_2, PID_TRAINING_PUNCHING_BAG, PID_TRAINING_LADDER, PID_TRAINING_TREADMILL, PID_TRAINING_ABS };
 				if( training_tools.find( targetScen.ProtoId ) != -1 )
 				{
 					int training_bonus = CLAMP( 3600 - cr.Timeout[ TO_FIT ] / __TimeMultiplier, 0, 60 );

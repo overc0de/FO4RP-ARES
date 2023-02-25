@@ -10,6 +10,7 @@
 #define PID_WASHTUP									( 23541 )						// Корыто для мытья
 
 #define PID_TRAINING_MATE							( 2533 )						// Тренировочный мат
+#define PID_TRAINING_MATE_2							( 2534 )						// Тренировочный мат 2
 #define PID_TRAINING_PUNCHING_BAG					( 2537 )						// Боксёрская груша
 #define PID_TRAINING_LADDER							( 2539 )						// Лесенка
 #define PID_TRAINING_TREADMILL						( 2541 )						// Беговая дорожка
