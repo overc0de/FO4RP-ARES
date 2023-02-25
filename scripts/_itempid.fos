@@ -9,6 +9,12 @@
 #define PID_BULLETIN_BOARD							( 1670 )						// Bulletin board
 #define PID_WASHTUP									( 23541 )						// Корыто для мытья
 
+#define PID_TRAINING_MATE							( 2533 )						// Тренировочный мат
+#define PID_TRAINING_PUNCHING_BAG					( 2537 )						// Боксёрская груша
+#define PID_TRAINING_LADDER							( 2539 )						// Лесенка
+#define PID_TRAINING_TREADMILL						( 2541 )						// Беговая дорожка
+#define PID_TRAINING_ABS							( 2543 )						// Штанга
+  
 /**************************************************************
 **************		INTERACTIVE MAP OBJECTS		***************
 ***************************************************************/

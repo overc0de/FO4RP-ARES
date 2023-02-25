@@ -108,6 +108,7 @@ void DrawChosenTabs() // Export
 
     showTab( GetMsgStr( TEXTMSG_GAME, STR_HIDEMODE_TITLE ), chosen.Mode[ MODE_HIDE ] != 0, COLOR_DGREEN );
 	
+    
     showTabTimeout( GetMsgStr( TEXTMSG_GAME, STR_TRANSFER_TITLE ), chosen.Timeout[ TO_TRANSFER ], 15, isTester );
     showTabTimeout( GetMsgStr( TEXTMSG_GAME, STR_ACTION_TITLE ), chosen.Timeout[ TO_SK_STEAL ], 6, isTester );
 	showTabTimeout( GetMsgStr( TEXTMSG_GAME, STR_LOCKPICK_TITLE ), chosen.Timeout[ TO_SK_LOCKPICK ], 6, isTester, true );
@@ -120,7 +121,8 @@ void DrawChosenTabs() // Export
 	int timeout = CLAMP( timeout_limit, PHASE_TIMEOUT_MIN, PHASE_TIMEOUT_MAX);
 	showTabTimeout( GetMsgStr( TEXTMSG_GAME, STR_TIREDNESS_TITLE ), chosen.Timeout[ TO_TIREDNESS ], timeout, isTester );
 	showTabTimeout( GetMsgStr( TEXTMSG_GAME, STR_SNEAK_TITLE ), chosen.Timeout[ TO_SNEAK ], timeout, isTester, true );
-	showCooldown( chosen.Timeout[ TO_STEALING ], 90, 120, isTester, true );
+	showCooldown( GetMsgStr( TEXTMSG_GAME, STR_COOLDOWN_TITLE ), chosen.Timeout[ TO_STEALING ], 90, 120, isTester, true );
+	showCooldown( GetMsgStr( TEXTMSG_GAME, STR_FIT_TITLE ), chosen.Timeout[ TO_FIT ], 1, 3600, isTester, false );
 }
 
 void DrawTab( string@ text, uint color )
@@ -235,14 +237,14 @@ void showTabTimeout( string name, int value, int max, bool showAnyway = false, b
 	DrawTab( name + " [" + value + "]", color );
 }
 
-void showCooldown( int value, int min_to_show = 0, int max = 0, bool showAnyway = false, bool showGray = false )
+void showCooldown( string name, int value, int min_to_show = 0, int max = 0, bool showAnyway = false, bool showGray = false )
 {
 	value = value / __TimeMultiplier;
 	if( value < min_to_show && !showAnyway ) 
 	{
 		return;
 	}
-	DrawTab( GetMsgStr( TEXTMSG_GAME, STR_COOLDOWN_TITLE ) + "[" + ( value / 60 ) + ":" + ( value % 60 ) + "]", value >= max ? COLOR_LGRAY : __GetGradient( COLOR_GREEN, COLOR_DRED, 100 * ( 60 - CLAMP( value, 0, 60 ) ) / 60 ) );
+	DrawTab( name + "[" + ( value / 60 ) + ":" + ( value % 60 ) + "]", value >= max ? COLOR_LGRAY : __GetGradient( COLOR_GREEN, COLOR_DRED, 100 * ( 60 - CLAMP( value, 0, 60 ) ) / 60 ) );
 }
 
 void showTab( string name, bool flag, uint color )

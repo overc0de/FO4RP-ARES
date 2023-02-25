@@ -863,7 +863,8 @@
 #define TO_TIREDNESS                             	( 242 ) 	// Hardcoded
 #define TO_SNEAK                                 	( 243 )
 #define TO_HEALING                               	( 244 )
-// 245..247
+#define TO_FIT		                               	( 245 )
+// 246..247
 #define TO_STEALING                              	( 248 )
 #define TO_AGGRESSOR                             	( 249 )
 #define TO_DAMAGE                                	( 250 )
@@ -1071,6 +1072,7 @@
 #define CR_YOU_DRAG								 	( 600 )		// Marker if you are dragging a cr
 #define CR_DRAGS_YOU 							 	( 601 )		// Marker if you are being dragged
 #define CR_HIDEFACE_ITM							 	( 602 )		// Marker if Item can hide name and avatar
+#define CR_IS_FIT								 	( 603 )		// ћаркер того, что персонаж под бонусом качалки
 // 602..699
 #define QST_MEDIUM                               	( 700 )		// special modes for character behaviour
 #define QST_INVIS                                	( 701 )		// GM invisibility

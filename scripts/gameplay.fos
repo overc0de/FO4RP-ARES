@@ -215,7 +215,22 @@ class Gameplay : iManagerModule, iManager_loop,
 			cr.AddTimeEvent( "poison@cte_Poison", REAL_SECOND( 5 ), CTE_POISON );
 		}
 		
-        return true;
+        if( cr.TimeoutBase[ TO_FIT ] > 0 && cr.ParamBase[CR_IS_FIT] == 0 )
+		{
+			cr.ParamBase[CR_IS_FIT] = 1;
+			cr.StatBase[ ST_STRENGTH_EXT ]++;
+			cr.StatBase[ ST_ENDURANCE_EXT ]++;
+			cr.Say( SAY_NETMSG, "¬ы в тонусе." );
+		}
+		else if( cr.TimeoutBase[ TO_FIT ] <= 0 && cr.ParamBase[CR_IS_FIT] != 0 )
+		{
+			cr.ParamBase[CR_IS_FIT] = 0;
+			cr.StatBase[ ST_STRENGTH_EXT ]--;
+			cr.StatBase[ ST_ENDURANCE_EXT ]--;
+			cr.Say( SAY_NETMSG, "Ёффект тренировки закончилс€." );
+		}
+		
+		return true;
     }
 	
     bool global_critter_dead( Critter& cr, Critter@ killer )
