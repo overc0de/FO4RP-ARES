@@ -1583,6 +1583,12 @@ void unsafe_GiveAdvExp( Critter& player, int ID, int param1, int param2, string@
 	Critter@ target = GetCritter( ID );
 	if( !valid( target ) ) return;
 	
+	if( player.Param[CR_ADV_POINTS] < player.ParamBase[ CR_ADV_GIVING_EXP ] )
+	{
+		player.Say( SAY_NETMSG, "У вас недостаточно очков для выдачи." );
+		return;
+	}
+	
 	target.StatBase[ ST_EXPERIENCE ]  += player.ParamBase[ CR_ADV_GIVING_EXP ];
 	player.ParamBase[ CR_ADV_POINTS ] -= player.ParamBase[ CR_ADV_GIVING_EXP ];
 	
