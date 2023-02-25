@@ -13,6 +13,7 @@
 #define LOCATION_Deadloc			( 5 )
 #define LOCATION_TLJ_ARENA			( 6 )
 #define LOCATION_Hell				( 7 )
+#define LOCATION_Tanker				( 8 )
 
 // ************************************************************************/
 // * Maps                                               	             */
