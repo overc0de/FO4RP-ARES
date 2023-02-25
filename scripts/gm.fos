@@ -5806,12 +5806,6 @@ void hex_spawn_NPC( Critter& gm, Map& map, uint16 hexX, uint16 hexY )
 		return;
 	}
 	
-	if( !isGM(gm) && gm.ParamBase[ CR_ADV_POINTS ] < 1000 )
-	{
-		gm.Say( SAY_NETMSG, "У вас не хватит очков даже на самый простой призыв." );
-		return;
-	}
-	
 	int iteration = 100;
 	int rng = gm.ParamBase[ ST_VAR4 ];
 	uint16 tempX = 0, tempY = 0;
@@ -5828,31 +5822,6 @@ void hex_spawn_NPC( Critter& gm, Map& map, uint16 hexX, uint16 hexY )
 	Critter@ cr = map.AddNpc( pid, hexX, hexY, Random( 0, 5 ), null, null, null );
 	if( valid( cr ) )
 	{
-		int cost = 500;
-		
-		uint bodytype = cr.StatBase[ST_BODY_TYPE];
-		
-		uint[] mob_bodytypes = { BT_BRAHMIN, BT_LAVASH, BT_RADSCORPION, BT_RAT, BT_DOG, BT_MANTI, BT_PLANT, BT_GECKO, BT_GIANT_ANT, BT_GIANT_BEETLE, BT_GIANT_WASP };
-		if( mob_bodytypes.find(bodytype) != -1 )
-			cost = 1000;
-		
-		uint[] monster_bodytypes = { BT_FLOATER, BT_CENTAUR, BT_ROBOT, BT_DEATHCLAW, BT_ALIEN, BT_BIG_BAD_BOSS, BT_YAO, BT_SWAMP_LURKER, BT_CROCS, BT_MILLEPEDE, BT_SPIDER };
-		if( monster_bodytypes.find(bodytype) != -1 )
-			cost = 3000;
-		
-		uint[] humanoid_bodytypes = { BT_MEN, BT_WOMEN, BT_CHILDREN, BT_SUPER_MUTANT, BT_GHOUL };
-		if( humanoid_bodytypes.find(bodytype) != -1 )
-			cost = 5000;
-
-		if( gm.ParamBase[ CR_ADV_POINTS ] < cost )
-		{
-			DeleteNpc( cr );
-			cr.Say( SAY_EMOTE_ON_HEAD, "vanishes" );
-			gm.Say( SAY_NETMSG, "Цена моба всё равно будет вычтена из ваших очков. В следующий раз следите за тем что призываете!" );
-		}
-		
-		gm.ParamBase[ CR_ADV_POINTS ] -= cost;
-		
         cr.ParamBase[ ST_FACTION ] = gm.ParamBase[ CR_VAL3 ];
 		cr.ParamBase[ CR_IS_AGGRESSIVE ] = gm.ParamBase[ CR_VAL4 ];
 		cr.StatBase[ ST_TEAM_ID ] = gm.ParamBase[ CR_VAL5 ];
