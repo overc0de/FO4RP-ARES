@@ -1645,7 +1645,7 @@ class GUIScreen : IGUIScreenOpt
 			}
 			
 			//knock.
-            if( key == DIK_H && GetCurrentCursor() == CURSOR_DEFAULT && !__ConsoleActive && !KeyPressed[ DIK_LCONTROL ] )
+            if( key == DIK_H && GetCurrentCursor() == CURSOR_DEFAULT && !__ConsoleActive && !KeyPressed[ DIK_LCONTROL ] && !KeyPressed[ DIK_LMENU ] )
             {
                 CritterCl@ cr = GetMonitorCritter( __MouseX, __MouseY );
 				
