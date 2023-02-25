@@ -6797,6 +6797,33 @@ void AdventurerMenu( Critter& cr ) //exported
 	DIALOG_MENU( cr, data );
 }
 
+Item@ getAdventurerStorage( Critter& cr )
+{
+    string name = cr.Name;
+	Map@ map = GetMapByPid( MAP_UTILITY_START, 0 );
+    
+	uint x = 226;
+	for( uint y = 123; y <= 136; y++ )
+	{
+		Item@ cont = map.GetItem( x, y, PID_IBOX_OOO );
+		if( !valid( cont ) )
+		{
+			@cont = map.AddItem( x, y, PID_IBOX_OOO, 1 );
+			cont.Val0 = cr.Id;
+			setOverridenName( cont, true );
+			setLexName( cont, name );
+			return cont;
+		}
+		
+		if( cont.Val0 == int(cr.Id) )
+		{
+			return cont;
+		}
+	}
+	
+	return null;
+}
+
 void answer_AdvMenu( Critter& player, uint answerI, string& answerS )
 {
 	if( answerI == 0 )
@@ -6807,7 +6834,13 @@ void answer_AdvMenu( Critter& player, uint answerI, string& answerS )
 	}
 	
 	if( answerI == 1 )
-		StoreMenu( player );
+	{
+		Item@ cont = getAdventurerStorage(player);
+		if( valid( cont ) )
+		{
+			ShowContainer( player, cont, TRANSFER_FAR_CONT );
+		}
+	}
 	
 	if( answerI == 2 )
 	{

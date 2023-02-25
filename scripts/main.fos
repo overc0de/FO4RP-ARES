@@ -1895,6 +1895,15 @@ bool critter_use_skill( Critter& cr, int skill, Critter@ targetCr, Item@ targetI
 			CheckCartPicMap( cont );
 			uint[] val = { cont.Id, cr.Id };
 			CreateTimeEvent( AFTER( REAL_MS( 10 ) ), "e_UpdateContainer", val, true );
+
+			Map@ cont_map = GetMap( cont.MapId );
+			bool storage_map = valid(cont_map) && cont_map.GetProtoId() == MAP_UTILITY_START;
+			if( !isGM( cr ) && storage_map && isAdventurer(cr) )
+			{
+				cr.Say( SAY_NETMSG, "Сюда нельзя ничего класть." );
+				return true;
+			}
+
 			return false; 
 		}
 		
@@ -2002,6 +2011,7 @@ bool critter_use_skill( Critter& cr, int skill, Critter@ targetCr, Item@ targetI
 				}
 				
 				cr.ParamBase[ CR_ADV_POINTS ] -= cost;
+				cr.Say( SAY_NETMSG, "Вы потратили " + cost + " очков, осталось " + cr.ParamBase[ CR_ADV_POINTS ] + "." );
 			}			
 			
 			return false; // in order for items to transfer return false!

@@ -98,7 +98,7 @@
 #endif
 
 /*********Item & Critter naming************/
-#include "item_naming_h.fos" //WIP
+#include "item_naming_h.fos"
 
 /*********Permadeath damage calculations************/
 #include "module/utils/mutual/deathHP.fos"

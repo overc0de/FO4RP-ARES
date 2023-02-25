@@ -18,7 +18,10 @@ void StoreMenu( Critter& cr ) //exported
 
 void answer_openStore( Critter& player, uint answerI, string& answerS )
 {
-	OpenCrate( player, answerI );
+	if( isGM(player) )
+	{
+		OpenCrate( player, answerI );
+	}
 }
 
 //import void OpenCrate( Critter& player, uint type ) from "store";
