@@ -2677,6 +2677,8 @@ void critter_init( Critter& cr, bool firstTime )
             skin( cr, cr.StatBase[ ST_BODY_TYPE ] );
             cr.StatBase[ ST_BODY_TYPE ] = 0;
 			
+			cr.ParamBase[ CR_AVATAR_RENDER_MODE ] = 2;
+
 			SETFLAG( cr.ParamBase[ PLAYER_FLAGS ], PLAYER_FLAG_RADIO_SAFETY );
 			//SETFLAG( cr.ParamBase[ PLAYER_FLAGS ], PLAYER_FLAG_RTS );
 		}
