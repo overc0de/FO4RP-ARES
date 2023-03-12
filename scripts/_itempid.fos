@@ -491,7 +491,7 @@
 #define PID_ANTIRAD_COSTUME                   		( 20205 )						// Антирадиационный костюм
 #define PID_PERSONAL_JACKET                   		( 20207 )						// Куртка личного пошива
 #define PID_ZERKALO_METAL_ARMOR_MK_II         		( 20210 )						// Металлическая броня мод. II (зерк)
-#define PID_arlthr1                           		( 20543 )						// Усиленная боевая кожаная куртка
+#define PID_REINFORCED_LEATHER                      ( 20543 )						// Усиленная боевая кожаная куртка
 #define PID_TRIBE_ARMOR1                            ( 20558 )						// Кольчуга племенного разведчика
 #define PID_GEKKO_ARMOR							  	( 20573 )						// Броня из Гекко
 #define PID_LEATHER_SHIRT							( 20579 )						// Боевая безрукавка
