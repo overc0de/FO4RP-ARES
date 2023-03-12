@@ -221,7 +221,8 @@ class MenuTerminal: CenteredMenuHandler
 							Item@ emitter = GetItem( terminal.FENCE_GROUP );
 							if( valid( emitter ) )
 							{
-								ToggleLaserFence( map, emitter, false );	
+								bool create = ( checkLaserFence( terminal, map ) ? false : true );
+								ToggleLaserFence( map, emitter, create );	
 							}
 							
 							return true;
@@ -422,10 +423,10 @@ class MenuTerminal: CenteredMenuHandler
 						return true;
 					}
 					
-					if( !HasElectronicLockpicks( cr ) )
+					if( !HasPipBoy( cr ) )
 					{
-						LogCrimeMovement( cr, terminal, "can't hack terminal without electronic lockpick" );
-						cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_NEED_E_LOCKPICK );
+						LogCrimeMovement( cr, terminal, "can't hack terminal without pip-boy" );
+						cr.Say( SAY_NETMSG, "|0xFFFF00 You require to hold a pip-boy for this." );
 						return true;
 					}
 					

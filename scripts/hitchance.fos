@@ -96,6 +96,8 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 		
 		baseHitChance = BaseHitChance( dist, optimal, faloff );
 
+		//Log( "dist "+ dist + " optimal " +optimal+ " faloff " + faloff + " baseHitChance " + baseHitChance);
+
 		if( dist <= optimal )
 		{
 			if(  skillVal > MAX_SKILL_DISTANCE )
@@ -131,8 +133,7 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 		aimModifier = aimMod( aim );
 	}
 
- 
-	//Log( "baseHitChance " + baseHitChance + " acMod "  + acMod + " aimModifier " + aimModifier + " toHitMod " + toHitMod +  " reach " + reach + " injureMod " + injureMod );
+ 	//Log( "baseHitChance " + baseHitChance + " acMod "  + acMod + " aimModifier " + aimModifier + " toHitMod " + toHitMod +  " reach " + reach + " injureMod " + injureMod );
 		
 	int hitChance = baseHitChance - acMod - aimModifier + toHitMod + reach - injureMod - attacker.Param[ ST_DRUNK ];
 

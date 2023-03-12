@@ -52,6 +52,8 @@ class MenuTeleports: CenteredMenuHandler
 				if( target.list() == 0 )
 				{
 					target.warp( cr );
+					stopMenu();
+					return false;
 				}
 				else
 				{
@@ -72,19 +74,23 @@ class MenuTeleports: CenteredMenuHandler
 		
 		if( menu.ButtonMsg( STR_CLOSE_MENU_BUTTON ) )
 		{
-			redrawing = false;
-			
-			MenuTeleports@ loopback = @parent;
-			while( valid( loopback ) )
-			{
-				loopback.redrawing = false;
-				@loopback = @loopback.parent;
-			}
-			
+			stopMenu();			
 			return false;
 		}
 
 		return true;
+	}
+	
+	void stopMenu()
+	{
+		redrawing = false;
+		
+		MenuTeleports@ loopback = @parent;
+		while( valid( loopback ) )
+		{
+			loopback.redrawing = false;
+			@loopback = @loopback.parent;
+		}
 	}
 
 	int getDescriptionFile()
@@ -178,7 +184,9 @@ class Pos
 		while( attempt < 10 )
 		{
 			if( !map.IsHexPassed( hexX, hexY ) )
+			{
 				map.MoveHexByDir( hexX, hexY, Random( 0, 5 ), 1 );
+			}
 			attempt++;
 		}
 
@@ -192,10 +200,13 @@ class Pos
 		
 		Location@ loc = map.GetLocation();
 		if( valid(loc) )
+		{
 			cr.SetWorldPos( loc.WorldX, loc.WorldY );
+		}
 		else
+		{
 			cr.Say( SAY_NETMSG, "|0xFFFF00 You have no idea where you are." );
-		
+		}	
 		return true;
 	}
 	
@@ -332,12 +343,29 @@ class Teleport
 void ShowPlayers( Critter& cr )
 {
 	OpenMenu( cr, "SelectPlayer", MenuPlayers() );
+	cr.RunClientScript( "client_gui@SetPlayerMenuActive", 1, 0, 0, null, null );
+	cr.StatBase[ST_VAR0] = -1;
+}
+
+void unsafe_stopPlayerMenu( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )
+{
+	if( !isGM(player) )
+	{
+		return;
+	}
+	
+	player.StatBase[ST_VAR0] = 0;
 }
 
 class MenuPlayers: CenteredMenuHandler
 {
 	bool MenuUpdate( Critter& cr, iDialogBox& menu )
 	{
+		if( cr.Stat[ST_VAR0] == 0 )
+		{
+			return false;
+		}
+		
 		Critter@[] crs;
 		uint count = GetAllPlayers( crs );
 		for( uint n = 0; n < count; n++ )
@@ -345,26 +373,26 @@ class MenuPlayers: CenteredMenuHandler
 			string text;
 			
 			if( isGM( crs[n] ) )
-			{//ГМ:
+			{
 				text += "[GM]";
 			}
 			else if( crs[n].IsDead() )
-			{//Труп:
+			{
 				text += "x_X";
 			}
 			else if( crs[n].IsKnockout() )
 			{
 				if( crs[n].Stat[ ST_CURRENT_HP ] > 0 )
-				{//Просто лежит
+				{
 					text += "-_-";
 				}
 				else
-				{//В минусах
+				{
 					text += "o_O";
 				}
 			}
 			else
-			{//Цел, жив, орёл
+			{
 				text += "^_^";
 			}
 			
@@ -392,14 +420,10 @@ class MenuPlayers: CenteredMenuHandler
 				while( !map.IsHexPassed( hexX, hexY ) );
 				
 				cr.TransitToMap( map.Id, hexX, hexY, 0 );
+				return false;
 			}
 		}		
 		
-		if( menu.ButtonMsg( STR_CLOSE_MENU_BUTTON ) )
-		{
-			return false;
-		}
-
 		return true;
 	}
 

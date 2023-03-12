@@ -163,11 +163,16 @@ class PlayerMenu: DefaultMenuHandler
 		
 		if( menu.ButtonMsg( STR_PLAYER_MENU_ACTIONS ) )
 		{
-			PlayerMenuActions@ player_menu_actions = PlayerMenuActions();
-			player_menu_actions.level = level + 1;
-			return menu.OpenChild( "Level " + player_menu_actions.level, player_menu_actions );			
+			StartPlayerMenuActions( player );
+			return false;
 		}
 		
+		if( menu.Button( "Fix AP Regen" ) )
+		{
+			player.ParamBase[ CR_FULL_AUTO ] = 0;
+			player.ParamBase[ CR_AUTO_ROUNDS_FIRED ] = 0;
+			return false;
+		}
 		return true;
 	}
 	
@@ -439,15 +444,14 @@ class PlayerMenuSkillRolls: CenteredMenuHandler
 	
 }
 
+void StartPlayerMenuActions( Critter& player )
+{
+    iMenuHandler@ handler = PlayerMenuActions();
+    iDialogBox@ menu = OpenMenu( player, "Player Action menu", handler );
+}
+
 class PlayerMenuActions: CenteredMenuHandler
 {
-	uint level;
-	
-    PlayerMenuActions()
-	{
-        level = this.level;
-    }
-
     bool MenuUpdate( Critter& player, iDialogBox& menu )
 	{
 		if( player.Param[ CR_SLEEPING_STATE ] == 0 )

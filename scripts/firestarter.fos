@@ -135,6 +135,7 @@ bool Ignite( Critter& cr, Item& item, Item& target )
 		
 		itemsInFire.resize(0);
 	}
+	
 	return true;
 }
 
@@ -321,18 +322,26 @@ uint e_Burn( uint[]@ values )
 		switch( target.GetProtoId() )
 		{
 			case( PID_FIREBARREL ):
+			{
 				@ proto = GetProtoItem( PID_FIREBARREL );
 				break;
+			}
 			case( PID_BRAZIER ):
+			{
 				@ proto = GetProtoItem( PID_BRAZIER );
 				break;
+			}
 			case( PID_COAL_POWERGEN ):
+			{
 				@ proto = GetProtoItem( PID_COAL_POWERGEN );
 				break;
+			}
 			case( PID_FURNACE_SMALL ):
+			{
 				@ proto = GetProtoItem( PID_FURNACE_SMALL );
 				FurnaceStage( target );
 				break;
+			}
 			default:
 			{	
 				uint ashPid = _GetOneRandom( Ashes );
@@ -342,6 +351,7 @@ uint e_Burn( uint[]@ values )
 				break;
 			}
 		}
+		
 		target.PicMap = proto.PicMap;
 		setAnimState( target );
 		target.Update();
@@ -375,6 +385,7 @@ uint e_Burn( uint[]@ values )
 			}
 		}
 	}
+	
 	return 0;
 }
 
@@ -392,6 +403,7 @@ void setAnimState( Item& target )
 		SETFLAG( target.Flags, ITEM_SHOW_ANIM_EXT );
 		UNSETFLAG( target.Flags, ITEM_LIGHT );
 	}
+	
 	target.Update();
 }
 
@@ -1044,18 +1056,23 @@ class MenuFireBarrel: CenteredMenuHandler
 
 			if( menu.ButtonMsg( STR_FIRE_MENU_EXTINGUISH ) )
 			{
-				if( hasItems( cr, WaterSource ) )
+				Item@[] watersource = getItems( cr, WaterSource );
+				for( uint i = 0, len = watersource.length(); i < len; i++ )
 				{
-					Item@[] watersource = getItems( cr, WaterSource );
-					Item@ water = watersource[0];
-					Extinguish( cr, water, firebarrel );
-					return false;
+					Item@ water = watersource[i];
+					if( valid( water ) )
+					{
+						if( WaterSource.find( water.GetProtoId() ) != -1 || ( water.Proto.Type == ITEM_TYPE_FLASK && water.REMAINING_USES > 0 ) )
+						{
+							Extinguish( cr, water, firebarrel );
+							return false;
+						}
+					}
+
 				}
-				else
-				{
-					cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_REQUIRE_WATER_FOR_FIRE );
-					return true;
-				}
+				
+				cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_REQUIRE_WATER_FOR_FIRE );
+				return true;
 			}
 		}
 		else

@@ -1,0 +1,37 @@
+#include "_macros.fos"
+
+void changedParam_AvatarIndex( Critter& cr, uint paramIndex, int oldValue )
+{
+	if( cr.Param[paramIndex] > AVATAR_COUNT )
+	{
+		cr.ParamBase[paramIndex] = oldValue;
+	}
+}
+
+void changedParam_AvatarHash( Critter& cr, uint paramIndex, int oldValue )
+{
+	string@ str = GetHashStr( uint( cr.Param[paramIndex] ) );
+	if( !valid( str ) )
+	{
+		Log( "hash not found" );
+		cr.ParamBase[paramIndex] = oldValue;
+		return;
+	}	
+}
+
+void unsafe_SetAvatar( Critter& player, int critterId, int index, int hash, string@, int[]@ )
+{
+	if( uint( critterId ) == player.Id )
+	{
+		player.AvatarBase[AVATAR_BEGIN + index] = hash;
+	}
+}
+
+void unsafe_ActivationAvatar( Critter& player, int critterId, int index, int, string@, int[]@ )
+{
+	if( uint( critterId ) == player.Id )
+	{
+		player.StatBase[ST_AVATAR_INDEX] = index;
+	}
+}
+

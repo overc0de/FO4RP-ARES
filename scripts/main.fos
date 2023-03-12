@@ -190,8 +190,12 @@ bool start()
 
     SetSendParameter( ST_BODY_TYPE, true );
 	SetSendParameter( ST_FACTION, true );
-	SetSendParameter( ST_TEAM_ID, true );		
-	SetSendParameter( ST_AVATAR_HASH, true );
+	SetSendParameter( ST_TEAM_ID, true );
+	
+	SetSendParameter( ST_AVATAR_INDEX, true );	
+	SetSendParameter( AVA_HASH_0, true );
+	SetSendParameter( AVA_HASH_1, true );
+	SetSendParameter( AVA_HASH_2, true );
 	
     SetSendParameter( QST_MEDIUM, true );
     SetSendParameter( QST_GAMEMODE, true );
@@ -294,8 +298,6 @@ uint loop() // moved to loop.fos
 void critter_attack( Critter& cr, Critter& target, ProtoItem& weapon, uint8 weaponMode, ProtoItem@ ammo )
 {
 	//cr.Say( SAY_NETMSG, "cr.Stat[ ST_CURRENT_AP ] " + cr.Stat[ ST_CURRENT_AP ] );
-	bool isPlayer = cr.IsPlayer();
-	
 	if( !cr.IsLife() )
 	{
 		return;
@@ -340,8 +342,8 @@ void critter_attack( Critter& cr, Critter& target, ProtoItem& weapon, uint8 weap
 	uint8 mode = weaponMode;
 	
 	int needAp = attack_ap( cr, weapon, mode );
-	//cr.Say( SAY_NETMSG, "cr.Stat[ ST_CURRENT_AP ] " + cr.Stat[ ST_CURRENT_AP ] + " needAp " + needAp );
-	if( isPlayer && ( needAp == 0 || cr.Stat[ ST_CURRENT_AP ] < needAp ) && cr.Param[ CR_FULL_AUTO ] == 0 )
+	//cr.Say( SAY_NORM, "cr.Stat[ ST_CURRENT_AP ] " + cr.Stat[ ST_CURRENT_AP ] + " needAp " + needAp );
+	if( ( needAp == 0 || cr.Stat[ ST_CURRENT_AP ] < needAp ) && cr.Param[ CR_FULL_AUTO ] == 0 )
 	{
 		//Log( "needAp " + needAp + " cr.Stat[ ST_CURRENT_AP ] " + cr.Stat[ ST_CURRENT_AP ] + " cr.Param[ CR_FULL_AUTO ] " + cr.Param[ CR_FULL_AUTO ] );
 		return;
@@ -392,7 +394,7 @@ void critter_attack( Critter& cr, Critter& target, ProtoItem& weapon, uint8 weap
         windupTime = 5;
     }
 	
-	if( isPlayer && cr.Param[ CR_FULL_AUTO ] == 0 )
+	if( cr.Param[ CR_FULL_AUTO ] == 0 )
 	{
 		cr.StatBase[ ST_CURRENT_AP ] -= needAp * 100;
 	}
@@ -418,7 +420,7 @@ void critter_attack( Critter& cr, Critter& target, ProtoItem& weapon, uint8 weap
 	}
 	else
 	{
-		CombatAttack( cr, target, weapon, mode, ammo, 0, 0, false );
+		CombatAttack( cr, target, weapon, mode, ammo, 0, 0, false, false );
 		return;
 	}
 }
@@ -527,7 +529,7 @@ bool critter_stealing( Critter& cr, Critter& thief, Item& item, uint count )
         volume = 1;
         volumeModifier = 10;
 	}
-    else if(volume <= 20 && volume > 0 )
+    else if( volume <= 20 && volume > 0 )
     {
         volumeModifier = 10;
     }
@@ -839,6 +841,12 @@ bool critter_use_item( Critter& cr, Item& item, Critter@ targetCr, Item@ targetI
 		if( scenToiletList.find( targetScen.ProtoId ) > -1 )
 		{
 			FlushToilet( cr, item );
+			return true;
+		}
+		
+		// Gathering dirty water
+		if( start_gathering_water( cr, targetScen.ProtoId ) )
+		{
 			return true;
 		}
 	}
@@ -1454,7 +1462,7 @@ bool critter_use_item( Critter& cr, Item& item, Critter@ targetCr, Item@ targetI
 	// Item use on locker
     if( valid( targetItem ) && ( targetItem.GetType() == ITEM_TYPE_DOOR || targetItem.GetType() == ITEM_TYPE_CONTAINER ) )
 	{
-        return UseItemOnLocker( cr, targetItem, item );;
+		return UseItemOnLocker( cr, targetItem, item );
 	}
 
     // Take process to engine
@@ -1567,18 +1575,8 @@ bool critter_use_skill( Critter& cr, int skill, Critter@ targetCr, Item@ targetI
 				LockInPlace( cr, targetItem );
 				break;
 			case( SKILL_PICK_ON_GROUND ):
-			{
-				if( !FLAG( targetItem.Flags, ITEM_CAN_PICKUP ) )
-				{
-					ShowMenuBrew( cr, targetItem );
-				}
-				else
-				{
-					PickItem( cr, targetItem );
-					ChangeCritterSpeed( cr );
-				}
+				ShowMenuBrew( cr, targetItem );
 				break;
-			}
 		}
 		return true;
 	}
@@ -2401,7 +2399,6 @@ bool critter_use_skill( Critter& cr, int skill, Critter@ targetCr, Item@ targetI
 			
 			if( valid( targetCr ) )
 			{
-				Item@ hands = _CritGetItemHand ( targetCr );
 				if( HandsTied( targetCr ) )
 				{
 					CrimeLog( cr, crInfo( cr ) + " looks at inventory of: " + crInfo( targetCr ) + " who is tied up." );
@@ -2420,14 +2417,17 @@ bool critter_use_skill( Critter& cr, int skill, Critter@ targetCr, Item@ targetI
 					
 					if( !isGM( cr ) )
 					{
-						int InvCheckCalculation = ( cr.SkillBase[ SK_STEAL ] / 3 ) - ( ( targetCr.SkillBase[ SK_STEAL ] / 24 ) + targetCr.StatBase[ ST_LUCK ] + targetCr.StatBase[ ST_PERCEPTION ] );
-						if( Random( 1, 100 ) < InvCheckCalculation )
+						int InvCheckCalculation = ( ( cr.Skill[ SK_STEAL ] / 3 ) + cr.Stat[ ST_PERCEPTION ] ) - ( ( targetCr.Skill[ SK_STEAL ] / 30 ) + targetCr.Stat[ ST_PERCEPTION ] );
+						int roll = Random( 1, 100 );
+						Log("InvCheckCalculation" + InvCheckCalculation);
+						if( roll >= InvCheckCalculation )
 						{
 							CrimeLog( targetCr, crInfo( targetCr ) + " detected his inventory being checked!" );
 							targetCr.SayMsg( SAY_NETMSG, TEXTMSG_GAME, STR_SKILL_STEAL_NOTIFICATION );
 						}
 					}
 				}
+				
 				ShowContainer( cr, targetCr, TRANSFER_CRIT_STEAL );
 				return true;
 			}
@@ -2560,6 +2560,9 @@ void Say( Critter@ target, uint type, string text )
 // If ammo is not valid than only unload.
 void critter_reload_weapon( Critter& cr, Item& weapon, Item@ ammo )
 {
+	cr.ParamBase[ CR_IS_WINDUPED ] = 0;
+	cr.ParamBase[ CR_AUTO_ROUNDS_FIRED ] = 0;
+	cr.SetAnims( COND_LIFE, 0, ANIM2_IDLE );
 	ReloadWeapon( cr, weapon, ammo );
 }
 
@@ -2673,6 +2676,7 @@ void critter_init( Critter& cr, bool firstTime )
             cr.StatBase[ ST_REPLICATION_COUNT ] = 0;
             cr.StatBase[ ST_TEAM_ID ] = 1;
             cr.StatBase[ ST_DAMAGE_TYPE ] = DAMAGE_NORMAL;
+			cr.ParamBase[ CR_AVATAR_RENDER_MODE ] = 1;
 
             skin( cr, cr.StatBase[ ST_BODY_TYPE ] );
             cr.StatBase[ ST_BODY_TYPE ] = 0;
@@ -3686,13 +3690,16 @@ bool canPutItemInContainer( Critter& cr, Item@ item, Item@ container )
 	
 	uint[] proper_paper_containment_pids =
 	{
-		PID_HOLODISK, PID_MORNING_STAR_MINE, PID_KOKOWEEF_MINE_SCRIP, PID_GOLDEN_COIN, PID_GOLDEN_JEWELRY, PID_BLUE_PASS_KEY, PID_DOG_TAGS,
-		PID_BOTTLE_CAPS, PID_REAL_BOTTLE_CAPS, PID_TANKER_PASS, PID_TALISMAN, PID_DOLLAR_100, PID_DOLLAR_20, PID_DOLLAR_5, PID_RPSTUFF2, PID_RPSTUFF4, PID_PICTURE,
-		PID_PREWAR_DOLLAR_100, PID_PREWAR_DOLLAR_20, PID_PREWAR_DOLLAR_5, PID_PREWAR_DOLLAR_1, 
+		PID_HOLODISK, PID_MORNING_STAR_MINE, PID_KOKOWEEF_MINE_SCRIP, PID_GOLDEN_COIN, PID_GOLDEN_JEWELRY, PID_BLUE_PASS_KEY, PID_DOG_TAGS, PID_BOTTLE_CAPS, PID_REAL_BOTTLE_CAPS, PID_TANKER_PASS, PID_TALISMAN, PID_DOLLAR_100, PID_DOLLAR_20, PID_DOLLAR_5,
+		PID_RPSTUFF2, PID_RPSTUFF4, PID_PICTURE, PID_PREWAR_DOLLAR_1, PID_PREWAR_DOLLAR_5, PID_PREWAR_DOLLAR_20, PID_PREWAR_DOLLAR_100, PID_BP_COLT6520, PID_BP_MOUSER, PID_BP_45REVOLVER, PID_BP_SIG14MM, PID_BP_DEAGLE, PID_BP_COLT1911, PID_BP_ANACONDA,
+		PID_BP_INJECTOR, PID_BP_GAUSSPIS, PID_BP_223PISTOL, PID_BP_SMG10MM, PID_BP_GGUN, PID_BP_P90, PID_BP_G11, PID_BP_DOMINION_ROBUR, PID_BP_DOMINION_LATENS, PID_BP_HUNTING, PID_BP_XL5MM, PID_BP_SNIPER223, PID_BP_AK112, PID_BP_FNFL, PID_BP_TOMMYGUN,
+		PID_BP_GAUSSGUN, PID_BP_DOUBLESHOTGUN, PID_BP_COMBSHOTGUN, PID_BP_CAWS, PID_BP_JHUMMER, PID_BP_REMINGTON870, PID_BP_LASPIST, PID_BP_PLASPIST, PID_BP_PULSEPIST, PID_BP_LASRIFLE, PID_BP_PLASRIFLE, PID_BP_PULSERIFLE, PID_BP_GATLING, PID_BP_AUCUSTIC,
+		PID_BP_EMP_PROBOINIK, PID_BP_FLAMER, PID_BP_MINIGUN, PID_BP_BAZOOKA, PID_BP_VINDICATOR, PID_BP_M60, PID_BP_LSW, PID_BP_BOZAR, PID_BP_AUTOCANNON, PID_BP_M32, PID_BP_RAIDER_CANNON, PID_BP_SHOCKER, PID_BP_PFIST, PID_BP_SSLEDGE, PID_BP_RIPPER,
+		PID_BP_HAND_SAW, PID_BP_ESSENCE, PID_BP_FRAG_GRENADE, PID_BP_PLAS_GRENADE, PID_BP_EMP_GRENADE, PID_BP_THROW_KNIFE, PID_BP_40MM, PID_BP_FRAGMIS, PID_BP_KRAKMIS, PID_BP_CASELESS, PID_BP_GAUSAMMO, PID_BP_FREACTOR, PID_BP_TESLA_ARMOR, PID_BP_CA_ARMOR,
+		PID_BP_PA_ARMOR, PID_BP_APA_ARMOR, PID_BP_HOUND_ARMOR, PID_BP_DEFIB, PID_BP_FPRESS, PID_BP_CENTRF, PID_BP_MENTATS, PID_BP_BUFFOUT, PID_BP_RADAWAY, PID_BP_RAD_LX, PID_BP_PSYCHO, PID_BP_EXTRACT, PID_BP_HYPO_POISON, PID_BP_TRAUMATIN,
 		PID_RUIN_MAP, PID_RAIDERS_MAP, PID_RANGER_MAP, PID_MAP, PID_PACKAGE_CHEK,
-		
-		PID_HANDWRITINGS, PID_WALLET, PID_CRAFT_RECIPES, PID_PASSPORT, PID_LETTER, PID_POSTMAN_LETTER, PID_PAPERS_JAMMED,
-		PID_ELRON_FIELD_REP, PID_CLIPBOARD, PID_FLIST08, PID_FLIST09, PID_StrpBlt, PID_mgzn01
+		PID_HANDWRITINGS, PID_WALLET, PID_CRAFT_RECIPES, PID_PASSPORT, PID_LETTER, PID_POSTMAN_LETTER, PID_PAPERS_JAMMED, 
+		PID_ELRON_FIELD_REP, PID_CLIPBOARD, PID_FLIST08, PID_FLIST09, PID_StrpBlt, PID_mgzn01, PID_CONFIRMATION_FORM
 	};
 	
 	uint[] paper_container_pids =

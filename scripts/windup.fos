@@ -162,7 +162,7 @@ void ChangeWindup( Critter& cr, bool ignore_bussy )
 			action_name = STR_EMOTE_RAISES_LEX;
 			if( realWeapon.GetType() == ITEM_TYPE_WEAPON )
 			{
-				APcost = weapon.Weapon_ApCost_0 * 100;
+				APcost = valid( weapon ) ? weapon.Weapon_ApCost_0 * 100 : 0;
 			}
 		}
 		
@@ -244,7 +244,7 @@ void ChangeWindup( Critter& cr, bool ignore_bussy )
 	}
 	
 	string desc;
-	if( valid( realWeapon ) )
+	if( valid( realWeapon ) && valid( weapon ) )
 	{
 		if( realWeapon.ITEM_GM_LEXEM == PID_POPUP )
 		{
@@ -252,10 +252,14 @@ void ChangeWindup( Critter& cr, bool ignore_bussy )
 		}
 		else
 		{
-			if( realWeapon.ITEM_GM_LEXEM == 0 )
-				desc = itemName( weapon.ProtoId, null );
-			else
+			if( realWeapon.Info != 0 && realWeapon.ITEM_GM_LEXEM != 0 )
+			{
 				desc = itemName( realWeapon.ITEM_GM_LEXEM, null );
+			}
+			else
+			{
+				desc = itemName( weapon.ProtoId, null );
+			}
 		}
 
 		cr.SayMsg( SAY_EMOTE, TEXTMSG_TEXT, action_name, "$proto" + desc );
