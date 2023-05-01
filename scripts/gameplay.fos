@@ -216,14 +216,14 @@ class Gameplay : iManagerModule, iManager_loop,
 			cr.AddTimeEvent( "poison@cte_Poison", REAL_SECOND( 5 ), CTE_POISON );
 		}
 		
-        if( cr.TimeoutBase[ TO_FIT ] > 0 && cr.ParamBase[CR_IS_FIT] == 0 )
+        if( cr.Timeout[ TO_FIT ] > 0 && cr.ParamBase[CR_IS_FIT] == 0 )
 		{
 			cr.ParamBase[CR_IS_FIT] = 1;
 			cr.StatBase[ ST_STRENGTH_EXT ]++;
 			cr.StatBase[ ST_ENDURANCE_EXT ]++;
 			cr.Say( SAY_NETMSG, "Вы в тонусе." );
 		}
-		else if( cr.TimeoutBase[ TO_FIT ] <= 0 && cr.ParamBase[CR_IS_FIT] != 0 )
+		else if( cr.Timeout[ TO_FIT ] <= 0 && cr.ParamBase[CR_IS_FIT] != 0 )
 		{
 			cr.ParamBase[CR_IS_FIT] = 0;
 			cr.StatBase[ ST_STRENGTH_EXT ]--;
