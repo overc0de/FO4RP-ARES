@@ -1313,6 +1313,7 @@ on acid or dirt.}
 {12501}{}{ She looks: }   # Female
 {12502}{}{ It looks: }    # It
 {12503}{}{ Looks: }    	  # Unknown
+
 {12510}{}{|0x888888 Dead}
 {12511}{}{|0xAAAAAA Mortally wounded}
 {12512}{}{|0xFFFFFF Uncontious}
@@ -1321,7 +1322,8 @@ on acid or dirt.}
 {12515}{}{|0xF8BE00 Badly wounded} 
 {12516}{}{|0xF8DF00 Wounded}        
 {12517}{}{|0xCFF800 Lightly wounded} 
-{12518}{}{|0x3CF800 Unhurt}       
+{12518}{}{|0x3CF800 Unhurt}  
+     
 {12520}{}{|0x3CF800  and has serious damage}               # hurt
 {12521}{}{|0x3CF800 , but has serious damage}             # unhurt
 
@@ -1360,7 +1362,6 @@ on acid or dirt.}
 {12600}{}{You can't move.}
 # Текст по хоткею - слишком частое использование
 {12601}{}{You can't send messages so frequently.}
-# Текст по хоткею - слишком частое использование
 {12602}{}{Device frequency is set to: }
 # robot repair
 {12750}{}{You have successfully repaired the robot.}
