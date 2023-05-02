@@ -42,6 +42,17 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 	{
 		dist = GetCrittersDistantion( attacker, target );
 		acMod = target.Stat[ ST_ARMOR_CLASS ];
+		
+		if( target.TraitBase[TRAIT_BRUISER] != 0 )
+		{
+			acMod -= 25;
+		}
+		
+		if( target.TraitBase[TRAIT_SMALL_FRAME] != 0 )
+		{
+			acMod += 25;
+		}
+		
 		if( dist == 1 && ( IsHuman( target ) || IsMutant( target ) ) ) // Dodge from unarmed
 		{
 			if( !target.IsKnockout() )

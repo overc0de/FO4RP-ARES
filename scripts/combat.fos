@@ -434,6 +434,25 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 	// Hit location modifiers
 	if( validAttacker && validTarget )
 	{
+		if( _distance == 1 )
+		{
+			float roll = CLAMP( target.Skill[ SK_UNARMED ], 0, 300 ) / 300.0f; //[0..1]
+			if( int( roll * 50 ) >= Random( 1, 100 ) )
+			{
+				if( int( roll * 10 ) >= Random( 1, 100 ) )
+				{
+					if( validWeapon )
+					{
+						target.Say( SAY_EMOTE, "Парирует атаку и выбивает оружие из рук" );
+						MoveItem( realWeapon, 1, map, attacker.HexX, attacker.HexY );
+					}
+				}
+				else target.Say( SAY_EMOTE, "Парирует атаку " );					
+				
+				@target = @attacker;
+			}
+		}
+
 		if( aim == HIT_LOCATION_NONE || ( isRanged && attacker.Trait[ TRAIT_FAST_SHOT ] != 0 && Random( 0, 2 ) != 0 ) )
 		{
 			aim = RandomAim();

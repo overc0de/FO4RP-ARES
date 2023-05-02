@@ -250,7 +250,7 @@
 			sign = -1;
 		}
 		cr.StatBase[ ST_STRENGTH ] += int( BRUISER_STRENGTH_BONUS ) * sign;
-		cr.StatBase[ ST_ACTION_POINTS ] -= int( BRUISER_MAX_AP_MALUS )   * sign;
+		//cr.StatBase[ ST_ACTION_POINTS ] -= int( BRUISER_MAX_AP_MALUS )   * sign;
 	}
 
 	void changedParam_SexAppeal( Critter& cr, uint, int oldValue )
@@ -555,7 +555,7 @@
 		if( _param_[ TRAIT_BRUISER ] != 0 )
 		{
 			_param_[ ST_STRENGTH ] += BRUISER_STRENGTH_BONUS;
-			_param_[ ST_ACTION_POINTS ] -= BRUISER_MAX_AP_MALUS;
+			//_param_[ ST_ACTION_POINTS ] -= BRUISER_MAX_AP_MALUS;
 		}
 		
 		if( _param_[ TRAIT_NERD ] != 0 )
