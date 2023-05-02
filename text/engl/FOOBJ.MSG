@@ -12526,7 +12526,7 @@ advantage}
 {2101300}{}{Pneumatic Gauntlet}
 {2101301}{}{An archaic glove outfitted with a repurposed hydraulic pump that is capable of propelling a metal plate at dangerous speeds. What the glove lacks in size it makes up for in speed}
 {2101400}{}{Shock Gauntlet}
-{2101401}{}{Someone took a car battery and a gauntlet, mashed them together, and hooked that up to an electrified brass knuckle, now you’re left with a shocking weapon}
+{2101401}{}{Someone took a car battery and a gauntlet, mashed them together, and hooked that up to an electrified brass knuckle, now you're left with a shocking weapon}
 {2101500}{}{Primitive Sledgehammer}
 {2101501}{}{The simplest handy sledgehammer}
 {2101600}{}{Laser Gun}
@@ -14181,7 +14181,6 @@ The module also helps correct bad eye-sight, boosting vision to an equivalent of
 {2369801}{}{These are clearly the boxes that are used by different post services}
 {2369900}{}{Post boxes}
 {2369901}{}{These are clearly the boxes that are used by different post services}
-
 {2370000}{}{Fridge}
 {2370001}{}{A refrigerator with castors for easy transport}
 {2370100}{}{Crate}
