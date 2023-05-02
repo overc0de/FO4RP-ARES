@@ -2186,7 +2186,7 @@ Sound radius: @lex volume@}
 {102103}{}{STEALING}
 {102113}{}{TRAPS}
 {102123}{}{SCIENCE}
-{102133}{}{REOPAIR}
+{102133}{}{REPAIR}
 {102143}{}{-}
 {102153}{}{BARTER}
 {102163}{}{-}
