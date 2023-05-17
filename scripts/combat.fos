@@ -1019,6 +1019,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 	else
 	{
 		attack.BonusDmg = attacker.Stat[ ST_MELEE_DAMAGE ];
+		attack.BonusDmg += attacker.Skill[ SK_UNARMED ] / 10;
 	}
 	
 	if( validAttacker )
