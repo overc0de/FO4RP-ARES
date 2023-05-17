@@ -1884,6 +1884,12 @@ void TryResurect( Critter& cr, Critter& targetCr )
 			return;
 		}
 		
+		if( cr.Skill[ SK_DOCTOR ] < 160 && cr.Skill[ SK_OUTDOORSMAN ] < 160 )
+		{
+			cr.Say( SAY_NETMSG, "Вы недостаточно опытны что бы сделать это. Необходимый навык доктора или выживания - 160%" );
+			return;
+		}
+		
 		for( int dx = -1; dx < 1; dx++ )
 		{
 			for( int dy = -1; dy < 1; dy++ )
