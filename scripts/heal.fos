@@ -1512,7 +1512,7 @@ class BandageItemCollection
 BandageItemCollection@ bandageItems = BandageItemCollection()
 //					    Pid   		value_heal,		healing_rate,		 sk_mod,	   value_bleed,		  SoundName
 	.bandageItem( PID_BANDAGE,			20,				1.0f,				3,				80,			"bandage.ogg" 	)
-	.bandageItem( PID_CRAFT_L_RAGS,		15,			  	0.5f,				5,				40,			"bandage.ogg"	);
+	.bandageItem( PID_CRAFT_L_RAGS,		15,			  	0.5f,				6,				40,			"bandage.ogg"	);
 	
 BandageItem@ GetBandageItem( Item@ item )
 {
@@ -1646,11 +1646,11 @@ void BandageResult( Critter& cr, Critter& targetCr, Item& bandage )
 	uint rate = uint( targetCr.Stat[ ST_HEALING_RATE ] * bandageItem.healing_rate );
 	if( targetCr.GetTimeEvents( CTE_BANDAGE, index, null, null ) > 0 )
 	{
-		targetCr.ChangeTimeEvent(	index[0],REAL_MINUTE( BANDAGE_HEALING_TIME ), rate );
+		targetCr.ChangeTimeEvent(	index[0], REAL_MINUTE( BandageHealingTime( targetCr ) ), rate );
 	}
 	else
 	{
-		targetCr.AddTimeEvent( "cte_Bandage", REAL_MINUTE( BANDAGE_HEALING_TIME ), CTE_BANDAGE, rate );
+		targetCr.AddTimeEvent( "cte_Bandage", REAL_MINUTE( BandageHealingTime( targetCr ) ), CTE_BANDAGE, rate );
 	}
 	_SubItem( bandage, 1 );
 	targetCr.StatBase[ ST_EXPERIENCE ] += bandageBleedEffect + bandageHealEffect; // more effecient is was - more experience you get
@@ -1669,7 +1669,12 @@ uint cte_Bandage( Critter& targetCr, int identifier, uint& rate )
 
     ChangeCritterSpeed( targetCr );
 	
-    return REAL_MINUTE( BANDAGE_HEALING_TIME );
+    return REAL_MINUTE( BandageHealingTime(targetCr) );
+}
+
+uint BandageHealingTime( Critter& cr )
+{
+	return cr.Skill[ SK_FIRST_AID ] >= 200 ? 1 : BANDAGE_HEALING_TIME;
 }
 
 class HealingItem
