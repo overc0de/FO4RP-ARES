@@ -437,21 +437,29 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 	{
 		if( _distance == 1 )
 		{
-			float roll = CLAMP( target.Skill[ SK_UNARMED ], 0, 300 ) / 300.0f; //[0..1]
-			if( int( roll * 50 ) >= Random( 1, 100 ) )
+			int target_skill = target.Skill[ SK_UNARMED ];
+			if( target.Skill[ SK_MELEE_WEAPONS ] > target.Skill[ SK_UNARMED ] )
+				target_skill = target.Skill[ SK_MELEE_WEAPONS ];
+			
+			if( target_skill >= 180 )
 			{
-				if( int( roll * 10 ) >= Random( 1, 100 ) )
+				float roll = CLAMP( target_skill, 0, 300 ) / 300.0f; //[0..1]
+				if( int( roll * 50 ) >= Random( 1, 100 ) )
 				{
-					if( validWeapon )
+					if( int( roll * 10 ) >= Random( 1, 100 ) )
 					{
-						target.Say( SAY_EMOTE, "Парирует атаку и выбивает оружие из рук" );
-						MoveItem( realWeapon, 1, map, attacker.HexX, attacker.HexY );
+						if( validWeapon )
+						{
+							target.Say( SAY_EMOTE, "Парирует атаку и выбивает оружие из рук" );
+							MoveItem( realWeapon, 1, map, attacker.HexX, attacker.HexY );
+						}
 					}
-				}
-				else target.Say( SAY_EMOTE, "Парирует атаку " );					
-				
-				@target = @attacker;
+					else target.Say( SAY_EMOTE, "Парирует атаку " );					
+					
+					@target = @attacker;
+				}				
 			}
+			
 		}
 
 		if( aim == HIT_LOCATION_NONE || ( isRanged && attacker.Trait[ TRAIT_FAST_SHOT ] != 0 && Random( 0, 2 ) != 0 ) )
