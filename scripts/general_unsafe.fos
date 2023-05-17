@@ -499,6 +499,7 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 	else if( weaponType == WS_THROWING )
 	{
 		wpnMaxDist = MIN( wpnMaxDist, 3 * MIN( int( 10 ), attacker.Stat[ ST_STRENGTH ] ) );
+		if( attacker.Skill[SK_THROWING] >= 200 ) wpnMaxDist += 5;
 		if( dist > wpnMaxDist )
 		{
 			attacker.SayMsg( SAY_NETMSG, TEXTMSG_COMBAT, STR_COMBAT_THROW_TOO_FAR );
@@ -613,6 +614,7 @@ void unsafe_critter_attack( Critter& attacker, int target_Id, int param1, int we
 	if( weaponType == WS_THROWING )
 	{
 		wpnMaxDist = MIN( wpnMaxDist, 3 * MIN( int( 10 ), attacker.Stat[ ST_STRENGTH ] ) );
+		if( attacker.Skill[SK_THROWING] >= 200 ) wpnMaxDist += 5;
 	}
 	
 	//Log( "dist " + dist + " wpnMaxDist " + wpnMaxDist );

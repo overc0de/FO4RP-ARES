@@ -755,6 +755,11 @@ class GUIScreen : IGUIScreenOpt
 						wpnMaxDist *= 2;
 					}
 					
+					if( valid( weapon) && skillNum == SK_THROWING && chosen.Skill[SK_THROWING] >= 200 )
+					{
+						wpnMaxDist += 5;
+					}
+					
 					bool isShotgun = valid( ammo ) && FLAG( ammo.Ammo_Perk, AMMO_PERK_SPREADSHOT );
 
 					int radius_1 = 1;

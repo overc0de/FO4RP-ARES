@@ -2143,6 +2143,7 @@ string[] generic_description_slot( int slot )
 		if( skill == SK_THROWING )
 		{
 			wpnMaxDist = MIN( wpnMaxDist, 3 * MIN( int(10), chosen.Stat[ ST_STRENGTH ] ) );
+			if( chosen.Skill[SK_THROWING] >= 200 ) wpnMaxDist += 5;
 		}
 		result.insertLast( line + "|0xFFFF00  " + wpnMaxDist );
 	}

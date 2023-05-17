@@ -90,6 +90,7 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 	if( skillNum == SK_THROWING ) 
 	{
 		wpnMaxDist = MIN( wpnMaxDist, 3 * MIN( int(10), attacker.Stat[ ST_STRENGTH ] ) );
+		if( attacker.Skill[SK_THROWING] >= 200 ) wpnMaxDist += 5;
 	}
 	
 	int baseHitChance = skillVal;
