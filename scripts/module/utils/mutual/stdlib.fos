@@ -151,7 +151,9 @@ shared uint CountItemsByPID( ItemMutual@[] list, uint PID )
 
 shared uint CalculateItemCost( ItemMutual& item, CritterMutual& cr, CritterMutual& npc, bool sell )
 {
-	return CalculateItemCost( item, cr.Skill[ SK_BARTER ] - npc.Skill[ SK_BARTER ], sell );
+	int skill_difference = cr.Skill[ SK_BARTER ] - npc.Skill[ SK_BARTER ];
+	if( cr.Skill[ SK_BARTER ] >= 150 ) skill_difference = 150;
+	return CalculateItemCost( item, skill_difference, sell );
 }
 
 shared uint CalculateItemCost( ItemMutual& item )
