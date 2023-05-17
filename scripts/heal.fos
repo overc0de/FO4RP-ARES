@@ -18,6 +18,11 @@ uint doctorSkill( Critter& cr )
 	return cr.Skill[ SK_DOCTOR ] + uint( cr.Skill[ SK_OUTDOORSMAN ] * 0.5 );
 }
 
+uint docFlatBonus( Critter& cr )
+{
+	return cr.Skill[ SK_DOCTOR ] >= 200 ? uint( HEALING_DIFFICULTY * 20 ) : 0 ; //20%
+}
+
 void StartMenuDOC( Critter& healer, Critter& target )
 {
 	OpenMenu( healer, "DOC", MenuDOC( target ) );
@@ -365,7 +370,7 @@ class MenuDOC_Bullet: CenteredMenuHandler
 
 	int calculate_chances( bool actual_use )
 	{
-		int skill = doctorSkill(cr);
+		int skill = doctorSkill(cr) + docFlatBonus(cr);
 
 		string skill_info = "DOC base [" + skill + "] ";
 		
@@ -841,7 +846,7 @@ class MenuDOC_Heavy: CenteredMenuHandler
 	
 	int calculate_chances( bool actual_use )
 	{
-		int skill = doctorSkill(cr);
+		int skill = doctorSkill(cr) + docFlatBonus(cr);
 		
 		string skill_info = "DOC base [" + skill + "] ";
 		
