@@ -203,6 +203,8 @@ bool start()
 	
 	SetSendParameter( TRAIT_SURE_FOOTED, true );
 	SetSendParameter( TRAIT_BLOODY_MESS, true );
+	SetSendParameter( TRAIT_BRUISER, true );
+	SetSendParameter( TRAIT_SMALL_FRAME, true );
 
 	SetSendParameter( CR_IS_AGGRESSIVE, true );
 	SetSendParameter( CR_DIRTINESS, true );
