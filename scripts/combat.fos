@@ -324,7 +324,7 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 		if( attacker.Skill[SK_THROWING] >= 200 ) wpnMaxDist += 5;
 	}
 
-    uint8 weaponType = ( skillNum == SK_SMALL_GUNS || skillNum == SK_MEDIUM_GUNS || skillNum == SK_BIG_GUNS ) ? WS_GUN : ( ( skillNum == SK_THROWING ) ? WS_THROWING : ( skillNum == SK_MELEE_WEAPONS ) ? WS_MELEE : WS_UNARMED );
+	uint8 weaponType = ( skillNum == SK_SMALL_GUNS || skillNum == SK_MEDIUM_GUNS || skillNum == SK_BIG_GUNS ) ? WS_GUN : ( ( skillNum == SK_THROWING ) ? WS_THROWING : ( skillNum == SK_MELEE_WEAPONS ) ? WS_MELEE : WS_UNARMED );
     bool isRanged = ( weaponType == WS_THROWING || weaponType == WS_GUN );
     bool isUnarmed = weapon.Weapon_IsUnarmed;
     bool isHthAttack = ( weaponType == WS_MELEE || weaponType == WS_UNARMED );
@@ -499,8 +499,8 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
     attack.CombatMessage = true;
     attack.WeaponPerk = weaponPerk;
     attack.WeaponType = weaponType;
-    attack.DmgMin = ( isHthAttack || weaponType == WS_THROWING ) ? _WeaponDmgMin( weapon, use ) : _GetAmmoDmgMin( ammo );
-    attack.DmgMax = ( isHthAttack || weaponType == WS_THROWING ) ? _WeaponDmgMax( weapon, use ) : _GetAmmoDmgMax( ammo );
+    attack.DmgMin = ( isHthAttack || weaponType == WS_THROWING ) ? _WeaponDmgMin( weapon, use ) : ( validAmmo ? _GetAmmoDmgMin( ammo ) : 0 );
+    attack.DmgMax = ( isHthAttack || weaponType == WS_THROWING ) ? _WeaponDmgMax( weapon, use ) : ( validAmmo ? _GetAmmoDmgMax( ammo ) : 0 );
     attack.DmgType = dmgType;
 	attack.MinDmgMod = validAmmo ? _GetWeaponMinDmgMod( weapon ) : 100;
 	attack.MaxDmgMod = validAmmo ? _GetWeaponMaxDmgMod( weapon ) : 100;
@@ -544,7 +544,7 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 			for( uint i = 0, j = critsPenetrate.length(); i < j; i++ )
 			{
 				Critter@ newTarget = critsPenetrate[i];
-				if( valid( newTarget ) )
+				if( valid( newTarget ) && newTarget.Id != attacker.Id )
 				{
 					if( newTarget.Id != target.Id )
 					{
@@ -3322,7 +3322,7 @@ uint e_DelayedAttack( uint[]@ values )
 			return 0;
 		}
 		
-		if( realWeapon.AmmoCount == 0 || realWeapon.Deterioration == 10000 )
+		if( ( weapon.Weapon_MaxAmmoCount != 0 && realWeapon.AmmoCount == 0 ) || realWeapon.Deterioration == 10000 )
 		{
 			WeaponMissfire( attacker, weapon );
 			return 0;
