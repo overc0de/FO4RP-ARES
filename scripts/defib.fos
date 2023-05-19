@@ -30,7 +30,7 @@ bool TryReanimate( Critter& cr, Critter& targetCr, Item& item )
 		return false;
 	}
 
-    if( cr.Skill[ SK_DOCTOR ] < 160 || cr.Skill[ SK_OUTDOORSMAN ] < 160 )
+    if( cr.Skill[ SK_DOCTOR ] < 160 && cr.Skill[ SK_OUTDOORSMAN ] < 160 )
 	{
         cr.Say( SAY_NETMSG, "Вы недостаточно опытны что бы сделать это. Необходимый навык доктора или выживания - 160%" );
         return true;
