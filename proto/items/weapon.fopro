@@ -3405,6 +3405,7 @@ Material=1
 Weapon_Anim1=8
 Weapon_MaxAmmoCount=6
 Weapon_MinStrength=3
+Weapon_Perk=16385
 Weapon_ActiveUses=1
 Weapon_CriticalFailture=3
 Weapon_Skill_0=200
@@ -6821,8 +6822,8 @@ Cost=2386
 Material=1
 Weapon_Anim1=11
 Weapon_MaxAmmoCount=20
-Weapon_Caliber=3
-Weapon_DefaultAmmoPid=32
+Weapon_Caliber=2
+Weapon_DefaultAmmoPid=s
 Weapon_MinStrength=7
 Weapon_Perk=65536
 Weapon_ActiveUses=1
@@ -6843,8 +6844,8 @@ Weapon_ApCost_0=50
 Weapon_SoundId_0=48
 Wait_Time_0=1000
 Wait_Time_3=5000
-Weapon_MinDmgMod=0
-Weapon_MaxDmgMod=0
+Weapon_MinDmgMod=100
+Weapon_MaxDmgMod=100
 Item_Subtype=14
 
 # PID_GATLING_LOW
@@ -8314,6 +8315,8 @@ Wait_Time_0=1000
 Wait_Time_1=1000
 Wait_Time_2=1000
 Wait_Time_3=1000
+Weapon_MinDmgMod=100
+Weapon_MaxDmgMod=100
 Item_Subtype=14
 
 # PID_ADV_FLAMER
