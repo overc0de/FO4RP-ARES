@@ -28,7 +28,7 @@
 {809}{}{Extra Knockout}
 {810}{}{Penetrate}
 {811}{}{Unreliable}
-{812}{}{Non-leathal}
+{812}{}{Non-lethal}
 {813}{}{Poisoned}
 {814}{}{Neuro-toxin}
 {815}{}{Recharge}
@@ -56,7 +56,7 @@
 {902}{}{Poisoned}
 {903}{}{Neuro-toxin}
 {904}{}{Caseless}
-{905}{}{Non-leathal}
+{905}{}{Non-lethal}
 {906}{}{Radioactive}
 {907}{}{Shred}
 {908}{}{Eroding}
