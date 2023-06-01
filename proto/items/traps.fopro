@@ -35,7 +35,7 @@ Volume=50
 SoundId=48
 Cost=850
 Material=2
-Blast_Radius=5
+Blast_Radius=2
 Item_Subtype=224
 
 # PID_ACTIVE_DYNAMITE
@@ -73,7 +73,7 @@ Volume=50
 SoundId=48
 Cost=850
 Material=2
-Blast_Radius=4
+Blast_Radius=2
 Item_Subtype=224
 
 # PID_MINE
