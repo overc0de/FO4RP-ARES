@@ -55,7 +55,7 @@
 		#define CLEAVE_ATTACK_ANGLE			( 30.0f )
 		#define FLAMER_ATTACK_ANGLE			( 15.0f )
 		#define SHOTGUN_PELLETS				( 11 )
-		const int[] spread_angle_array = { 0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
+		const int[] spread_angle_array =    { -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10 };
 		#define MISS_ANGLE					( 5.0f )
 
 		#define DAMAGE_TIMEOUT				( __FullSecond + REAL_SECOND( 3 ) )
