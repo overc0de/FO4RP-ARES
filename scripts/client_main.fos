@@ -2064,8 +2064,8 @@ string[] generic_description_slot( int slot )
 	// Main inventory screen weapon damage info
 	line = GetMsgStr( TEXTMSG_GAME, STR_INV_DMG );
 	bool isAmmoRegen = FLAG( item.Proto.Weapon_Perk, WEAPON_PERK_RECHARGE );
-	uint minDamage = 0; 
-	uint maxDamage = 0;
+	float minDamage = 0; 
+	float maxDamage = 0;
 	uint minDmgMod = 100;
 	uint maxDmgMod = 100;
 	uint16 ammoRound = _WeaponRound( item.Proto, use );
@@ -2104,12 +2104,6 @@ string[] generic_description_slot( int slot )
 		minDmgMalus = int( ( _WeaponDmgMin( item.Proto, use ) + dmgBonus ) * deterioration * 0.01f );
 		maxDmgMalus = int( ( _WeaponDmgMax( item.Proto, use ) + dmgBonus ) * deterioration * 0.01f );
 	}
-	//Non-leathal weapon modifier
-	else if( FLAG( item.Proto.Weapon_Perk, WEAPON_PERK_NON_LEATHAL ) )
-	{
-		minDmgMod = 50;
-		maxDmgMod = 50;
-	}
 	//All other weapons with ammo
 	else if( item.Proto.Weapon_MaxAmmoCount > 0 )
 	{
@@ -2122,10 +2116,18 @@ string[] generic_description_slot( int slot )
 			maxDmgMod = item.Proto.Weapon_MaxDmgMod;
 		}
 	}
+
+	//Non-leathal weapon modifier
+	if( FLAG( item.Proto.Weapon_Perk, WEAPON_PERK_NON_LEATHAL ) )
+	{
+		minDmgMod /= 2;
+		maxDmgMod /= 2;
+	}
+
 	//Final calculation
-	minDamage = ( minDamage + dmgBonus - minDmgMalus ) * minDmgMod / 100;
-	maxDamage = ( maxDamage + dmgBonus - maxDmgMalus ) * maxDmgMod / 100;
-	line += "|0xFFFF00 " + minDamage + "|0x3CF800  - |0xFFFF00 " + maxDamage;
+	minDamage = ( ( minDamage + dmgBonus - minDmgMalus ) * minDmgMod ) * 0.01f;
+	maxDamage = ( ( maxDamage + dmgBonus - maxDmgMalus ) * maxDmgMod ) * 0.01f;
+	line += "|0xFFFF00 " + uint( minDamage ) + "|0x3CF800  - |0xFFFF00 " + uint( maxDamage );
 	//Add number of rounds if burst mode
 	if( isBurst )
 	{ 
