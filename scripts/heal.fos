@@ -1201,6 +1201,7 @@ class MenuDOC_Cripple: CenteredMenuHandler
 						
 						if( menu.ButtonMsg(STR_HEAL_MENU_REMOVE_DRESSING, "$subDressing" + ( STR_INSERT_TEXT_LINE( dressing ) ) ) )
 						{
+							cr.StatBase[ ST_EXPERIENCE ] -= 300;
 							target.EraseTimeEvent( ids[i] );
 							stage = MenuCripple_stage::main;
 							limb = 0;

@@ -855,7 +855,7 @@ void r_sellItems( Critter& player, Critter@ npc, int pid, int amount, int price,
 		}
 	}
 	
-	player.StatBase[ ST_EXPERIENCE ] += experience;
+	//player.StatBase[ ST_EXPERIENCE ] += experience;
 	
 	//И затем так же буквально ПЕРЕДАЕМ указанное количество монет (награды) от игрока неписю. Если у того их не хватает - "довыдаём" сверх того.
 	Item@ cash = npc.GetItem( PID_BOTTLE_CAPS, -1 );

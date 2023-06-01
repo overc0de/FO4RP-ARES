@@ -280,7 +280,7 @@ int fix_Tribal( Critter& cr, int state, CraftItem& craft )
 			return FIX_FAIL; 
 		}
 		cr.SayMsg( SAY_EMOTE_ON_HEAD, TEXTMSG_TEXT, STR_EMOTE_CRAFT_SOMETHING );
-		cr.StatBase[ST_EXPERIENCE] += 50;
+		//cr.StatBase[ST_EXPERIENCE] += 50;
 		useTools( cr, craft );
 		return FIX_TIMEOUT; 
 	}
@@ -334,7 +334,7 @@ int fix_Workbench( Critter& cr, int state, CraftItem& craft )
 			return FIX_FAIL; 
 		}
 		cr.SayMsg( SAY_EMOTE_ON_HEAD, TEXTMSG_TEXT, STR_EMOTE_CRAFT_SOMETHING );
-		cr.StatBase[ST_EXPERIENCE] += 250;
+		//cr.StatBase[ST_EXPERIENCE] += 250;
 		useTools( cr, craft );
 		return FIX_TIMEOUT; 
 	}
@@ -359,7 +359,7 @@ int fix_FreeHands( Critter& cr, int state, CraftItem& craft )
 		}
 		cr.SayMsg( SAY_EMOTE_ON_HEAD, TEXTMSG_TEXT, STR_EMOTE_CRAFT_SOMETHING );
 		
-		cr.StatBase[ST_EXPERIENCE] += 100;
+		//cr.StatBase[ST_EXPERIENCE] += 100;
 		useTools( cr, craft );
 		return FIX_TIMEOUT; 
 	}
@@ -432,7 +432,7 @@ int fix_LowTier( Critter& cr, int state, CraftItem& craft )
 			return FIX_FAIL; 
 		}
 		
-		cr.StatBase[ST_EXPERIENCE] += 500;
+		//cr.StatBase[ST_EXPERIENCE] += 500;
 		cr.TimeoutBase[ TO_SK_REPAIR ] = __FullSecond + REAL_SECOND( 10 );
 		useTools( cr, craft );
 		return FIX_TIMEOUT; 
@@ -457,7 +457,7 @@ int fix_MidTier( Critter& cr, int state, CraftItem& craft )
 			return FIX_FAIL; 
 		}
 		
-		cr.StatBase[ST_EXPERIENCE] += 1000;
+		//cr.StatBase[ST_EXPERIENCE] += 1000;
 		cr.TimeoutBase[ TO_SK_REPAIR ] = __FullSecond + REAL_SECOND( 60 );
 		useTools( cr, craft );
 		return FIX_TIMEOUT; 
@@ -482,7 +482,7 @@ int fix_HiTier( Critter& cr, int state, CraftItem& craft )
 			return FIX_FAIL; 
 		}
 		
-		cr.StatBase[ST_EXPERIENCE] += 5000;
+		//cr.StatBase[ST_EXPERIENCE] += 5000;
 		cr.TimeoutBase[ TO_SK_REPAIR ] = __FullSecond + REAL_SECOND( 180 );
 		useTools( cr, craft );
 		return FIX_TIMEOUT; 
