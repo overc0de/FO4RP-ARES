@@ -1144,7 +1144,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 		}
 	}
 
-    targetDR += attack.DrMod;
+    targetDR += validAmmo ? attack.Ammo.Ammo_DrMod : 0;
     targetDR = CLAMP( targetDR, 0, 100 );
     int dmgMin = ( attack.DmgMin + attack.BonusDmg ) * attack.MinDmgMod / 100;
     int dmgMax = ( attack.DmgMax + attack.BonusDmg ) * attack.MaxDmgMod / 100;
