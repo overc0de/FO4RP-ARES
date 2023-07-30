@@ -2434,7 +2434,7 @@ void CommenceExplosion( AttackStruct& attack, Map@ map, uint16 hx, uint16 hy, ui
 			}
 		}
 		
-		int delay = REAL_SECOND( 3 );
+		int delay = REAL_SECOND( 1.5 );
 		
 		if( weapPid == PID_MOLOTOV_COCKTAIL || weapPid == PID_GRNMLTV )
 		{
@@ -2555,21 +2555,38 @@ int attack_ap( Critter& cr, ProtoItem@ weapon, uint8 mode )
 	
 	int needAP = _WeaponApCost( weapon, mode );
 
-	if( _WeaponModeAim( mode ) == HIT_LOCATION_NONE && _WeaponAim( weapon, mode & 0x0F ) )
-	{
-		mode = ( mode & 0x0F ) + ( cr.ParamBase[ CR_AUTO_AIM ] << 4 );
-		
-		if( cr.ParamBase[ CR_AUTO_AIM ] != HIT_LOCATION_NONE )
+	if( cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_HEAD || cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_LEFT_ARM || cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_RIGHT_ARM || cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_LEFT_LEG || cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_RIGHT_LEG || cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_GROIN || cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_TORSO || cr.ParamBase[ CR_AUTO_AIM ] == HIT_LOCATION_EYES ) 
+	{	
+		if ( _WeaponAnim2( weapon, mode ) == ANIM2_SINGLE && weapon.ProtoId != 1034 && weapon.ProtoId != 1036 && weapon.ProtoId != 270 && weapon.ProtoId != 13 )
 		{
 			needAP = needAP * 120 / 100;
 		}
+
+		if ( _WeaponAnim2( weapon, mode ) == ANIM2_THROW && weapon.Blast_Radius !=1 && weapon.Blast_Radius !=2 && weapon.Blast_Radius !=3 )
+		{
+			needAP = needAP * 120 / 100;
+		}
+		
+		if ( _WeaponAnim2( weapon, mode ) != ANIM2_SINGLE &&  _WeaponAnim2( weapon, mode ) != ANIM2_BURST &&  _WeaponAnim2( weapon, mode ) != ANIM2_THROW &&  _WeaponAnim2( weapon, mode ) != ANIM2_AUTO )
+		{
+			needAP = needAP * 120 / 100;
+		}
+
 	}
 	
 	if( cr.TraitBase[ TRAIT_SADIST ] != 0 )
 	{
 		needAP = needAP * 115 / 100;
 	}
-	
+
+	if( cr.TraitBase[ TRAIT_FAST_SHOT ] != 0 )
+	{
+		if ( _WeaponAnim2( weapon, mode ) == ANIM2_SINGLE ||  _WeaponAnim2( weapon, mode ) == ANIM2_BURST ||  _WeaponAnim2( weapon, mode ) == ANIM2_THROW ||  _WeaponAnim2( weapon, mode ) == ANIM2_AUTO )
+		{
+			needAP = needAP * 85 / 100;
+		}
+	}
+
 	return needAP;
 }
 
