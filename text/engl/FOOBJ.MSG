@@ -748,8 +748,8 @@
 {36800}{}{Ammo Box}
 {36900}{}{Ammo Box}
 {37000}{}{Ammo Box}
-{37100}{}{Claw}
-{37101}{}{A claw. Deathclaw's claw weapon}
+{37100}{}{Mortar}
+{37101}{}{Portable artillery. Heavy and deadly weaponry.}
 {37200}{}{Claw}
 {37201}{}{A claw. Deathclaw's claw weapon}
 {37300}{}{Tower Clearance Card}
