@@ -21,19 +21,19 @@
 
 # Map 30, Global, base 310
 {310}{}{Modoc_mine_entrance}
-{315}{}{03 - A Way To Anywhere.ogg}
+{315}{}{06vault.ogg}
 {316}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {318}{}{Mine}
 
 # Map 31, Global, base 320
 {320}{}{Modoc_mine_shafts}
-{325}{}{03 - A Way To Anywhere.ogg}
+{325}{}{06vault.ogg}
 {326}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {328}{}{Mineshafts}
 
 # Map 32, Global, base 330
 {330}{}{Modoc_getto}
-{335}{}{03 - A Way To Anywhere.ogg}
+{335}{}{05raider.ogg}
 {336}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {338}{}{Getto}
 
