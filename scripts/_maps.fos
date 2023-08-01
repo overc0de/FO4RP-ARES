@@ -41,6 +41,15 @@
 #define LOCATION_Modoc_5_4			( 29 )
 #define LOCATION_Modoc_6_4			( 30 )
 
+#define LOCATION_Modoc_1_5			( 31 )
+#define LOCATION_Modoc_2_5			( 32 )
+#define LOCATION_Modoc_3_5			( 33 )
+#define LOCATION_Modoc_4_5			( 34 )
+#define LOCATION_Modoc_5_5			( 35 )
+#define LOCATION_Modoc_6_5			( 36 )
+#define LOCATION_Modoc_4_6			( 37 )
+
+
 // ************************************************************************/
 // * Maps                                               	             */
 // ************************************************************************/
@@ -85,5 +94,15 @@
 #define MAP_MODOC_ROAD_CAFE			( 52 )
 #define MAP_MODOC_RUINS				( 53 )
 #define MAP_MODOC_JUNKYARD			( 54 )
+
+#define MAP_MODOC_PHOENIX_SURFACE	( 55 )
+#define MAP_MODOC_PHOENIX_ENTRANCE	( 56 )
+#define MAP_MODOC_PHOENIX_DEPTH		( 57 )
+#define MAP_MODOC_ZONE_BETA			( 58 )
+#define MAP_MODOC_WASTELAND2		( 59 )
+#define MAP_MODOC_ROAD2				( 60 )
+#define MAP_MODOC_GAS_STATION		( 61 )
+#define MAP_MODOC_JUNKTOWN			( 62 )
+#define MAP_MODOC_TRAIN_STATION		( 63 )
 
 #endif // __MAPS__
