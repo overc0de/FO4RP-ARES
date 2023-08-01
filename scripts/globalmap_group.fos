@@ -2748,11 +2748,8 @@ int GetMapLevelByPid( uint pid )
     int level = 0;
     switch( pid )
     {
-		case( 0 ):
-			level =	0;
-			break;
-		default:
-			level = 0;
+		case( MAP_MODOC_MINE_SHAFTS ):
+			level = -1;
 			break;
     }
 
@@ -2762,7 +2759,7 @@ int GetMapLevelByPid( uint pid )
 
 bool LocIsCity( uint locPid )
 {
-    return ( locPid <= 90 && locPid >= 96 || locPid != 300 );
+    return false;
 }
 
 bool LocIsHidden( uint locPid )

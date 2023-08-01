@@ -15,11 +15,15 @@
 #define LOCATION_Hell				( 7 )
 #define LOCATION_Tanker				( 8 )
 
+	//Modoc
+#define LOCATION_Modoc_1_1			( 10 )
+
+
 // ************************************************************************/
 // * Maps                                               	             */
 // ************************************************************************/
 
-//Utility Maps
+	//Utility Maps
 #define MAP_UTILITY_START			( 2 ) // invisibilty between players, keep in sync with 'map_utility_start' in ServerConfig.toml
 #define MAP_DREAM					( 3 )
 #define MAP_HEAVEN					( 5 )
@@ -29,5 +33,9 @@
 #define MAP_TLJ_ARENA4				( 9 )
 #define MAP_TLJ_ARENA5				( 10 )
 #define MAP_HELL					( 11 )
+
+	//Modoc
+#define MAP_MODOC_MINE_ENTRANCE		( 30 )
+#define MAP_MODOC_MINE_SHAFTS		( 31 )
 
 #endif // __MAPS__
