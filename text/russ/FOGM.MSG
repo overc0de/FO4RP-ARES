@@ -127,6 +127,48 @@
 {486}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {488}{}{Озеро}
 
+# Map 48, Global, base 490
+{490}{}{Modoc_deathpit_surface}
+{495}{}{Whiskey_Heat.mp3}
+{496}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{498}{}{Подозрительные руины}
+
+# Map 49, Global, base 500
+{500}{}{Modoc_deathpit_lair}
+{505}{}{Whiskey_Heat.mp3}
+{506}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{508}{}{Логово Смерти}
+
+# Map 50, Global, base 510
+{510}{}{Modoc_zone_alpha}
+{515}{}{11 - Face to face.ogg}
+{516}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{518}{}{Зона Альфа}
+
+# Map 51, Global, base 520
+{520}{}{Modoc_wasteland2}
+{525}{}{101abone.ogg}
+{526}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{528}{}{Пустошь}
+
+# Map 52, Global, base 530
+{530}{}{Modoc_road_cafe}
+{535}{}{04Metallic Monks.ogg}
+{536}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{538}{}{Кафе Путник}
+
+# Map 53, Global, base 540
+{540}{}{Modoc_ruins}
+{545}{}{57SHK_sinless_From_Seattle.ogg}
+{546}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{548}{}{Руины}
+
+# Map 54, Global, base 550
+{550}{}{Modoc_junkyard}
+{555}{}{23world.ogg}
+{556}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{558}{}{Свалка}
+
 
 #
 # Global map

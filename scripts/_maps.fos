@@ -34,6 +34,13 @@
 #define LOCATION_Modoc_5_3			( 23 )
 #define LOCATION_Modoc_6_3			( 24 )
 
+#define LOCATION_Modoc_1_4			( 25 )
+#define LOCATION_Modoc_2_4			( 26 )
+#define LOCATION_Modoc_3_4			( 27 )
+#define LOCATION_Modoc_4_4			( 28 )
+#define LOCATION_Modoc_5_4			( 29 )
+#define LOCATION_Modoc_6_4			( 30 )
+
 // ************************************************************************/
 // * Maps                                               	             */
 // ************************************************************************/
@@ -70,5 +77,13 @@
 #define MAP_MODOC_ROAD1				( 45 )
 #define MAP_MODOC_SWAMP_BLOSSOM		( 46 )
 #define MAP_MODOC_LAKE				( 47 )
+
+#define MAP_MODOC_DEATHPIT_SURFACE	( 48 )
+#define MAP_MODOC_DEATHPIT_LAIR		( 49 )
+#define MAP_MODOC_ZONE_ALPHA 		( 50 )
+#define MAP_MODOC_WASTELAND2		( 51 )
+#define MAP_MODOC_ROAD_CAFE			( 52 )
+#define MAP_MODOC_RUINS				( 53 )
+#define MAP_MODOC_JUNKYARD			( 54 )
 
 #endif // __MAPS__
