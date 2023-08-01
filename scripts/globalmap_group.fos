@@ -2752,7 +2752,11 @@ int GetMapLevelByPid( uint pid )
 		case( MAP_MODOC_MINE_SHAFTS ):
 		case( MAP_MODOC_DEATHPIT_LAIR ):
 		case( MAP_MODOC_CITY_UNDERGROUND ):
+		case( MAP_MODOC_PHOENIX_ENTRANCE ):		
 			level = -1;
+			break;
+		case( MAP_MODOC_PHOENIX_DEPTH ):		
+			level = -2;
 			break;
 		case( MAP_MODOC_CITY_FLOORS ):
 			level = 1;
