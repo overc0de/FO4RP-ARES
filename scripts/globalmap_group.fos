@@ -745,15 +745,13 @@ class CellWorld : iManagerModule, iManager_map_critter_in, iManager_map_critter_
 
                 pop = true;
 
-                // switch( pid )
-                // {
-					// case( LOCATION_Modoc_city ):
-						// sizeX = 2;
-						// sizeY = 2;
-						// break;
-					// default:
-						// break;
-                // }
+                switch( pid )
+                {
+					case( LOCATION_Modoc_city ):
+						sizeX = 2;
+						sizeY = 2;
+					break;
+                }
             }
             else
             {
@@ -2748,10 +2746,15 @@ int CellLocationSize( int x, int y, int sizeX, int sizeY )
 int GetMapLevelByPid( uint pid )
 {
     int level = 0;
+	
     switch( pid )
     {
 		case( MAP_MODOC_MINE_SHAFTS ):
+		case( MAP_MODOC_CITY_UNDERGROUND ):
 			level = -1;
+			break;
+		case( MAP_MODOC_CITY_FLOORS ):
+			level = 1;
 			break;
     }
 

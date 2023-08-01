@@ -18,6 +18,7 @@
 	//Modoc
 #define LOCATION_Modoc_1_1			( 10 )
 #define LOCATION_Modoc_2_1			( 11 )
+#define LOCATION_Modoc_city			( 12 )
 
 
 // ************************************************************************/
@@ -39,5 +40,8 @@
 #define MAP_MODOC_MINE_ENTRANCE		( 30 )
 #define MAP_MODOC_MINE_SHAFTS		( 31 )
 #define MAP_MODOC_GETTO				( 32 )
+#define MAP_MODOC_CITY_MAIN			( 33 )
+#define MAP_MODOC_CITY_FLOORS		( 34 )
+#define MAP_MODOC_CITY_UNDERGROUND	( 35 )
 
 #endif // __MAPS__
