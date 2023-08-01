@@ -2434,7 +2434,7 @@ void CommenceExplosion( AttackStruct& attack, Map@ map, uint16 hx, uint16 hy, ui
 			}
 		}
 		
-		int delay = REAL_SECOND( 1.5 );
+		int delay = REAL_MS( 1500 );
 		
 		if( weapPid == PID_MOLOTOV_COCKTAIL || weapPid == PID_GRNMLTV )
 		{

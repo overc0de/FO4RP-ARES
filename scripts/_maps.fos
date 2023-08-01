@@ -29,8 +29,10 @@
 
 #define LOCATION_Modoc_1_3			( 19 )
 #define LOCATION_Modoc_2_3			( 20 )
-#define LOCATION_Modoc_5_3			( 21 )
-#define LOCATION_Modoc_6_3			( 22 )
+#define LOCATION_Modoc_3_3			( 21 )
+#define LOCATION_Modoc_4_3			( 22 )
+#define LOCATION_Modoc_5_3			( 23 )
+#define LOCATION_Modoc_6_3			( 24 )
 
 // ************************************************************************/
 // * Maps                                               	             */
@@ -64,5 +66,6 @@
 
 #define MAP_MODOC_BARTERGROUNDS		( 42 )
 #define MAP_MODOC_SWAMP				( 43 )
+#define MAP_MODOC_WASTELAND1		( 44 )
 
 #endif // __MAPS__

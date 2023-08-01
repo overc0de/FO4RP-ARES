@@ -611,7 +611,7 @@ void answer_LOCKPICK( Critter& player, uint answerI, string& answerS )
 		}
 		else 
 		{
-			bool thisSide = hasKeyAround( player, lockItm );
+			thisSide = hasKeyAround( player, lockItm );
 			if( thisSide )
 			{
 				if( FLAG( lockItm.LockerCondition, LOCKER_LOCKED ) )
