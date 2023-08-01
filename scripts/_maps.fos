@@ -67,5 +67,6 @@
 #define MAP_MODOC_BARTERGROUNDS		( 42 )
 #define MAP_MODOC_SWAMP				( 43 )
 #define MAP_MODOC_WASTELAND1		( 44 )
+#define MAP_MODOC_ROAD1				( 45 )
 
 #endif // __MAPS__

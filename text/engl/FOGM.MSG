@@ -109,6 +109,12 @@
 {456}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {458}{}{Trail to Modoc}
 
+# Map 45, Global, base 460
+{460}{}{Modoc_road1}
+{465}{}{23world.ogg}
+{466}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{468}{}{Road to Modoc}
+
 
 #
 # Global map
