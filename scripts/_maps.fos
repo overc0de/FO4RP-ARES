@@ -27,6 +27,10 @@
 #define LOCATION_Modoc_5_2			( 17 )
 #define LOCATION_Modoc_6_2			( 18 )
 
+#define LOCATION_Modoc_1_3			( 19 )
+#define LOCATION_Modoc_2_3			( 20 )
+#define LOCATION_Modoc_5_3			( 21 )
+#define LOCATION_Modoc_6_3			( 22 )
 
 // ************************************************************************/
 // * Maps                                               	             */
@@ -57,6 +61,8 @@
 #define MAP_MODOC_DESERT			( 39 )
 #define MAP_MODOC_BROWN_WOOD		( 40 )
 #define MAP_MODOC_GREY_WOOD			( 41 )
+
+#define MAP_MODOC_BARTERGROUNDS		( 42 )
 
 
 #endif // __MAPS__
