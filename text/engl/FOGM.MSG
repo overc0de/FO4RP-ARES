@@ -115,6 +115,12 @@
 {466}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {468}{}{Road to Modoc}
 
+# Map 46, Global, base 470
+{470}{}{Modoc_swamp_blossom}
+{475}{}{24redd.ogg}
+{476}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{478}{}{Swamp Blossom}
+
 
 #
 # Global map
