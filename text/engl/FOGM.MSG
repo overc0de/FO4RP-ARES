@@ -121,6 +121,12 @@
 {476}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {478}{}{Swamp Blossom}
 
+# Map 47, Global, base 480
+{480}{}{Modoc_lake}
+{485}{}{37E1_Into_the_Tower.ogg}
+{486}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{488}{}{Lake}
+
 
 #
 # Global map

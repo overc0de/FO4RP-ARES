@@ -69,5 +69,6 @@
 #define MAP_MODOC_WASTELAND1		( 44 )
 #define MAP_MODOC_ROAD1				( 45 )
 #define MAP_MODOC_SWAMP_BLOSSOM		( 46 )
+#define MAP_MODOC_LAKE				( 47 )
 
 #endif // __MAPS__
