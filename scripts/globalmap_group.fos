@@ -2750,6 +2750,7 @@ int GetMapLevelByPid( uint pid )
     switch( pid )
     {
 		case( MAP_MODOC_MINE_SHAFTS ):
+		case( MAP_MODOC_DEATHPIT_LAIR ):
 		case( MAP_MODOC_CITY_UNDERGROUND ):
 			level = -1;
 			break;
