@@ -169,6 +169,60 @@
 {556}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {558}{}{Junkyard}
 
+# Map 55, Global, base 560
+{560}{}{Modoc_Phoenix_surface}
+{565}{}{Where Am I.ogg}
+{566}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{568}{}{Phoenix Surface}
+
+# Map 56, Global, base 570
+{570}{}{Modoc_Phoenix_entrance}
+{575}{}{Where Am I.ogg}
+{576}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{578}{}{Phoenix Entrance}
+
+# Map 57, Global, base 580
+{580}{}{Modoc_Phoenix_depth	}
+{585}{}{Where Am I.ogg}
+{586}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{588}{}{Phoenix Depth}
+
+# Map 58, Global, base 590
+{590}{}{Modoc_zone_beta}
+{595}{}{Ultimatum.mp3}
+{596}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{598}{}{Zone Beta}
+
+# Map 59, Global, base 600
+{600}{}{Modoc_wasteland2}
+{605}{}{57SHK_sinless_From_Seattle.ogg}
+{606}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{608}{}{Wasteland}
+
+# Map 60, Global, base 610
+{610}{}{Modoc_road2}
+{615}{}{57SHK_sinless_From_Seattle.ogg}
+{616}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{618}{}{Road}
+
+# Map 61, Global, base 620
+{620}{}{Modoc_gas_station}
+{625}{}{05raider.ogg}
+{626}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{628}{}{Gas Station}
+
+# Map 62, Global, base 630
+{630}{}{Modoc_junktown}
+{635}{}{14necro.ogg}
+{636}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{638}{}{Junktown}
+
+# Map 63, Global, base 640
+{640}{}{Modoc_train_station}
+{645}{}{Under_the_Stars_Cut.ogg}
+{646}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{648}{}{Train Station}
+
 
 #
 # Global map
