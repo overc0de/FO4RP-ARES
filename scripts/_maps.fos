@@ -22,6 +22,8 @@
 #define LOCATION_Modoc_5_1			( 13 )
 #define LOCATION_Modoc_6_1			( 14 )
 
+#define LOCATION_Modoc_1_2			( 15 )
+
 
 // ************************************************************************/
 // * Maps                                               	             */
@@ -47,5 +49,7 @@
 #define MAP_MODOC_CITY_UNDERGROUND	( 35 )
 #define MAP_MODOC_FARM				( 36 )
 #define MAP_MODOC_SAWMILL			( 37 )
+
+#define MAP_MODOC_WATER_TOWER		( 38 )
 
 #endif // __MAPS__
