@@ -12,6 +12,12 @@
 #include "gm_h.fos"
 #include "entire_h.fos"
 
+//~run test showMSG file line 0
+void showMSG( Critter& cr, int type, int msg, int )
+{
+	cr.SayMsg( SAY_NETMSG, type, msg );
+}
+
 Map@ getMap( uint id )
 {
 	if( id == 0 )
