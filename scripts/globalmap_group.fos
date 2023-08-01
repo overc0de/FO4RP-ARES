@@ -747,7 +747,7 @@ class CellWorld : iManagerModule, iManager_map_critter_in, iManager_map_critter_
 
                 // switch( pid )
                 // {
-					// case( LOCATION_Clinton ):
+					// case( LOCATION_Modoc_city ):
 						// sizeX = 2;
 						// sizeY = 2;
 						// break;
@@ -1831,10 +1831,11 @@ void TransitCritterToCell( Critter& cr, Scenery& sceneryGrid )
     @map = GetMap( mapId );
     if( map is null )
     {
+		cr.Say( SAY_NETMSG, "new map !valid" );
 		return;
     }
 	
-	uint[] disabled_map_pids = { 69 };
+	uint[] disabled_map_pids = { };
 	if( disabled_map_pids.find( map.GetProtoId() ) > -1 ) 
 	{
 		if( plotAccess( cr ) )
@@ -1851,6 +1852,7 @@ void TransitCritterToCell( Critter& cr, Scenery& sceneryGrid )
     uint16 destHexX = 0, destHexY = 0;
     if( !map.GetEntireCoords( MAP_EDGE_ENTIRE, 0, destHexX, destHexY ) )
     {
+		cr.Say( SAY_NETMSG, "!map.GetEntireCoords" );
         return;
     }
 	
@@ -1881,6 +1883,7 @@ void TransitCritterToCell( Critter& cr, Scenery& sceneryGrid )
 		}
         return;
     }
+	
     cr.SayMsg( SAY_NETMSG, TEXTMSG_GAME, STR_NO_FREE_HEX );
     return;
 }
@@ -2300,10 +2303,9 @@ void unsafe_ExitGridClick( Critter& cr, int hexX, int hexY, int protoId, string@
     {
         uint8 length = cr.GetMap().GetPathLength( cr, sceneryGrid.HexX, sceneryGrid.HexY, 0 );
         if( ABS( int(cr.HexX - sceneryGrid.HexX) ) <= EXIT_GRID_DISTATION && ABS( int(cr.HexY - sceneryGrid.HexY) ) <= EXIT_GRID_DISTATION )
-        {
             TransitCritterToCell( cr, sceneryGrid );
-        }
-		cr.SayMsg( SAY_NETMSG, TEXTMSG_GAME, STR_TOO_FAR_FROM_GRID );
+		else
+			cr.SayMsg( SAY_NETMSG, TEXTMSG_GAME, STR_TOO_FAR_FROM_GRID );
     }
 
 }
@@ -2759,7 +2761,7 @@ int GetMapLevelByPid( uint pid )
 
 bool LocIsCity( uint locPid )
 {
-    return false;
+    return true;
 }
 
 bool LocIsHidden( uint locPid )
