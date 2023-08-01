@@ -97,6 +97,12 @@
 {436}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {438}{}{Торговый пост}
 
+# Map 43, Global, base 440
+{440}{}{Modoc_swamp}
+{445}{}{24redd.Ogg}
+{446}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{448}{}{Болото}
+
 
 #
 # Global map

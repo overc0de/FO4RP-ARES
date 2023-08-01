@@ -63,6 +63,6 @@
 #define MAP_MODOC_GREY_WOOD			( 41 )
 
 #define MAP_MODOC_BARTERGROUNDS		( 42 )
-
+#define MAP_MODOC_SWAMP				( 43 )
 
 #endif // __MAPS__
