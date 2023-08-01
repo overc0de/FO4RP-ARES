@@ -23,6 +23,7 @@
 #define LOCATION_Modoc_6_1			( 14 )
 
 #define LOCATION_Modoc_1_2			( 15 )
+#define LOCATION_Modoc_2_2			( 16 )
 
 
 // ************************************************************************/
@@ -51,5 +52,7 @@
 #define MAP_MODOC_SAWMILL			( 37 )
 
 #define MAP_MODOC_WATER_TOWER		( 38 )
+#define MAP_MODOC_DESERT			( 39 )
+
 
 #endif // __MAPS__

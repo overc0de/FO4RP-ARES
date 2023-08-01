@@ -73,6 +73,12 @@
 {396}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {398}{}{Вышка}
 
+# Map 39, Global, base 400
+{400}{}{Modoc_desert}
+{405}{}{57SHK_sinless_From_Seattle.og}
+{406}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{408}{}{Пустырь}
+
 #
 # Global map
 #
