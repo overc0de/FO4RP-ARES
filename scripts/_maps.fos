@@ -25,6 +25,7 @@
 #define LOCATION_Modoc_1_2			( 15 )
 #define LOCATION_Modoc_2_2			( 16 )
 #define LOCATION_Modoc_5_2			( 17 )
+#define LOCATION_Modoc_6_2			( 18 )
 
 
 // ************************************************************************/
@@ -55,6 +56,7 @@
 #define MAP_MODOC_WATER_TOWER		( 38 )
 #define MAP_MODOC_DESERT			( 39 )
 #define MAP_MODOC_BROWN_WOOD		( 40 )
+#define MAP_MODOC_GREY_WOOD			( 41 )
 
 
 #endif // __MAPS__

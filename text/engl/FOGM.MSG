@@ -85,6 +85,12 @@
 {416}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {418}{}{Brown wood}
 
+# Map 41, Global, base 420
+{420}{}{Modoc_grey_wood}
+{425}{}{21sf.ogg}
+{426}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{428}{}{Grey wood}
+
 
 #
 # Global map
