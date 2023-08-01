@@ -17,6 +17,7 @@
 
 	//Modoc
 #define LOCATION_Modoc_1_1			( 10 )
+#define LOCATION_Modoc_2_1			( 11 )
 
 
 // ************************************************************************/
@@ -37,5 +38,6 @@
 	//Modoc
 #define MAP_MODOC_MINE_ENTRANCE		( 30 )
 #define MAP_MODOC_MINE_SHAFTS		( 31 )
+#define MAP_MODOC_GETTO				( 32 )
 
 #endif // __MAPS__

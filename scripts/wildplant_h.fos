@@ -23,7 +23,8 @@
 	const uint16[][] Plant_Maps =
 	{ // 		MAP_PID		   			AMOUNT
 		{ MAP_MODOC_MINE_ENTRANCE,		BASE_AMOUNT },
-		{ MAP_MODOC_MINE_SHAFTS,		BASE_AMOUNT }
+		{ MAP_MODOC_MINE_SHAFTS,		BASE_AMOUNT },
+		{ MAP_MODOC_GETTO,				BASE_AMOUNT }	
 	};
 
 	#ifndef WILDPLANT
