@@ -20,6 +20,7 @@
 #define LOCATION_Modoc_2_1			( 11 )
 #define LOCATION_Modoc_city			( 12 )
 #define LOCATION_Modoc_5_1			( 13 )
+#define LOCATION_Modoc_6_1			( 14 )
 
 
 // ************************************************************************/
@@ -45,5 +46,6 @@
 #define MAP_MODOC_CITY_FLOORS		( 34 )
 #define MAP_MODOC_CITY_UNDERGROUND	( 35 )
 #define MAP_MODOC_FARM				( 36 )
+#define MAP_MODOC_SAWMILL			( 37 )
 
 #endif // __MAPS__

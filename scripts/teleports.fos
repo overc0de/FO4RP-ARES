@@ -145,6 +145,7 @@ void InitTeleports()
 			.add( "Этажи", 					LOCATION_Modoc_city,	1, 463, 378 )
 			.add( "Подвал",					LOCATION_Modoc_city,	2, 430, 321 )
 			.add( "Ферма",					LOCATION_Modoc_5_1,		0, 151, 184 )
+			.add( "Лесопилка",				LOCATION_Modoc_6_1,		0, 162, 154 )
 			
 		)
 		.add( Teleport( "Танкер" )
