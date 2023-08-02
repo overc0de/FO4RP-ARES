@@ -2,8 +2,8 @@
 Version              4
 MaxHexX              400
 MaxHexY              400
-WorkHexX             173
-WorkHexY             179
+WorkHexX             200
+WorkHexY             190
 ScriptModule         -
 ScriptFunc           -
 NoLogOut             0
@@ -39614,11 +39614,6 @@ MapY                 191
 MapObjType           2
 ProtoId              1624
 MapX                 203
-MapY                 191
-
-MapObjType           2
-ProtoId              1624
-MapX                 203
 MapY                 192
 
 MapObjType           2
@@ -39635,31 +39630,6 @@ MapObjType           2
 ProtoId              1624
 MapX                 201
 MapY                 193
-
-MapObjType           2
-ProtoId              1624
-MapX                 201
-MapY                 192
-
-MapObjType           2
-ProtoId              1624
-MapX                 201
-MapY                 191
-
-MapObjType           2
-ProtoId              1624
-MapX                 201
-MapY                 190
-
-MapObjType           2
-ProtoId              1624
-MapX                 201
-MapY                 189
-
-MapObjType           2
-ProtoId              1624
-MapX                 201
-MapY                 188
 
 MapObjType           2
 ProtoId              1624
@@ -39670,11 +39640,6 @@ MapObjType           2
 ProtoId              1624
 MapX                 202
 MapY                 187
-
-MapObjType           2
-ProtoId              1624
-MapX                 203
-MapY                 189
 
 MapObjType           2
 ProtoId              1624
@@ -42688,5 +42653,765 @@ ProtoId              3853
 MapX                 142
 MapY                 199
 Scenery_ToEntire     1010
+
+MapObjType           2
+ProtoId              1624
+MapX                 188
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 187
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 187
+MapY                 191
+
+MapObjType           2
+ProtoId              1624
+MapX                 187
+MapY                 190
+
+MapObjType           2
+ProtoId              1624
+MapX                 186
+MapY                 189
+
+MapObjType           2
+ProtoId              1624
+MapX                 186
+MapY                 188
+
+MapObjType           2
+ProtoId              1624
+MapX                 185
+MapY                 188
+
+MapObjType           2
+ProtoId              1624
+MapX                 185
+MapY                 187
+
+MapObjType           2
+ProtoId              1624
+MapX                 189
+MapY                 193
+
+MapObjType           2
+ProtoId              1624
+MapX                 190
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 191
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 192
+MapY                 191
+
+MapObjType           2
+ProtoId              1624
+MapX                 193
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 194
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 195
+MapY                 193
+
+MapObjType           2
+ProtoId              1624
+MapX                 196
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 197
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 198
+MapY                 191
+
+MapObjType           2
+ProtoId              1624
+MapX                 199
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 200
+MapY                 192
+
+MapObjType           2
+ProtoId              1624
+MapX                 201
+MapY                 187
+
+MapObjType           2
+ProtoId              1624
+MapX                 201
+MapY                 186
+
+MapObjType           2
+ProtoId              1624
+MapX                 201
+MapY                 185
+
+MapObjType           2
+ProtoId              1624
+MapX                 201
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 201
+MapY                 183
+
+MapObjType           2
+ProtoId              1624
+MapX                 200
+MapY                 183
+
+MapObjType           2
+ProtoId              1624
+MapX                 199
+MapY                 183
+
+MapObjType           2
+ProtoId              1624
+MapX                 198
+MapY                 183
+
+MapObjType           2
+ProtoId              1624
+MapX                 197
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 196
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 195
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 194
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 193
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 192
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 191
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 190
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 189
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 188
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 187
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 186
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 185
+MapY                 184
+
+MapObjType           2
+ProtoId              1624
+MapX                 185
+MapY                 185
+
+MapObjType           2
+ProtoId              1624
+MapX                 185
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 201
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 201
+MapY                 192
+
+MapObjType           2
+ProtoId              5622
+MapX                 201
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 201
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 201
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 203
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 203
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 184
+
+MapObjType           2
+ProtoId              5622
+MapX                 200
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 184
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 198
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 199
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 198
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 198
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 198
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 198
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 197
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 197
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 197
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 197
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 196
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 196
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 196
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 196
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 192
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 195
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 194
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 194
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 194
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 194
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 193
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 193
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 193
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 193
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 192
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 192
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 192
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 192
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 191
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 191
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 191
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 191
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 190
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 190
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 190
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 190
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 188
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 188
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 188
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 188
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 187
+MapY                 188
+
+MapObjType           2
+ProtoId              5622
+MapX                 187
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 187
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 187
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 194
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 194
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 194
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 193
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 193
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 193
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 191
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 191
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 191
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 190
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 190
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 190
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 188
+MapY                 191
+
+MapObjType           2
+ProtoId              5622
+MapX                 188
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 188
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 186
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 186
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 186
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 196
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 196
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 196
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 197
+MapY                 187
+
+MapObjType           2
+ProtoId              5622
+MapX                 197
+MapY                 186
+
+MapObjType           2
+ProtoId              5622
+MapX                 197
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 198
+MapY                 185
+
+MapObjType           2
+ProtoId              5622
+MapX                 198
+MapY                 184
+
+MapObjType           2
+ProtoId              5622
+MapX                 192
+MapY                 189
+
+MapObjType           2
+ProtoId              5622
+MapX                 192
+MapY                 190
+
+MapObjType           2
+ProtoId              5622
+MapX                 189
+MapY                 192
+
+MapObjType           2
+ProtoId              5622
+MapX                 187
+MapY                 189
 
 
