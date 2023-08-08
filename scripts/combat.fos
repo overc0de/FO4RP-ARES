@@ -1006,6 +1006,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
         return;
 	}
 
+	int bt = target.Stat[ ST_BODY_TYPE ];
     uint eff = 0;
     uint msgEff = 0;
     int weaponPerk = attack.WeaponPerk;
@@ -1624,7 +1625,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 					bloodyAttack = bloodyAttack && !FLAG( ammoPerk, AMMO_PERK_NON_LEATHAL );
 				}	
 				
-				if( target.StatBase[ ST_CURRENT_HP ] <= getDeathHitPoints( target ) )
+				if( target.StatBase[ ST_CURRENT_HP ] <= getDeathHitPoints(target) )
 				{
 					isDead = true;
 				}
@@ -1953,7 +1954,6 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
             sendEff[ now ] = msgEff;
             now++;
         }
-		
         sendEff[ now ] = extraMessage;
     }
 	
