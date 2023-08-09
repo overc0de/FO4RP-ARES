@@ -130,7 +130,7 @@ void MissedShot( Map& map, Critter& attacker, ProtoItem& weapon, uint8 weaponMod
 			continue;
 		}
 		
-		int hitChance = RandomTargetChance( target, ammo );
+		int hitChance = RandomTargetChance( attacker, target, ammo );
 		if( Random( 1, 100 ) <= hitChance )
 		{
 			int toHit = to_hit( attacker, target, weapon, weaponMode, ammo, tx, ty, true );
@@ -162,7 +162,7 @@ Critter@ checkHitLine( Map& map, Critter& attacker, ProtoItem& weapon, uint8 wea
 			continue;
 		}
 		
-		int hitChance = RandomTargetChance( target, ammo );
+		int hitChance = RandomTargetChance( attacker, target, ammo );
 		
 		if( Random( 1, 100 ) <= hitChance )
 		{
@@ -173,7 +173,7 @@ Critter@ checkHitLine( Map& map, Critter& attacker, ProtoItem& weapon, uint8 wea
 	return null;
 }
 
-int RandomTargetChance( Critter& target, ProtoItem@ ammo )
+int RandomTargetChance( Critter& attacker, Critter& target, ProtoItem@ ammo )
 {
 	int hitChance = 80;
 	if( valid( ammo ) )
@@ -184,9 +184,14 @@ int RandomTargetChance( Critter& target, ProtoItem@ ammo )
 		}
 	}
 	
-	if( target.IsKnockout() )
+	if( target.IsKnockout() || target.Param[ CR_IS_RELAXING ] > 0 )
 	{
 		hitChance /= 2;
+	}
+	
+	if( target.Param[ PET_OWNER_ID ] == int( attacker.Id ) || target.Param[ PET_PROTECT_ID ] == int( attacker.Id ) )
+	{
+		hitChance /= 10;
 	}
 	
 	return hitChance;
@@ -234,15 +239,14 @@ void GetHexCoord( Map& map, uint16 fromX, uint16 fromY, uint16& toX, uint16& toY
 void ShotgunSpread( AttackStruct@ attack, Critter& attacker, uint16 target_x, uint16 target_y, ProtoItem& weapon, uint8 weaponMode, ProtoItem@ ammo, uint distance, uint pellets_count )
 {
 	Map@ map = attacker.GetMap();
-	uint16 ax = attacker.HexX, ay = attacker.HexY;
+	const uint16 ax = attacker.HexX, ay = attacker.HexY;
 	uint[] target_IDs, pellets_hit;
 
 	for( uint pellet_number = 0; pellet_number < pellets_count; pellet_number++ )
 	{
 		float angle = spread_angle_array[ pellet_number ];
 		uint16 tx = target_x, ty = target_y;
-		GetHexCoord( map, ax, ay, tx, ty, angle, distance );
-		
+		RustyGetHexCoord( map, ax, ay, tx, ty, angle, distance );
 		Critter @target = checkHitLine( map, attacker, weapon, weaponMode, ammo, tx, ty );
 		if( valid( target ) )
 		{
@@ -279,7 +283,7 @@ void bulletVFX( Map& map, Critter& attacker, uint16 target_x, uint16 target_y, P
 	uint16 vfx_x = target_x, vfx_y = target_y;
 	int dist = GetDistantion( attacker.HexX, attacker.HexY, vfx_x, vfx_y );
 	dist = CLAMP( dist - 3, 1, dist );
-	GetHexCoord( map, attacker.HexX, attacker.HexY, vfx_x, vfx_y, 0.0f, dist );
+	RustyGetHexCoord( map, attacker.HexX, attacker.HexY, vfx_x, vfx_y, 0.0f, dist );
 
 	uint baseTime = 250 * round;
 	
@@ -309,7 +313,7 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
     uint8 use = _WeaponModeUse( weaponMode );
     uint8 aim = _WeaponModeAim( weaponMode );
 	
-	if( attacker.Param[ CR_AUTO_AIM ] != HIT_LOCATION_NONE && aim == HIT_LOCATION_NONE )
+	if( ( attacker.Param[ CR_AUTO_AIM ] != HIT_LOCATION_NONE && aim == HIT_LOCATION_NONE ) )
 	{
 		aim = attacker.Param[ CR_AUTO_AIM ];
 	}
@@ -376,7 +380,8 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
     int weaponPerk = weapon.Weapon_Perk;
 	bool isAmmoRegen = FLAG( weaponPerk, WEAPON_PERK_RECHARGE );
 	bool isBurst = ( _WeaponAnim2( weapon, use ) == ANIM2_BURST );
-
+	bool isAuto  = ( _WeaponAnim2( weapon, use ) == ANIM2_AUTO );
+	
 	if( isBurst && validWeapon && !recursive && !autohit )
 	{
 		uint burstDelay = 0;
@@ -387,8 +392,6 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 			uint[] vals = { attacker.Id, validTarget ? target.Id : 0, weapPid, use, ammoPid, tx, ty, 0, 1 };
 			CreateTimeEvent( AFTER( REAL_MS( burstDelay ) ), "combat@e_DelayedAttack", vals, false );
 		}
-
-		attacker.AddTimeEvent( "general_unsafe@cte_unsafe_rapid_fire", REAL_MS( _GetProtoWaitTime( weapon, use ) + 1000 ), CTE_RAPID_FIRE, 0 );
 
 		return;
 	}
@@ -487,7 +490,7 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 			aim = HIT_LOCATION_HEAD;
 		}
 		
-		if( isBurst )
+		if( isBurst || isAuto )
 		{
 			aim = RandomHit();
 			randomHit = true;
@@ -520,6 +523,7 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 	attack.MinDmgMod = validAmmo ? _GetWeaponMinDmgMod( weapon ) : 100;
 	attack.MaxDmgMod = validAmmo ? _GetWeaponMaxDmgMod( weapon ) : 100;
 	attack.AmmoPerk = validAmmo ? ammo.Ammo_Perk : 0;
+	attack.DrMod = validAmmo ? ammo.Ammo_DrMod : 1;
     attack.CritDmgMod = 100;
     @attack.Ammo = ammo;
 	
@@ -561,7 +565,7 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 				Critter@ newTarget = critsPenetrate[i];
 				if( valid( newTarget ) && newTarget.Id != attacker.Id )
 				{
-					if( newTarget.Id != target.Id )
+					if( newTarget.Id != target.Id && newTarget.Id != attacker.Id )
 					{
 						if( isHthAttack )
 						{
@@ -622,11 +626,12 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 	{
 		toHit = to_hit( attacker, target, weapon, weaponMode, ammo, hx, hy, randomHit );
 	}
-
-	//Log( "attacker.Id " + attacker.Id + " toHit " + toHit );
+	
+	//attacker.Say( SAY_NETMSG, "CR_AUTO_ROUNDS_FIRED " + attacker.Param[ CR_AUTO_ROUNDS_FIRED ] );
+	//attacker.Say( SAY_NETMSG, "attacker.Id " + attacker.Id + " toHit " + toHit + " autohit " + autohit );
     int hitRoll = toHit - Random( 1, 100 );
 	
-    if( hitRoll < 0 )
+	if( hitRoll < 0 )
     {
 		SayLog( attacker, crInfo( attacker ) + " misses." );
     }
@@ -804,7 +809,7 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 		uint16 ttx = tx, tty = ty;
 		int ddist = GetDistantion( hx, hy, ttx, tty );
 		ddist = CLAMP( ddist - 3, 1, ddist );
-		GetHexCoord( map, hx, hy, ttx, tty, 0.0f, ddist );
+		RustyGetHexCoord( map, hx, hy, ttx, tty, 0.0f, ddist );
 
 		uint[] valsN = { map.Id, _WeaponEffect( weapon, use ), attacker.Id, 0, hx, hy, ttx, tty };
 		for( int i = 0; i < CLAMP( ammoRound, 1, 10 ); i++ )
@@ -965,6 +970,11 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 		}
 	}
 	
+	if( isBurst && attacker.Param[ CR_AUTO_ROUNDS_FIRED ] >=  int( _WeaponRound( weapon, weaponMode ) ) )
+	{
+		attacker.ParamBase[ CR_AUTO_ROUNDS_FIRED ] = 0;
+	}
+	
 	return;
 }
 
@@ -1006,7 +1016,6 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
         return;
 	}
 
-	int bt = target.Stat[ ST_BODY_TYPE ];
     uint eff = 0;
     uint msgEff = 0;
     int weaponPerk = attack.WeaponPerk;
@@ -1040,7 +1049,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 			attack.BonusDmg += attack.WeaponType == WS_UNARMED ? attacker.Skill[ SK_UNARMED ] / 10 : attacker.Skill[ SK_MELEE_WEAPONS ] / 10;
 		}
 	}	
-	else
+	else if( isHthAttack )
 	{
 		if( isHthAttack )
 		{
@@ -1168,7 +1177,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 	{
         rawDmg = Random( dmgMin, dmgMax );
 		// Boxing gloves modifier
-		if( validWeapon && FLAG( weaponPerk, WEAPON_PERK_NON_LEATHAL ) )
+		if( validWeapon && FLAG( weaponPerk, WEAPON_PERK_NON_LETHAL ) )
 		{
 			rawDmg /= 2;
 		}
@@ -1619,13 +1628,13 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 			if( target.Stat[ ST_CURRENT_HP ] < 1 )
 			{
 				bloodyAttack = bloodyAttack || target.TraitBase[ TRAIT_BLOODY_MESS ] == 1;
-				bloodyAttack = bloodyAttack && !FLAG( weaponPerk, WEAPON_PERK_NON_LEATHAL );
+				bloodyAttack = bloodyAttack && !FLAG( weaponPerk, WEAPON_PERK_NON_LETHAL );
 				if( validAmmo )
 				{
-					bloodyAttack = bloodyAttack && !FLAG( ammoPerk, AMMO_PERK_NON_LEATHAL );
+					bloodyAttack = bloodyAttack && !FLAG( ammoPerk, AMMO_PERK_NON_LETHAL );
 				}	
 				
-				if( target.StatBase[ ST_CURRENT_HP ] <= getDeathHitPoints(target) )
+				if( target.StatBase[ ST_CURRENT_HP ] <= getDeathHitPoints( target ) )
 				{
 					isDead = true;
 				}
@@ -1697,7 +1706,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 		
         if( knockDown )
 		{
-            targetAp = 300;
+            targetAp = 200;
 		}
 		
 		if( target.Trait[ TRAIT_SURE_FOOTED ] > 0 )
@@ -1730,7 +1739,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
                 uint16 knockHy = attack.Hy;
                 if( knockDist > 0 )
 				{
-                    map.GetHexCoordWall( target.HexX, target.HexY, knockHx, knockHy, 180.0f, knockDist );
+                    RustyGetHexCoordWall( map, target.HexX, target.HexY, knockHx, knockHy, 180.0f, knockDist );
                     target.ToKnockout( KNOCKOUT_ANIM2_DEFAULT( attackFront ), targetAp, knockHx, knockHy );
                 } 
 			}
@@ -1954,6 +1963,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
             sendEff[ now ] = msgEff;
             now++;
         }
+		
         sendEff[ now ] = extraMessage;
     }
 	
@@ -2016,7 +2026,7 @@ void ApplyDamage( AttackStruct& attack, Critter& target, uint rounds, bool isCri
 	
 	//Check for blood
 	bool canBleed = true;
-    if( IsRobot( target ) || target.Stat[ ST_BODY_TYPE ] == BT_PLANT || IsInsect( target ) )
+    if( IsRobot( target ) || target.Stat[ ST_BODY_TYPE ] == BT_PLANT || IsInsect( target ) || target.Mode[ MODE_INVULNERABLE ] != 0 )
     { 
         canBleed = false;
     }
@@ -3239,7 +3249,9 @@ void _HookHold( Item& Hook, Critter& cr, bool entered, uint8 dir )
 				{
 					cr.ToKnockout( KNOCKOUT_ANIM2_DEFAULT( ( Random( 0, 1 ) == 1 ? true : false ) ), 50, HookHx, HookHy );
 				}
+				
 				cr.Wait( 500 );
+				
                 if( Hook.Val5 > 0 )
 				{
                     Hook.Val5 -= Random( 0, cr.Stat[ ST_STRENGTH ] / 3 );
@@ -3414,23 +3426,16 @@ uint e_DelayedAttack( uint[]@ values )
 			}
 		}
 		
-		if( ( _WeaponAnim2( weapon, weaponMode ) == ANIM2_BURST && recursive ) || attacker.Param[ CR_FULL_AUTO ] > 0 )
+		if( ( _WeaponAnim2( weapon, weaponMode ) == ANIM2_BURST && recursive ) )
 		{
 			attacker.ParamBase[ CR_AUTO_ROUNDS_FIRED ] ++;
 		}
 
-		if( !recursive )
-		{
-			CombatAttack( attacker, target, weapon, weaponMode, ammo, hexX, hexY, false, false );
-			attacker.Wait( GetProtoTime( weapon, weaponMode, attacker ) );
-			
-			realWeapon.ROUNDS_FIRED ++;
-			realWeapon.Update();
-		}
-		else
-		{
-			CombatAttack( attacker, target, weapon, weaponMode, ammo, hexX, hexY, true, false );
-		}
+		realWeapon.ROUNDS_FIRED ++;
+		realWeapon.Update();
+
+		CombatAttack( attacker, target, weapon, weaponMode, ammo, hexX, hexY, recursive, false );
+		attacker.Wait( GetProtoTime( weapon, weaponMode, attacker ) );
 	}
 
 	return 0;
@@ -3448,7 +3453,7 @@ void WeaponMissfire( Critter& attacker, ProtoItem& weapon )
 	attacker.SayMsg( SAY_NETMSG, TEXTMSG_GAME, STR_COMBAT_WEAPON_MISSFIRE );
 	SayLog( attacker, crInfo( attacker ) + " had a weapon jam." );
 	
-	attacker.ParamBase[ CR_FULL_AUTO ] = 0;
+	attacker.ParamBase[ CR_AUTO_ROUNDS_FIRED ] = 0;
 }
 
 class LineTrace_IsRaked : ITraceContext
@@ -4238,7 +4243,7 @@ void moveAimHexRandom( Critter& cr, Map& map, uint16& x, uint16& y, int alpha, i
     dist = CLAMP( dist, 0, 999 );
 	float angle = Random( -alpha, alpha );
  
-    GetHexCoord( map, cr.HexX, cr.HexY, x, y, angle, dist );
+    RustyGetHexCoord( map, cr.HexX, cr.HexY, x, y, angle, dist );
 }
 
 #endif // COMBAT_MODULE

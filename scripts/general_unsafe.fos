@@ -145,6 +145,7 @@ void unsafe_radioHead( Critter& cr, int, int, int, string@ message, int[]@ )
 				if( FLAG( radio.Flags, ITEM_RADIO ) )
 				{
 					cr.SayMsg( SAY_EMOTE, TEXTMSG_TEXT, STR_EMOTE_USE_RADIO );
+					break;
 				}
 			}
 		}
@@ -311,7 +312,14 @@ void unsafe_inputDigits( Critter& player, int itemId, int digits, int type, stri
 		item.LockerComplexity = player.Skill[ SK_SCIENCE ];
 		player.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_NEW_CODE, "$code" + digits );
 		
-		_SubItem( codelock, 1 );
+		if( param4[0] > 0 )
+		{
+			Item@ codelock = GetItem( param4[0] );
+			if( valid( codelock ) )
+			{
+				_SubItem( codelock, 1 );
+			}
+		}
 	}
 }
 
@@ -413,6 +421,8 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 		return;
 	}
 	
+	//Log( "attacker " + attacker.Id + " hexX " + hexX + " hexY " + hexY + " weaponProto " + weaponProto );
+	
 	int weaponPerk = weapon.Weapon_Perk;
 	int sneak_timeout = SNEAK_TIMEOUT( attacker );
 	if( FLAG( weaponPerk, WEAPON_PERK_SILENT ) )
@@ -431,7 +441,7 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 
     uint16 toHx = hexX, toHy = hexY;
     int dist = GetDistantion( attacker.HexX, attacker.HexY, hexX, hexY );
-	map.GetHexCoord( attacker.HexX, attacker.HexY, toHx, toHy, 0.0f, dist );
+	RustyGetHexCoord( map, attacker.HexX, attacker.HexY, toHx, toHy, 0.0f, dist );
 	if( hexX != int( toHx ) || hexY != int( toHy ) )
     {
         attacker.SayMsg( SAY_NETMSG, TEXTMSG_COMBAT, STR_COMBAT_NEED_AIM_BLOCKED );
@@ -451,7 +461,7 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 	}
 	
 	int needAp = attack_ap( attacker, weapon, mode );
-	if( ( needAp == 0 || attacker.Stat[ ST_CURRENT_AP ] < needAp ) && attacker.Param[ CR_FULL_AUTO ] == 0 )
+	if( ( needAp == 0 || attacker.Stat[ ST_CURRENT_AP ] < needAp ) && attacker.Param[ CR_AUTO_ROUNDS_FIRED ] == 0 )
 	{
 		return;
 	}
@@ -501,7 +511,7 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 		{
 			@ammo = GetProtoItem( hand.AmmoPid );
 		}
-	}	
+	}
 	
 	if( weaponType == WS_GUN )
 	{
@@ -537,26 +547,16 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 	bool validTarget = valid( target );
 	if( validTarget && target.Id == attacker.Id )
 	{
-		@target = null;
+		validTarget = false;
 	}
 	
 	uint targetId = validTarget ? target.Id : 0;
 	uint ammoPID = valid( ammo ) ? ammo.ProtoId : 0;
-
 	attacker.SetDir( GetDirection( attacker.HexX, attacker.HexY, hexX, hexY ) );
-	if( attacker.Param[ CR_IS_WINDUPED ] == 0 && attacker.Param[ CR_FULL_AUTO ] == 0 )
+	if( targetId == 0 )
 	{
-		attacker.Wait( windupTime );
-	}
-	else if( attacker.Param[ CR_FULL_AUTO ] != 0 )
-	{
-		attacker.Wait( _GetProtoWaitTime( weapon, mode ) );
-	}
-	else
-	{
-		attacker.Wait( 10 );
-		windupTime = 0;
-	}
+		@target = null;
+	}		
 	
 	if( ( skillNum == SK_UNARMED || skillNum == SK_MELEE_WEAPONS ) && dist > wpnMaxDist )
 	{
@@ -564,9 +564,48 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 		return;
 	}
 
-	if( attacker.Param[ CR_FULL_AUTO ] == 0 )
+	uint waitTime = _GetProtoWaitTime( weapon, mode );
+	
+	if( skillNum == SK_UNARMED || skillNum == SK_MELEE_WEAPONS )
+	{
+		attacker.Wait( waitTime );
+	}
+    else if( attacker.Param[ CR_IS_WINDUPED ] == 0 && _WeaponAnim2( weapon, mode ) != ANIM2_AUTO )
+    {
+        if( _WeaponAnim2( weapon, mode ) == ANIM2_BURST )
+		{
+			attacker.Wait( windupTime + waitTime );
+		}
+		else
+		{
+			attacker.Wait( windupTime );
+		}
+    }
+	else if( _WeaponAnim2( weapon, mode ) == ANIM2_AUTO )
+	{
+		if( attacker.Param[ CR_AUTO_ROUNDS_FIRED ] > 0 )
+		{
+			attacker.Wait( _GetProtoWaitTime( weapon, mode ) );
+		}
+		else
+		{
+			attacker.Wait( windupTime );
+		}
+	}
+    else
+    {
+        attacker.Wait( 10 );
+        windupTime = 0;
+    }
+
+	if( attacker.Param[ CR_AUTO_ROUNDS_FIRED ] == 0 || skillNum == SK_UNARMED || skillNum == SK_MELEE_WEAPONS )
 	{
 		attacker.StatBase[ ST_CURRENT_AP ] -= needAp * 100;
+	}
+	
+	if( _WeaponAnim2( weapon, mode ) == ANIM2_AUTO )
+	{
+		attacker.ParamBase[ CR_AUTO_ROUNDS_FIRED ] ++;
 	}
 	
 	if( weapon.Windup_Time != 0 && !_ItemIsBroken( hand ) && GetDeteriorationProcent( hand ) < 100 )
@@ -579,7 +618,6 @@ void unsafe_hex_attack( Critter& attacker, int hexX, int hexY, int weaponProto, 
 	else
 	{
 		CombatAttack( attacker, target, weapon, mode, ammo, hexX, hexY, false, false );
-		attacker.Wait( GetProtoTime( weapon, mode, attacker ) );
 	}
 }
 
@@ -613,15 +651,9 @@ void unsafe_critter_attack( Critter& attacker, int target_Id, int param1, int we
 	}
 	
 	int needAp = attack_ap( attacker, weapon, mode );
-	if( ( needAp == 0 || attacker.Stat[ ST_CURRENT_AP ] < needAp ) && attacker.Param[ CR_FULL_AUTO ] == 0 )
+	if( ( needAp == 0 || attacker.Stat[ ST_CURRENT_AP ] < needAp ) && attacker.Param[ CR_AUTO_ROUNDS_FIRED ] == 0 )
 	{
 		return;
-	}
-	
-	uint windupTime = GetProtoWindupTime( weapon, mode, attacker );
-	if( windupTime == 0 )
-	{
-		windupTime == 300;
 	}
 	
 	int skillNum = ( valid( weapon ) ? _WeaponSkill( weapon, 0 ) : ( valid( hand ) ? SK_MELEE_WEAPONS : SK_UNARMED ) );
@@ -1151,7 +1183,7 @@ void unsafe_itemthrow ( Critter& player, int hx, int hy, int param2, string@ par
 	
 	uint16 tx = hx, ty = hy;
 	uint distance = GetDistantion( player.HexX, player.HexY, hx, hy );
-	Map@ currentMap = player.GetMap ();
+	Map@ currentMap = player.GetMap();
 
 	if( !valid( currentMap ) || player.IsDead() || player.IsKnockout() || distance > uint( player.Stat [ ST_STRENGTH ] * 2 ) )
 	{
@@ -1159,7 +1191,7 @@ void unsafe_itemthrow ( Critter& player, int hx, int hy, int param2, string@ par
 		return;
 	}
 	
-	currentMap.GetHexCoord( player.HexX,  player.HexY, tx, ty,  0.0f, distance );
+	RustyGetHexCoord( currentMap, player.HexX,  player.HexY, tx, ty,  0.0f, distance );
 	
 	Critter@ target = currentMap.GetCritter( tx, ty );
 
@@ -1177,7 +1209,7 @@ void unsafe_itemthrow ( Critter& player, int hx, int hy, int param2, string@ par
 	
 	if( !currentMap.IsHexPassed( tx, ty ) && !valid(target) && !valid(container) )
 	{
-		currentMap.GetHexCoordWall( player.HexX,  player.HexY, tx, ty,  0.0f, distance );
+		RustyGetHexCoordWall( currentMap, player.HexX,  player.HexY, tx, ty,  0.0f, distance );
 	}
 	
 	Item@ itemInHand = _CritGetItemHand( player );
@@ -1200,7 +1232,7 @@ void unsafe_itemthrow ( Critter& player, int hx, int hy, int param2, string@ par
 	if( valid( target ) && !target.IsDead() )
 	{
 		bool targetFreeHands = ( _CritGetItemHand ( target ) is null );
-		if( targetFreeHands && !( target is player ) )
+		if( targetFreeHands && !( target is player ) && !target.IsNpc() )
 		{
 			MoveItem( itemInHand, 1, target);
 			target.SayMsg( SAY_EMOTE, TEXTMSG_TEXT, STR_EMOTE_CATCHES );
@@ -1393,12 +1425,17 @@ void getNaked( Critter& cr )
 	}
 }
 
-void unsafe_KnockSay( Critter& cr, int sayType, int param1, int param2, string@ message, int[]@ ) 
+void unsafe_KnockSay( Critter& cr, int sayType, int param1, int param2, string@ message, int[]@ param4 ) 
 { 
-	cr.Say( sayType, message ); 
+	cr.Say( sayType, message );
 }
 
-void unsafe_animation( Critter& cr, int type, int val, int targetId, string@, int[]@ )
+void unsafe_PetCommand( Critter& cr, int num, int val, int to, string@ message, int[]@ param4 ) 
+{
+	cr.SendMessage( num, val, to );
+}
+
+void unsafe_animation( Critter& cr, int type, int val, int targetId, string@ param3, int[]@ param4 )
 {
 	Critter@ target = @cr;
 	if( isGM( cr ) && targetId != 0 )
@@ -1645,9 +1682,18 @@ uint cte_unsafe_rapid_fire( Critter& player, int identifier, uint& rate )
 
 void unsafe_FullAutoStop( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )
 {
-	player.ParamBase[ CR_FULL_AUTO ] = 0;
 	player.ParamBase[ CR_AUTO_ROUNDS_FIRED ] = 0;
 	player.Wait( 0 );
+}
+
+void unsafe_SelectPetTarget( Critter& player, int command, int param1, int param2, string@ param3, int[] @ param4 )
+{
+	player.ParamBase[ CR_SELECT_PET_TARGET ] = command;
+}
+
+void unsafe_StopSelectPetTarget( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )
+{
+	player.ParamBase[ CR_SELECT_PET_TARGET ] = 0;
 }
 
 void unsafe_ToggleVoiceRadius( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )

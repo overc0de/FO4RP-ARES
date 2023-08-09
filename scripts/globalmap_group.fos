@@ -3,7 +3,6 @@
 
 #include "_utils.fos"
 #include "globalmap_group_h.fos"
-#include "_maps.fos"
 #include "entire.fos"
 #include "_cell.fos"
 #include "_global_events.fos"
@@ -2738,8 +2737,10 @@ int CellLocationSize( int x, int y, int sizeX, int sizeY )
 {
     Cell @ cell = world.GetCell( x, y );
     if( cell is null )
+	{
         return -1;
-
+	}
+	
     return cell.CellSetSize( sizeX, sizeY );
 }
 
@@ -2752,7 +2753,7 @@ int GetMapLevelByPid( uint pid )
 		case( MAP_MODOC_MINE_SHAFTS ):
 		case( MAP_MODOC_DEATHPIT_LAIR ):
 		case( MAP_MODOC_CITY_UNDERGROUND ):
-		case( MAP_MODOC_PHOENIX_ENTRANCE ):		
+		case( MAP_MODOC_PHOENIX_ENTRANCE ):	
 			level = -1;
 			break;
 		case( MAP_MODOC_PHOENIX_DEPTH ):		

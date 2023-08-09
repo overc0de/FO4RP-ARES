@@ -1,37 +1,55 @@
-#include "_macros.fos"
+#ifndef MODULE_AVATARS
+#define MODULE_AVATARS
+
+#include "_utils.fos"
 
 void changedParam_AvatarIndex( Critter& cr, uint paramIndex, int oldValue )
 {
-	if( cr.Param[paramIndex] > AVATAR_COUNT )
+	if( cr.Param[ paramIndex ] > AVATAR_COUNT )
 	{
-		cr.ParamBase[paramIndex] = oldValue;
+		cr.ParamBase[ paramIndex ] = oldValue;
 	}
 }
 
 void changedParam_AvatarHash( Critter& cr, uint paramIndex, int oldValue )
 {
-	string@ str = GetHashStr( uint( cr.Param[paramIndex] ) );
+	string@ str = GetHashStr( uint( cr.Param[ paramIndex ] ) );
 	if( !valid( str ) )
 	{
 		Log( "hash not found" );
-		cr.ParamBase[paramIndex] = oldValue;
+		cr.ParamBase[ paramIndex ] = oldValue;
 		return;
 	}	
 }
 
 void unsafe_SetAvatar( Critter& player, int critterId, int index, int hash, string@, int[]@ )
 {
-	if( uint( critterId ) == player.Id )
+	Critter@ critter = GetCritter( critterId );
+	if( !valid( critter ) || ( uint( critterId ) != player.Id && !isGM( player ) && int( player.Id ) != critter.Param[ PET_OWNER_ID ] ) )
 	{
-		player.AvatarBase[AVATAR_BEGIN + index] = hash;
+		@ critter = player;
 	}
+	
+	critter.AvatarBase[AVATAR_BEGIN + index] = hash;
 }
 
 void unsafe_ActivationAvatar( Critter& player, int critterId, int index, int, string@, int[]@ )
 {
-	if( uint( critterId ) == player.Id )
+	Critter@ critter = GetCritter( critterId );
+	if( !valid( critter ) || ( uint( critterId ) != player.Id && !isGM( player ) && int( player.Id ) != critter.Param[ PET_OWNER_ID ] ) )
 	{
-		player.StatBase[ST_AVATAR_INDEX] = index;
+		@ critter = player;		
+	}
+	
+	critter.StatBase[ST_AVATAR_INDEX] = index;
+}
+
+void unsafe_AvatarReqest( Critter& player, int hash, int , int, string@, int[]@ )
+{
+	if( hash != 0 )
+	{
+		player.SendCollectionFile( hash, 1 );
 	}
 }
 
+#endif // MODULE_AVATARS

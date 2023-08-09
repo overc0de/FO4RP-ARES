@@ -748,10 +748,10 @@
 {36800}{}{Ammo Box}
 {36900}{}{Ammo Box}
 {37000}{}{Ammo Box}
-{37100}{}{Mortar}
-{37101}{}{Portable artillery. Heavy and deadly weaponry.}
-{37200}{}{Claw}
-{37201}{}{A claw. Deathclaw's claw weapon}
+{37100}{}{Dog Bowl}
+{37101}{}{You can leave the food for the pet and go adventuring, knowing that it won't be hungry.}
+{37200}{}{}
+{37201}{}{}
 {37300}{}{Tower Clearance Card}
 {37301}{}{An electronic access card, color code - red. Poseidon tanker emblem is seen on the card}
 {37400}{}{Cemetery}
@@ -2003,7 +2003,7 @@ The glasses help correct bad eye-sight, boosting vision to an equivalent of PE 5
 {148900}{}{Plank}
 {148901}{}{Plank}
 {149000}{}{Joint}
-{149001}{}{Wait until the clock is 4:20 and start the fun}
+{149001}{}{Wait until the clock hits 4:20 and start the fun}
 {149100}{}{Crutch}
 {149101}{}{A crutch. Just a crutch}
 {149200}{}{Gunsmiths Icon}
@@ -2167,6 +2167,8 @@ The glasses help correct bad eye-sight, boosting vision to an equivalent of PE 5
 {157300}{}{A Hydroponic Farm}
 {157301}{}{A high-tech farming equipment for growing crops indoors}
 {157400}{}{A Hydroponic Farm}
+{157500}{}{Joint}
+{157501}{}{Looks like the fun has started}
 {157700}{}{Broc's Flower}
 {157701}{}{A wild plant, highly prized by all wastelands}
 {157800}{}{Xander Root}
@@ -8815,7 +8817,7 @@ advantage}
 {791101}{}{You can light it up}
 {791200}{}{Bonfire}
 {791201}{}{The fire burns brightly, giving comfort and warmth}
-{791300}{}{}
+{791300}{}{Ore Vein}
 {791301}{}{You think there might be something valuable under this rubble ..}
 {791400}{}{Ore Vein}
 {791401}{}{You think there might be something valuable under this rubble ..}
@@ -12434,8 +12436,8 @@ advantage}
 {2057801}{}{One of the improved types of power armor, the sets of which were used by the soldiers of the Eastern Brotherhood of Steel}
 {2057900}{}{Combat Tank Top}
 {2057901}{}{Combat Tank Top}
-{2058000}{}{K9 vest}
-{2058001}{}{Old dusty set of sturdy Kevlar plates inserted into black nylon sleeves. You think it should be about the size of a dwarf until you notice the tag inside that says: Dog Kevlar. "Great Dog Friend". Made in Taiwan}
+{2058000}{}{K9 Vest}
+{2058001}{}{A set of sturdy metal plates inserted into black fabric sleeves. Perfect for keeping your pet safe.}
 {2058100}{}{Combat Armor}
 {2058101}{}{High-tech armor made out of advanced defensive polymers. Mass produced for the needs of the US Army}
 {2058102}{}{Gray}
@@ -12575,8 +12577,8 @@ advantage}
 {2103901}{}{Hand grenade launcher for 40mm rounds. Developed by Rockwell}
 {2104200}{}{Mexican SMG}
 {2104201}{}{HM-23 submachine gun developed by Mendoza CA. It was adopted by the Mexican police and proved to be excellent during the border riots before the Great War}
-{2104300}{}{Pneumatic Spear}
-{2104301}{}{An ingenious and deadly weapon. Upon impact, the mechanism forcefully releases a sharp serrated blade}
+{2104300}{}{Mining Helmet}
+{2104301}{}{A construction helmet with a flashlight attached to the top of it. Watch your head...}
 {2200000}{}{Civilian Gas Mask}
 {2200001}{}{Civilian gas mask}
 {2200100}{}{Military Cap}
@@ -12678,7 +12680,7 @@ advantage}
 {2204900}{}{San Francisco Lights Cigar}
 {2204901}{}{A well-made cigar, you have no idea what it was made of, but the taste is exquisite!}
 {2205000}{}{Cigarette}
-{2205001}{}{Cigarette}
+{2205001}{}{Quite common post-nuclear American cigarette of the famous Newkaboro brand.}
 {2205100}{}{Box of Cigars}
 {2205101}{}{Small high quality cigar humidor}
 {2205200}{}{Drawing kit}
@@ -12721,8 +12723,8 @@ advantage}
 {2207001}{}{A bag filled with several different vitamins and minerals used to enhance the soil. Any farmer would kill for those}
 {2207100}{}{Flashlight (Active)}
 {2207101}{}{The main thing is not to shine in your eyes}
-{2207200}{}{Pentafoil Leaf}
-{2207201}{}{These plants can grow to a height of 3 meters under favorable conditions}
+{2207200}{}{Cigarette}
+{2207201}{}{Quite common post-nuclear American cigarette of the famous Newkaboro brand}
 {2207300}{}{Capacitor}
 {2207301}{}{Improved capacitor, stores more energy and almost never breaks}
 {2207400}{}{Drum with mounts and parts}
@@ -12893,8 +12895,8 @@ The module also helps correct bad eye-sight, boosting vision to an equivalent of
 {2216401}{}{An improvised gas mask modeled after the old model civilian gas mask. Don't count on a long service life}
 {2216500}{}{Travel Flask}
 {2216501}{}{This flask is a gift from the Vault Dwellers. It will make it easier for you to travel through the arid, barren desert}
-{2216600}{}{Shackle Key}
-{2216601}{}{The way to freedom is so close ..}
+{2216600}{}{Cigarette Butt}
+{2216601}{}{Shame there is no tobacco left even for a single puff.}
 {2218100}{}{Ship's Hold Access Card}
 {2218101}{}{An access card for certain areas of the ship}
 

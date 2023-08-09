@@ -13,7 +13,13 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 	}
 
 	bool hexAttack = !valid( target ) && ( hexX != 0 && hexY != 0 );
-
+	uint8 subType = weapon.Item_Subtype;
+	bool isPistol = false;
+	if( subType == ITEM_SUBTYPE_WEAPON_NORMAL_PISTOL || subType == ITEM_SUBTYPE_WEAPON_NORMAL_REVOLVER || subType == ITEM_SUBTYPE_WEAPON_LASER_PISTOL || subType == ITEM_SUBTYPE_WEAPON_PLASMA_PISTOL || subType == ITEM_SUBTYPE_WEAPON_PULSE_PISTOL )
+	{
+		isPistol = true;
+	}
+	
 	uint8 use = _WeaponModeUse( weaponMode );
 	uint8 aim = _WeaponModeAim( weaponMode );
 	if( attacker.Param[ CR_AUTO_AIM ] != HIT_LOCATION_NONE && aim == HIT_LOCATION_NONE )
@@ -55,7 +61,7 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 		
 		if( dist == 1 && ( IsHuman( target ) || IsMutant( target ) ) ) // Dodge from unarmed
 		{
-			if( !target.IsKnockout() )
+			if( !target.IsKnockout() && !isPistol )
 			{
 				uint8 a_dir = GetDirection( attacker.HexX, attacker.HexY, target.HexX, target.HexY );
 				uint8 t_dir = target.Dir;
@@ -134,9 +140,9 @@ int to_hit( CritterMutual& attacker, CritterMutual@ target, ProtoItem& weapon, u
 		toHitMod += WEAPON_PERK_ACCURATE_BONUS;
 	}
 	
-	if( _WeaponAnim2( weapon, use ) == ANIM2_BURST || attacker.Param[ CR_FULL_AUTO ] > 0 )
+	if( _WeaponAnim2( weapon, use ) == ANIM2_BURST || _WeaponAnim2( weapon, use ) == ANIM2_AUTO )
 	{
-		int rounds_fired = CLAMP( attacker.Param[ CR_AUTO_ROUNDS_FIRED ] - 1, 0, 500 );
+		int rounds_fired = CLAMP( ( attacker.Param[ CR_AUTO_ROUNDS_FIRED ] - 1 ), 0, 500 );
 		toHitMod -= rounds_fired * weapon.Weapon_Recoil;
 	}
 	

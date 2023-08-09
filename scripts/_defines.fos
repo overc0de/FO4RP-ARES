@@ -27,6 +27,7 @@
 #define SAY_SAY_TITLE                            	( 39 )
 #define SAY_SAY_TEXT                             	( 40 )
 #define SAY_FLASH_WINDOW                         	( 41 )	// Only flash window in tray and beep
+#define SAY_PET										( 42 )	// talking to pet animals
 
 // SayEx() type
 #define SAYEX_VERBOSE_ACTION                     	( 1 )
@@ -333,6 +334,7 @@
 #define PLAYER_FLAG_RTS                     		( 0x00000080 ) 	// RMB movement mode
 #define PLAYER_FLAG_VOICE_R	                		( 0x00000100 ) 	// Show Voice Radius
 #define PLAYER_FLAG_WEAPON_R	                	( 0x00000200 ) 	// Show weapon Radius
+#define PLAYER_FLAG_NPC_ICONS	                	( 0x00000400 ) 	// Show NPC icons
 
 //Flags for face, avatar and description hiding items
 #define ITM_FACE_MASK								( 0x00000001 )
@@ -439,7 +441,7 @@
 #define WEAPON_PERK_ENHANCED_KNOCKOUT				( 0x00000100 )	// 9
 #define WEAPON_PERK_PENETRATE						( 0x00000200 )	// 10
 #define WEAPON_PERK_UNRELIABLE						( 0x00000400 )	// 11
-#define WEAPON_PERK_NON_LEATHAL						( 0x00000800 )	// 12
+#define WEAPON_PERK_NON_LETHAL						( 0x00000800 )	// 12
 #define WEAPON_PERK_POISONED						( 0x00001000 )	// 13
 #define WEAPON_PERK_NEUROTOXIN						( 0x00002000 )	// 14
 #define WEAPON_PERK_RECHARGE						( 0x00004000 )	// 15
@@ -466,7 +468,7 @@
 #define AMMO_PERK_POISONED							( 0x00000002 )	// 2
 #define AMMO_PERK_NEUROTOXIN						( 0x00000004 )	// 3
 #define AMMO_PERK_CASELESS							( 0x00000008 )	// 4
-#define AMMO_PERK_NON_LEATHAL						( 0x00000010 )	// 5
+#define AMMO_PERK_NON_LETHAL						( 0x00000010 )	// 5
 #define AMMO_PERK_RADIOACTIVE						( 0x00000020 )	// 6
 #define AMMO_PERK_SHRED								( 0x00000040 )	// 7
 #define AMMO_PERK_ERODING							( 0x00000080 )	// 8
@@ -623,6 +625,8 @@
 #define CTE_DAZED									( 35 )		// CTE for critical injury for AC debuf
 #define CTE_STUNNED									( 36 )		// CTE for critical injury for AP regen debuf
 #define CTE_RAPID_FIRE								( 37 )		// CTE marker for full auto and burst fire
+#define CTE_NPC_FOLLOW								( 38 )		// NPC following target marker
+#define CTE_SHIT									( 39 )		// delay before shitting
 
 // Parameters
 // Stats
@@ -727,11 +731,11 @@
 #define ST_VAR1                                 	( 91 )		// terminal: terminal ID for assigned turrets
 #define ST_VAR2                                  	( 92 )  	// turret access card
 #define ST_VAR3                                  	( 93 )		// player: active poll id, turret laser fence entire
-#define ST_VAR4                                  	( 94 )
+#define ST_VAR4                                  	( 94 )		// GM settings
 #define ST_VAR5                                  	( 95 )		// players: bet_size in Roulette_game; npc: varWandering for bramins
-#define ST_VAR6                                  	( 96 )
+#define ST_VAR6                                  	( 96 )		// roulette, passed cell global travels
 #define ST_VAR7                                  	( 97 )		// homebrew: itemId; trap_mines - stepping marker
-#define ST_VAR8                                  	( 98 )  
+#define ST_VAR8                                  	( 98 )  	// Roulette and general dialogs
 #define ST_VAR9                                  	( 99 )		// npc: poker, repl_bank, 
 #define ST_PLAYER_KARMA                          	( 100 )
 #define ST_BONUS_LOOK                            	( 101 )		// Hardcoded
@@ -792,7 +796,8 @@
 #define ST_ARMOR_SKIN								( 181 )		// Storage for armor skin if hidden by robe
 // 182...184
 #define LAST_ATTACKED                            	( 185 )		// Last attacked char ID
-// 186..187
+// 186
+#define ST_TALKING_PUPPET							( 187 )		// Marker for talking through NPC
 #define ST_KILLER_PERSON							( 188 )		// Char killer ID
 #define ST_QMAP                                 	( 189 )		// q3: char map sync
 // 190
@@ -857,7 +862,7 @@
 #define TO_SK_LOCKPICK                           	( 234 )
 #define TO_SK_STEAL                              	( 235 )
 #define TO_SK_OUTDOORSMAN                        	( 236 )
-#define TO_DEATH                                 	( 237 )		// Таймаут до смерти
+#define TO_DEATH                                 	( 237 )		// Perma Death timeout
 #define TO_BATTLE                                	( 238 ) 	// Hardcoded
 #define TO_TRANSFER                              	( 239 ) 	// Hardcoded
 #define TO_REMOVE_FROM_GAME                      	( 240 ) 	// Hardcoded
@@ -907,15 +912,16 @@
 // 319..348
 #define PE_QUICK_POCKETS                         	( 349 )		// Hardcoded
 #define PE_SMOOTH_TALKER                         	( 350 )		// Hardcoded
-// 351..449
+// 351..448
+#define PE_AVA_BLOCK								( 449 )
 
-// 450
-#define AVATAR_BEGIN                          	( 450 )
-#define AVATAR_END                            	( 452 )
-#define AVATAR_COUNT                          	( AVATAR_END - AVATAR_BEGIN + 1 )
-#define AVA_HASH_0								( 450 )
-#define AVA_HASH_1								( 451 )
-#define AVA_HASH_2								( 452 )
+// / Avatars
+#define AVATAR_BEGIN                          		( 450 )
+#define AVATAR_END                            		( 452 )
+#define AVATAR_COUNT                          		( AVATAR_END - AVATAR_BEGIN + 1 )
+#define AVA_HASH_0									( 450 )
+#define AVA_HASH_1									( 451 )
+#define AVA_HASH_2									( 452 )
 
 // / Addictions
 #define ADDICTION_BEGIN                          	( __AddictionBegin )
@@ -996,8 +1002,8 @@
 #define MODE_RANGE_HTH                           	( 530 )		// Can do HtH attack with range			                			Hardcoded
 #define MODE_NO_KNOCK                            	( 531 )		// Can't be knocked down											Hardcoded
 #define MODE_NO_LOOT                             	( 532 )		// Can't be looted													Hardcoded
-#define MODE_NO_SUPPLY                           	( 533 )		// No bounti hunters go after player 						- REQUIRES CHECK IF WORKS
-#define MODE_NO_KARMA_ON_KILL                    	( 534 )		// Kill does not influence karma 							- REQUIRES CHECK IF WORKS
+#define MODE_NO_SUPPLY                           	( 533 )		// No bounti hunters go after player 								- REQUIRES CHECK IF WORKS
+#define MODE_NO_KARMA_ON_KILL                    	( 534 )		// Kill does not influence karma 									- REQUIRES CHECK IF WORKS
 #define MODE_BARTER_ONLY_CASH                    	( 535 )		// 0 - barters for items 1 - caps and cash 2 - NCR currency only	Hardcoded
 #define MODE_NO_PUSH                             	( 536 )		// Can't be pushed                                        			Hardcoded
 #define MODE_NO_UNARMED                          	( 537 )		// Not have unarmed attacks                               			Hardcoded
@@ -1005,7 +1011,8 @@
 #define MODE_NO_WALK                             	( 539 )		// Critter can't walk                                     			Hardcoded
 #define MODE_NO_RUN                              	( 540 )		// Critter can't run                                      			Hardcoded
 #define MODE_NO_TALK                             	( 541 )		// Npc can't talk                                         			Hardcoded
-// 542..549
+#define MODE_QUESTGIVER								( 542 )		// NPC is marked as a quest giver for players
+// 543..549
 
 
 // ext mode flags
@@ -1145,7 +1152,7 @@
 #define CR_GLOBAL_OVERDOSE_SPEED				 	( 771 )		// Rate of decline of healing item overdose
 #define CR_WETNESS 									( 772 )		// Drying up passively
 #define CR_WETNESS_SPEED							( 773 )     // Rate of drying up
-#define CR_FULL_AUTO								( 774 )     // if critter is attacking with full auto
+// 774
 #define CR_AUTO_ROUNDS_FIRED						( 775 )     // auto rounds fired in sequence
 
 //776..779
@@ -1163,7 +1170,7 @@
 #define GAME_TEST                                	( 3 )
 #define GAME_MAX                                 	( 3 )
 
-// Mercenary settings - NOT USED
+// Mercenary settings
 #define MERC_BEGIN                               	( 800 )
 #define MERC_END                                 	( 810 )
 #define MERC_COUNT                               	( MERC_END - MERC_BEGIN + 1 )
@@ -1183,16 +1190,24 @@
 #define TURRET_CARD_ID	                   		  	( 812 )
 #define TURRET_FENCE_GRID	                     	( 813 )
 //814..849
-#define NPC_WAYPOINT_GROUP							( 850 )		// Waypoint Number
-#define NPC_WAYPOINT								( 851 )		// Waypoint Id
-#define NPC_WAYPOINT_PREVIOUS						( 852 )		// Waypoint Id
+
+#define PET_NAME_HASH								( 850 )		// Pet names
+#define PET_OWNER_ID								( 851 )		// 
+#define PET_PROTECT_ID								( 852 )		// 
+#define PET_GUARD_ID								( 853 )		// 
+#define PET_HUNGER									( 854 )		// 
+#define PET_FOOD_CHARGE								( 855 )		// 
+#define PET_GROW_LEVEL								( 856 )		//
+#define PET_LOYALTY									( 857 )		//
+
 //853..887
 #define CR_CTE_ADVENTURER_POINTS					( 884 )		// CTE of regaining adventurer points
 #define CR_ADV_GIVING_EXP							( 885 )		// Amount of giving experience mode
 #define CR_ADV_POINTS_MAX	                     	( 886 )		// How much points adventurer can spend
 #define CR_ADV_POINTS		                     	( 887 )		// How much points adventurer left
 #define CR_CONTROLLED_GROUP	                     	( 888 )
-//889..981
+//889..980
+#define CR_SELECT_PET_TARGET						( 981 )		// Flag for selecting pet target
 #define CR_SHOW_ARKS								( 982 )		// Flag for showing weapon arcs
 #define CR_AVATAR_RENDER_MODE						( 983 )		// Data for player menu
 #define CR_SNEAKING									( 984 )		// Marker for sneaking
@@ -1245,6 +1260,7 @@
 #define COVER_DIR_5_CEMENT                 			( 0x00800000 )
 
 // FORP defines:
+#define CRITTER_LOOT_DELAY							( 5000 )	// MS
 #define SECONDARY_SKILLS_BONUS_CAP    			 	( 125 )		// max bonus from skill
 #define CRITTER_MAX_VOLUME			 			 	( 1000 )	// volume of items carried, hardcoded
 #define SATURATION_SIMPLIFIER					 	( 3 )		// Food satturation multiplier
@@ -1658,7 +1674,7 @@
 #define ONE_HANDER_AP_MUL							( 115 )
 
 // Critter Stats Constants - Formulas.fos + Parameters.fos
-// SPECIAL-independent stats
+// SPECIAL-derived stats
 #define APPOINTS_BASE                            	( 100 )
 #define APREGEN_BASE							 	( 650 )		// Base amount of action points regenerated, divide by 100 = 1.5 APs.
 #define APREGEN_MAX								 	( 1500 )
@@ -1962,6 +1978,8 @@
 # pragma bindfunc "int Critter::GetSocket() 												-> fonline_tnf.dll Critter_GetSocket"
 # pragma bindfunc "int Critter::GetUID(uint8) 												-> fonline_tnf.dll Critter_GetUID"
 # pragma bindfunc "uint Critter::GetCurrentIp() 											-> fonline_tnf.dll Critter_GetCurrentIp"
+# pragma bindfunc "void RustyGetHexCoord(Map@, uint16, uint16, uint16&, uint16&, float, uint) -> rust_dll/server.dll get_hex_coord"
+# pragma bindfunc "void RustyGetHexCoordWall(Map@, uint16, uint16, uint16&, uint16&, float, uint) -> rust_dll/server.dll get_hex_coord_wall"
 # endif //__SERVER
 
 # ifdef __CLIENT

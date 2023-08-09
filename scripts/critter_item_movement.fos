@@ -801,8 +801,7 @@ uint ArmorSkin( Critter& cr, uint skin )
 //Autostack items upon drop to ground - maybe move to somwhere else
 uint e_stack_items( uint[]@ values ) 
 {
-    uint itemId = values[0];
-    Item@ item = GetItem( itemId );
+    Item@ item = GetItem( values[0] );
 	if( !valid( item ) )
 	{
 		return 0;
@@ -817,8 +816,11 @@ uint e_stack_items( uint[]@ values )
     Map@ map = item.GetMapPosition( x, y );
 
     Item@[] items;
-    uint count = map.GetItems ( x, y, items );
+    uint count = map.GetItems( x, y, items );
+	
 	Item@ groundItm = null;
+	Item@ stackable = null;
+	
     for( uint i = 0; i < count; i++ )
 	{
 		@ groundItm = items[i];
@@ -834,7 +836,7 @@ uint e_stack_items( uint[]@ values )
 		
         uint16 protoid = groundItm.GetProtoId();
         uint itemCount = groundItm.GetCount();
-		Item@ stackable = null;
+		
         for( uint j = i + 1; j < count; j++ )
 		{
 			@ stackable = items[j];
@@ -851,7 +853,8 @@ uint e_stack_items( uint[]@ values )
             }
         }
 
-        items[i].SetCount( itemCount );
+        groundItm.SetCount( itemCount );
+		groundItm.Update( );
 		
 		switch( protoid ) 
 		{
@@ -859,21 +862,40 @@ uint e_stack_items( uint[]@ values )
 			case( PID_PREWAR_DOLLAR_5 ):
 			case( PID_PREWAR_DOLLAR_20 ):
 			case( PID_GOLDEN_COIN ):
-			case( PID_BOTTLE_CAPS):
+			case( PID_BOTTLE_CAPS ):
 				CoinAmountChanger( groundItm, itemCount );
 				break;
-			case( PID_SHELL_CASING):
+			case( PID_SHELL_CASING ):
 				ShellAmountChanger( groundItm, itemCount );
 				break;
+			case( PID_CIGARETTE_BUTT ):
+				CigButtAmountChanger( groundItm, itemCount );
+				break;
 		}
-		
-		groundItm.Update( );
     }
+	
+	items.resize(0);
+	
     return 0;
 }
 
+// Change PicMap for dropped cig butts - Util func
+void CigButtAmountChanger( Item& item, uint amount )
+{
+    if( amount <= 4 )
+	{
+		item.PicMap = CigButtAmoutHash[ amount ];
+	}
+	else
+	{
+		item.PicMap = CigButtAmoutHash[ 0 ];
+	}
+	
+    item.Update();
+}
+
 // Change PicMap for dropped coins - Util func
-void CoinAmountChanger( Item& item, uint amount)
+void CoinAmountChanger( Item& item, uint amount )
 {
     if( amount <= 8 )
 	{
@@ -883,11 +905,12 @@ void CoinAmountChanger( Item& item, uint amount)
 	{
 		item.PicMap = CoinAmoutHash[ 0 ];
 	}
+	
     item.Update();
 }
 
 // Change PicMap for shells - Util func
-void ShellAmountChanger( Item& item, uint amount)
+void ShellAmountChanger( Item& item, uint amount )
 {
     if( amount <= 8 )
 	{
@@ -897,6 +920,7 @@ void ShellAmountChanger( Item& item, uint amount)
 	{
 		item.PicMap = ShellAmoutHash[ 0 ];
 	}
+	
     item.Update();
 }
 
@@ -913,6 +937,7 @@ bool StealContainerOrArmor( Critter& cr, Critter@ targetCr, Item@ targetItem )
 			cr.SayMsg( SAY_NETMSG, TEXTMSG_TEXT, STR_TARGET_NO_LOOT );
 			return true;
 		}
+		
 		targetCr.GetItems( -1, RuckSacks );
 	}
 	else if( valid( targetItem ) )
@@ -954,6 +979,7 @@ bool StealContainerOrArmor( Critter& cr, Critter@ targetCr, Item@ targetItem )
 				
 				CrimeLog( cr, crInfo( cr ) + " takes item with gm power " + crInfo( targetCr ) );
 			}
+			
 			LootedBackpack = true;
 			return true;
 		}
@@ -989,11 +1015,14 @@ bool StealContainerOrArmor( Critter& cr, Critter@ targetCr, Item@ targetItem )
 				cr.StatBase[ ST_STEAL_COUNT ] = 7;
 				TryToTakeArmor( cr, targetCr );
 			}
+			
 			cr.StatBase[ ST_STEAL_COUNT ] = 0;
 			cr.StatBase[ ST_LAST_STEAL_CR_ID ] = targetCr.Id;
 		}
+		
 		return true;
 	}
+	
 	return false;
 }
 

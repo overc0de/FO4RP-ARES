@@ -416,9 +416,15 @@
 #define STR_EMOTE_BAD_SMELL					 ( 7024 )
 
 // Player Menu
-#define STR_VOICE_VOLUME					 ( 8000 )
-#define STR_AVATAR_MODE						 ( 8001 )
-#define STR_MENU_AVATAR_MODE				 ( 8005 )
+#define STR_VOICE_VOLUME					 ( 8200 )
+#define STR_AVATAR_MODE						 ( 8201 )
+#define STR_AVATAR_MODE_SHOW				 ( 8202 )
+#define STR_AVATAR_MODE_CURSOR				 ( 8203 )
+#define STR_AVATAR_MODE_HIDE				 ( 8204 )
+#define STR_MENU_AVATAR_MODE				 ( 8205 )
+#define STR_MENU_NPC_ICON_MODE				 ( 8206 )
+#define STR_MENU_NPC_ICON_MODE_SHOW			 ( 8207 )
+#define STR_MENU_NPC_ICON_MODE_HIDE			 ( 8208 )
 
 // Healing
 #define STR_BEING_EXAMINED_PROMPT			 ( 8950 )
@@ -718,27 +724,28 @@
 #define STR_NEED_TOOLS_AND_HOLD_TOOL		 ( 9675 )
 
 // Flasks and bottles
-#define STR_WRONG_ANATOMY					 ( 9768 )
-#define STR_NOTHING_TO_OPEN_BOTTLE			 ( 9769 )
-#define STR_YOU_OPEN_BOTTLE					 ( 9770 )
-#define STR_EMOTE_OPENS_BOTTLE				 ( 9771 )
-#define STR_MUST_HOLD_ITEM					 ( 9772 )
-#define STR_TRY_DIFFERENTLY					 ( 9773 )
-#define STR_NO_MORE_BOTTLES					 ( 9774 )
-#define STR_POURED_ALL_WATER				 ( 9775 )
-#define STR_OTHER_LIQUID_INSIDE				 ( 9776 )
-#define STR_EMOTE_FILL_FLASK				 ( 9777 )
-#define STR_HOLD_FLASK						 ( 9778 )
-#define STR_FLASK_EMPTY						 ( 9779 )
-#define STR_EMOTE_EMPTY_FLASK				 ( 9780 )
-#define STR_FLASK_FILLED_UP					 ( 9781 )
-#define STR_FINISHED_FILLING				 ( 9782 )
-#define STR_FINISHED_EMPTYING				 ( 9783 )
-#define STR_NO_MORE_WATER					 ( 9784 )
-#define STR_NEED_BOTTLE_IN_HAND				 ( 9785 )
-#define STR_FILLED_BOTTLE					 ( 9786 )
+#define STR_WRONG_ANATOMY					 ( 9750 )
+#define STR_NOTHING_TO_OPEN_BOTTLE			 ( 9751 )
+#define STR_YOU_OPEN_BOTTLE					 ( 9752 )
+#define STR_EMOTE_OPENS_BOTTLE				 ( 9753 )
+#define STR_MUST_HOLD_ITEM					 ( 9754 )
+#define STR_TRY_DIFFERENTLY					 ( 9755 )
+#define STR_NO_MORE_BOTTLES					 ( 9756 )
+#define STR_POURED_ALL_WATER				 ( 9757 )
+#define STR_OTHER_LIQUID_INSIDE				 ( 9758 )
+#define STR_EMOTE_FILL_FLASK				 ( 9759 )
+#define STR_HOLD_FLASK						 ( 9760 )
+#define STR_FLASK_EMPTY						 ( 9761 )
+#define STR_EMOTE_EMPTY_FLASK				 ( 9762 )
+#define STR_FLASK_FILLED_UP					 ( 9763 )
+#define STR_FINISHED_FILLING				 ( 9764 )
+#define STR_FINISHED_EMPTYING				 ( 9765 )
+#define STR_NO_MORE_WATER					 ( 9766 )
+#define STR_NEED_BOTTLE_IN_HAND				 ( 9767 )
+#define STR_FILLED_BOTTLE					 ( 9768 )
 
 // Smoking
+#define STR_EMOTE_IGNITE_SMOKER				 ( 9786 )
 #define STR_EMOTE_OPEN_CIGS					 ( 9787 )
 #define STR_NO_CIGS_LEFT					 ( 9788 )
 #define STR_EMOTE_TAKES_CIG					 ( 9789 )
@@ -746,7 +753,7 @@
 #define STR_REMOVE_GAS_MASK					 ( 9791 )
 #define STR_HOLD_OBJECT						 ( 9792 )
 #define STR_PIPE_EMPTY						 ( 9793 )
-#define STR_PIPE_BURNED						 ( 9794 )
+#define STR_SMOKER_BURNED					 ( 9794 )
 #define STR_PIPE_REFILLED					 ( 9795 )
 #define STR_BAG_EMPTY						 ( 9796 )
 #define STR_HOLD_PIPE					 	 ( 9797 )
@@ -1162,7 +1169,7 @@
 #define STR_PLAYER_MENU_ALPHA_SAYTEXT		( 100016 )
 #define STR_PLAYER_MENU_STA_TEXT			( 100017 )
 #define STR_PLAYER_MENU_VOICE_RADIUS		( 100018 )
-
+#define STR_PLAYER_MENU_TOGGLE_NPC			( 100019 )
 #define STR_PLAYER_ROLL_MENU_MAIN			( 100020 )
 #define STR_PLAYER_ROLL_STAT				( 100021 )
 #define STR_PLAYER_ROLL_DICE				( 100022 )
@@ -2142,6 +2149,10 @@
 
 #define STR_SKILL_DISABLED					 ( 664 )
 
+// NPC icon mode
+#define STR_NPC_ICON_ON						 ( 665 )
+#define STR_NPC_ICON_OFF					 ( 666 )
+
 // PipBoy
 #define STR_PIP_STATUS                       ( 700 )
 #define STR_PIP_REPLICATION_MONEY            ( 701 )
@@ -2503,6 +2514,9 @@
 // Kills
 #define STR_KILL_NAME                        #( num )            ( 8000 + ( num ) )
 #define STR_KILL_DESC                        #( num )            ( 8100 + ( num ) )
+
+
+#define STR_
 
 // Items
 #define STR_ITEM_LOOK                        ( 10000 )

@@ -84,7 +84,7 @@ class AvaScreen : IGUIScreenCallbackShow
 	{
 		if( critterId == CritterId )
 			Ava[index].SetPic( filehash );
-		RunServerScriptUnsafe( "avatars@unsafe_SetAvatar", critterId, index, filehash, null, null );
+		RunServerScriptUnsafe( "avatars@unsafe_SetAvatar", critterId, index, filehash );
 	}
 	
 	uint CritterId;
@@ -173,32 +173,36 @@ class AvaUpload : IGUIElementCallbackMouseClick, MutualAva, MutualAvaButton
 	
 	void Button( )
 	{
-		AvatarUpload( WindowsExplorer_OpenFile( "Avatar Files (*.png)\0*.png" ) );
+		AvatarUpload( WindowsExplorer_OpenFile( "Avatar Files (*.png, *.jpg, *.bmp)\0*.png;*.bmp;*.jpg" ) );
 	}
 	
 	void AvatarUpload( string& file )
 	{
-		LoadingAnimation spr;
-		spr.Load("Loading.png", PT_ART_INTRFACE );
-		Screen.Ava[Index].SetPic( spr );
-		AddFileToServerCollection( file, AvatarFileCollectionType, Screen.CritterId, Index, func: FileCollectionUploadFuncdef( @this.FileCollectionUpload ) );
+		if( ValidationImage( file, 0 ) )
+		{
+			LoadingAnimation spr;
+			spr.Load("Loading.png", PT_ART_INTRFACE );
+			Screen.Ava[Index].SetPic( spr );
+			AddFileToServerCollection( file, AvatarFileCollectionType, Screen.CritterId, Index, func: FileCollectionUploadFuncdef( @this.FileCollectionUpload ) );
+		}
+		else
+		{
+			Message( "|0xFFFF00 Unable to upload avatar! Image invalidation!" );
+		}
 	}
 	
-	void FileCollectionUpload( int result, uint filehash, int type, int critterId, int index, int )
+	void FileCollectionUpload( int8 result, uint filehash, int type, int critterId, int index, int )
 	{
-		switch( result )
+	
+		if( result < 0 )
 		{
-			case ( FileCollectionReason::Fail ): // Error
-				Message( "|0xFFFF00 Unable to upload avatar!" );
-				break;
-		
-			case ( FileCollectionReason::Success ): // Success
-			{
-				Message( "|0xFFFF00 Avatar upload success!" );
-				Screen.SetAva( index, filehash, critterId );
-			} break;
-			
-			default: break;
+			Message( "|0xFFFF00 Unable to upload avatar! <" + result + ">" );
+			Screen.Ava[index].SetPic( Screen.Critter.Avatar[AVATAR_BEGIN + index] );
+		}
+		else
+		{
+			Message( "|0xFFFF00 Avatar upload success! <" + result + ">" );
+			Screen.SetAva( index, filehash, critterId );
 		}
 	}
 }
