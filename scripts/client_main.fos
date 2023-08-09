@@ -2239,7 +2239,7 @@ string[] generic_description_slot( int slot )
 	}
 
 	//Non-leathal weapon modifier
-	if( FLAG( item.Proto.Weapon_Perk, WEAPON_PERK_NON_LEATHAL ) )
+	if( FLAG( item.Proto.Weapon_Perk, WEAPON_PERK_NON_LETHAL ) )
 	{
 		minDmgMod /= 2;
 		maxDmgMod /= 2;

@@ -924,7 +924,7 @@ bool critter_use_item( Critter& cr, Item& item, Critter@ targetCr, Item@ targetI
 			if( valid( flashlight ) )
 			{
 				uint16 flashlight_pid = flashlight.GetProtoId();
-				if( flashlight_pid == PID_FLASHLIGHT_ON || flashlight_pid == PID_FLASHLIGHT_HELMET || flashlight_pid == PID_FLASHLIGHT_OFF || flashlight_pid == PID_10MM_PISTOL_FLASHLIGHT )
+				if( flashlight_pid == PID_FLASHLIGHT_ON || flashlight_pid == PID_FLASHLIGHT_OFF || flashlight_pid == PID_10MM_PISTOL_FLASHLIGHT )
 				{
 					ChargeFlashlight( cr, item, flashlight );
 					return true;
@@ -1428,7 +1428,7 @@ bool critter_use_item( Critter& cr, Item& item, Critter@ targetCr, Item@ targetI
 		return true;
 	}
 	//Flashlight
-    if( pid == PID_FLASHLIGHT_OFF || pid == PID_10MM_PISTOL_FLASHLIGHT || pid == PID_FLASHLIGHT_HELMET )
+    if( pid == PID_FLASHLIGHT_OFF || pid == PID_10MM_PISTOL_FLASHLIGHT )
 	{
 		FlashlightUse( cr, item );
         return true;
@@ -1436,7 +1436,7 @@ bool critter_use_item( Critter& cr, Item& item, Critter@ targetCr, Item@ targetI
 
 	// Flashlight charging
 	uint16 tpid = valid( targetItem ) ? targetItem.GetProtoId() : 0;
-	if( ( pid == PID_SMALL_ENERGY_CELL || pid == PID_CUENCELL_LOW ) && tpid != 0 && ( tpid == PID_FLASHLIGHT_OFF || tpid == PID_FLASHLIGHT_ON || tpid == PID_FLASHLIGHT_HELMET || tpid == PID_10MM_PISTOL_FLASHLIGHT ) )
+	if( ( pid == PID_SMALL_ENERGY_CELL || pid == PID_CUENCELL_LOW ) && tpid != 0 && ( tpid == PID_FLASHLIGHT_OFF || tpid == PID_FLASHLIGHT_ON || tpid == PID_10MM_PISTOL_FLASHLIGHT ) )
 	{
 		//ChargeFlashlight( cr, item, targetItem );
 		return true;
@@ -2821,7 +2821,7 @@ void critter_init( Critter& cr, bool firstTime )
 				if( valid( flashlight ) )
 				{
 					uint16 flashlight_pid = flashlight.GetProtoId();
-					if( ( flashlight_pid == PID_FLASHLIGHT_ON || flashlight_pid == PID_FLASHLIGHT_HELMET || flashlight_pid == PID_FLASHLIGHT_OFF || flashlight_pid == PID_10MM_PISTOL_FLASHLIGHT ) && flashlight.ITEM_CHARGE == 0 )
+					if( ( flashlight_pid == PID_FLASHLIGHT_ON || flashlight_pid == PID_FLASHLIGHT_OFF || flashlight_pid == PID_10MM_PISTOL_FLASHLIGHT ) && flashlight.ITEM_CHARGE == 0 )
 					{
 						UNSETFLAG( flashlight.Flags, ITEM_LIGHT );
 						UNSETFLAG( flashlight.Flags, ITEM_COLORIZE );

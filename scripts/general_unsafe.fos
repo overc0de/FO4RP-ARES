@@ -1665,7 +1665,7 @@ void unsafe_StopGivingExp( Critter& player, int param0, int param1, int param2, 
 
 void unsafe_FullAutoState( Critter& player, int param0, int param1, int param2, string@ param3, int[] @ param4 )
 {
-	player.ParamBase[ CR_FULL_AUTO ] ++;
+	player.ParamBase[ CR_AUTO_ROUNDS_FIRED ] ++;
 	player.AddTimeEvent( "general_unsafe@cte_unsafe_rapid_fire", REAL_MS( 0 ), CTE_RAPID_FIRE, param0 );
 }
 
