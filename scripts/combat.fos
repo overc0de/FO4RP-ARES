@@ -449,9 +449,9 @@ void CombatAttack( Critter& attacker, Critter@ target, ProtoItem& weapon, uint8 
 	// Hit location modifiers
 	if( validAttacker && validTarget )
 	{
-		bool shotgunSkip = validWeapon && !recursive && isShotgun;
+		bool GunSkip = isRanged;
 		
-		if( _distance == 1 && !shotgunSkip )
+		if( _distance == 1 && !GunSkip )
 		{
 			int target_skill = target.Skill[ SK_UNARMED ];
 			if( target.Skill[ SK_MELEE_WEAPONS ] > target.Skill[ SK_UNARMED ] )
