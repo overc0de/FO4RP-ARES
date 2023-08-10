@@ -105,7 +105,7 @@ void IgniteSmoker( Critter& cr, Critter& targetCr, Item& smoker )
 	ignited.SMOKER_STATE = STATE_BURING;
 	uint[] values = { ignited.Id };
 	ignited.SMOKE_EVENT = CreateTimeEvent( AFTER( REAL_SECOND( 0 ) ), "e_SmokerBurn", values, true );
-	cr.SayMsg( SAY_EMOTE_ON_HEAD, TEXTMSG_TEXT, STR_EMOTE_IGNITE_SMOKER );
+	cr.SayMsg( SAY_EMOTE_ON_HEAD, TEXTMSG_TEXT, 530 );
 }
 
 uint e_SmokerBurn( uint[]@ values )
