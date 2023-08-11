@@ -17,11 +17,11 @@ void applyWetness( Critter& cr )
     
     if( valid( armor ) )
     {    
-		if( armor.Proto.Item_Subtype == ITEM_SUBTYPE_ARMOR_AC45 || armor.Proto.Item_Subtype == ITEM_SUBTYPE_ARMOR_AC50 )
+		if( armor.Proto.Material == MATERIAL_POLYMER || armor.Proto.Material == MATERIAL_METAL || armor.Proto.Material == MATERIAL_COMPOSITE )
 		{
 			return;
 		}
-		else if( armor.Proto.Material == MATERIAL_POLYMER )
+		else if( armor.Proto.Material == MATERIAL_LEATHER || armor.Proto.Material == MATERIAL_ARMORED_LEATHER )
 		{
 			amount = CLAMP( amount - 30, 0, 250 );
 		}
