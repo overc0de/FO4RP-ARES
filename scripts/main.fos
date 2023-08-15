@@ -446,6 +446,11 @@ void critter_attacked( Critter& cr, Critter& attacker )
 bool critter_stealing( Critter& cr, Critter& thief, Item& item, uint count )
 {
 	/* Battle & death check */
+	if( FLAG( cr.Flags, CRITTER_DISCONNECT ) && !cr.IsKnockout() )
+	{
+		thief.Say( SAY_NETMSG, "Вы не можете обворовать другого, стоячего игрока находящегося Offline" );
+		return false;
+	}
     if( cr.IsDead() )
     {
         thief.StatBase[ST_LAST_STEAL_CR_ID] = 0;
