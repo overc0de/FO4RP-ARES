@@ -448,7 +448,7 @@ bool critter_stealing( Critter& cr, Critter& thief, Item& item, uint count )
 	/* Battle & death check */
 	if( FLAG( cr.Flags, CRITTER_DISCONNECT ) && !cr.IsKnockout() )
 	{
-		thief.Say( SAY_NETMSG, "Вы не можете обворовать другого, стоячего игрока находящегося Offline" );
+		thief.Say( SAY_NETMSG, "|0xFFFF00 Вы не можете обворовать другого, стоячего игрока находящегося Offline" );
 		return false;
 	}
     if( cr.IsDead() )
