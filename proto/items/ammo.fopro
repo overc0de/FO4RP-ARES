@@ -1472,3 +1472,25 @@ Ammo_DrMod=0
 Ammo_DmgMin=20
 Ammo_DmgMax=35
 Ammo_Perk=0
+
+# PID_75_BOLTGUN
+[Proto]
+ProtoId=20096
+Type=4
+PicMap=art\items\AMMO.frm
+PicInv=art\inven\ammo\boltammo.png
+Flags=134217756
+DisableEgg=1
+Stackable=1
+Weight=50
+Volume=1
+SoundId=48
+Cost=50
+StartCount=20
+Material=1
+Ammo_Caliber=31
+Ammo_AcMod=0
+Ammo_DrMod=0
+Ammo_DmgMin=100
+Ammo_DmgMax=150
+Ammo_Perk=0

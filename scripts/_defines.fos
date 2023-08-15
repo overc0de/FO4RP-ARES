@@ -1749,6 +1749,7 @@
 #define CALIBER_30_SPRIENGFIELD                   	( 27 )
 #define CALIBER_BOLT							 	( 28 )
 #define CALIBER_NAILS                            	( 30 )
+#define CALIBER_BOLTGUN								( 31 )
 
 // Geomtry
 #define GEOMETRY_FALLOUT                         	( 0 )
