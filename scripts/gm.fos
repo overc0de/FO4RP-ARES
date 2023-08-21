@@ -3999,9 +3999,9 @@ void ask_GM_PANNEL_CRITTER_PLAYER_STATS_SKINS( Critter& player, uint answerI, st
     if( answerS.length() > 0 )
     {
         int      number = 0;
-        if( !StrToInt( answerS, number ) || number < 0 || number > 500 )
+        if( !StrToInt( answerS, number ) || number < 0 || number > 999 )
 		{
-            player.Say( SAY_NETMSG, "Input number from 1 to 500." );
+            player.Say( SAY_NETMSG, "Input number from 1 to 999." );
             return;
 		}
         Critter@ cr = GetCritter( player.ParamBase[ ST_VAR0 ] );
