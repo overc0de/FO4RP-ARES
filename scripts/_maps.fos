@@ -105,4 +105,25 @@
 #define MAP_MODOC_JUNKTOWN			( 62 )
 #define MAP_MODOC_TRAIN_STATION		( 63 )
 
+// Reno locations //
+#define MAP_new_reno                ( 97 )
+#define	MAP_riverdale_up_3_3		( 98 )
+#define	MAP_riverdale_up_3_3dn		( 99 )
+#define	MAP_riverdale_up_3_2		( 100 )
+#define	MAP_riverdale_up_3_2dn		( 101 )
+#define	MAP_riverdale_canyon		( 102 )
+#define	MAP_riverdale_canyon_dn		( 103 )
+#define	MAP_riverdale0_2			( 104 )
+#define	MAP_riverdale0_2dn			( 105 )
+#define	MAP_riverdale1_2			( 106 )
+#define	MAP_riverdale1_2dn			( 107 )
+#define	MAP_riverdale5_3			( 108 )
+#define	MAP_riverdale5_3dn			( 109 )
+#define	MAP_riverdale6_2			( 110 )
+#define	MAP_riverdale6_2dn			( 111 )
+#define	MAP_sandbox3_3				( 112 )
+#define	MAP_sandbox3_3dn 			( 113 )
+#define	MAP_vbbox_road				( 114 )
+#define	MAP_vbbox_road_dn 			( 115 )
+
 #endif // __MAPS__

@@ -223,6 +223,65 @@
 {646}{}{water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
 {648}{}{Депо}
 
+# Map 97, Global, base 650 
+{650}{}{new_reno}
+{655}{}{19reno.ogg}
+{656}{}{animal1:10, animal:10, water:10, water1:10, pebble:25, pebble1:15, ore:10, ore1:10}
+{658}{}{Нью Рено}
+
+# Map 98, Global, base 660
+{660}{}{riverdale_up_3_3}
+{665}{}{NNM_FS_04_City_of_Phoenix.ogg}
+{666}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{668}{}{Дорога на Шейди}
+
+# Map 99, Global, base 670
+{670}{}{riverdale_up_3_2}
+{675}{}{NNM_FS_07_City_of_Flagstaff.ogg}
+{676}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{678}{}{Распутье}
+
+# Map 100, Global, base 680
+{680}{}{riverdale_canyon}
+{685}{}{NNM_FS_16_One_Way.ogg}
+{686}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{688}{}{Каньон}
+
+# Map 101, Global, base 690
+{690}{}{riverdale0_2}
+{695}{}{26A_Candle_in_the_Darkness.ogg}
+{696}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{698}{}{Ущелье, Юг}
+
+# Map 102, Global, base 700
+{700}{}{riverdale1_2}
+{705}{}{NNM_FS_16_One_Way.ogg}
+{706}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{708}{}{Дорога}
+
+# Area 103, Global, base 710
+{710}{}{riverdale5_3}
+{715}{}{NNM_FS_12_Casa_Grande.ogg}
+{716}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{718}{}{Пляж}
+
+# Area 104, Global, base 720
+{720}{}{riverdale6_2}
+{725}{}{NNM_FS_07_City_of_Flagstaff.ogg}
+{726}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{728}{}{Руины}
+
+# Area 105, Global, base 730
+{730}{}{sandbox3_3}
+{735}{}{26A_Candle_in_the_Darkness.ogg}
+{736}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{738}{}{Подстанция}
+
+# Area 106, Global, base 740
+{740}{}{vbbox_road}
+{745}{}{41NNM_bonus.ogg}
+{746}{}{animal1:20, animal:20, dogbark2:5, gntlwin1:5, gntlwind:5, pebble:5, pebble1:10, vulture:5, vulture1:5}
+{748}{}{Перекресток}
 
 #
 # Global map
